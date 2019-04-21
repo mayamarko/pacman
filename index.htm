@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PACMAN</title>
+    <link rel="shortcut icon" href="../PACMAN/images/logo_l.jpg" type="image/png">
+    <script src="jquery-1.10.2.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+
+</head>
+
+<body>
+    <header>
+        <img src="../PACMAN/images/logo.jpg" alt="logo" style="width: 10%; height: 10%;" id="logoimg">
+        <h1 id="hf">PACMAN GAME <small id="names"> Nofar Turteltaub & Maya Markovich</small></h1>
+    </header>
+
+    <menu id="menu">
+        <!-- <input type="button" name="wel" value="Welcome" onclick="showDiv()" /> -->
+        <button type="button" id="welcoming">Welcome</button>
+        <button type="button" id="abouting">About</button>
+        <button type="button" id="sets">Setting</button>
+        <br />
+        <br />
+    </menu>
+
+
+
+
+
+    <div id="gameArea">
+        SCORE:
+        <input id="lblScore" type="text" />
+        <br />
+        TIME:
+        <input id="lblTime" type="text" />
+        <br />
+        <canvas id="canvas" height="600" width="600"></canvas>
+    </div>
+
+    <div id="wrapper">
+        <div id="Welcome">
+            <button id="sighin" type="button" style="opacity: 0.9">Sign Up</button>
+            <button id="login" type="button" style="opacity: 0.9">Log In</button>
+        </div>
+    </div>
+
+    <div id="signinModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <form class="cmxform" action="form-handler.html" id="singupForm" method="get">
+               <legend>Sign Up Form</legend>
+                <fieldset>
+                    <div>
+                        <label for="username">User Name:</label>
+                        <input type="text" id="username" name="username" required></input>
+                    </div>
+                    <div>
+                        <label for="first_name">Last Name:</label>
+                        <input type="text" id="first_name" name="first_name"></input>
+                    </div>
+                    <div>
+                        <label for="last_name">Last Name:</label>
+                        <input type="text" id="last_name" name="last_name"></input>
+                    </div>
+                    <div>
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email"></input>
+                    </div>
+                    <div>
+                        <label for="date">Date of birth:</label>
+                        <input type="date" id="date" name="date"></input>
+                    </div>
+                    <div>
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password"></input>
+                    </div>
+                    <div>
+                        <input type="submit" value="Submit" />
+                    </div>
+                </fieldset>
+    
+            </form>
+            <span class="close">&times;</span>
+            <p>Some text in the Modal..</p>
+        </div>
+    
+    </div>
+
+    <div id="about">
+        <p style="color:aliceblue; size:100pt;"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia maiores
+            aspernatur nam cupiditate. Laboriosam sint,
+            numquam eos blanditiis sed magni excepturi quod, sequi asperiores aliquid nostrum? Ab possimus nesciunt
+            aliquam.</p>
+
+    </div>
+
+
+    <script src="js/game.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <br />
+    <br />
+    <br />
+
+
+
+</body>
+
+</html>
