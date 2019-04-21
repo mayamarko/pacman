@@ -48,29 +48,54 @@ window.onclick = function(event) {
     modal.style.display = "none";
   }
 }
-
+$(document).ready(function(){
+    $( "#date" ).datepicker({
+        changeMonth: true,
+        changeYear: true
+      });
+});
 $(document).ready(function(){
     $("#singupForm").validate({
         rules:{
-            username='required',
-            date='required',
+            username:'required',
+            date:'required',
             first_name:{
-                required=true,
+                required:true,
+                regexn:true,
             },
             last_name:{
-                required=true,
+                required:true,
+                regexn:true,
             },
             email:{
-                required=true,
-                email=true,
+                required:true,
+                email:true,
             },
             password:{
-                required=true,
-                minlength:5,
+                required:true,
+                regexp:true,
             }
-        }
+        },
+        messages: {},
+        highlight: function (element) {
+            $(element).parent().addClass('error')
+        },
+        unhighlight: function (element) {
+            $(element).parent().removeClass('error')
+        },
+        errorElement : 'div'
     });
 });
+$.validator.addMethod("regexp", function (value, element) {
+    return this.optional(element) || /^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{8,}$/.test(value);
+}, 'Please enter password that contains 8 characters and at least one letter');
+$.validator.addMethod("regexn", function (value, element) {
+    return this.optional(element) || /^[A-Za-z]+$/.test(value);
+}, 'Letters only!');
+function adjust_textarea(h) {
+    h.style.height = "20px";
+    h.style.height = (h.scrollHeight)+"px";
+}
 // $("#welcomeing").click(function(){      
 //     $("#welcome").toggle();              
 // });
