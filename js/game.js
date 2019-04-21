@@ -68,10 +68,9 @@ $(document).ready(function(){
                 required=true,
                 minlength:5,
             }
-
         }
-    })
-}
+    });
+});
 // $("#welcomeing").click(function(){      
 //     $("#welcome").toggle();              
 // });
