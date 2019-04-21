@@ -23,8 +23,8 @@
     <menu id="menu">
         <!-- <input type="button" name="wel" value="Welcome" onclick="showDiv()" /> -->
         <button type="button" id="welcoming">Welcome</button>
-        <button type="button" id="abouting">About</button>
-        <button type="button" id="sets">Setting</button>
+        <button class="modal-button" href="#aboutModal" type="button" id="abouting">About</button>
+        <button class="modal-button" href="#settingModal" type="button" id="sets">Setting</button>
         <br />
         <br />
     </menu>
@@ -42,8 +42,12 @@
 
     <div id="wrapper">
         <div id="Welcome">
-            <button id="sighin" type="button" style="opacity: 0.9">Sign Up</button>
-            <button id="login" type="button" style="opacity: 0.9">Log In</button>
+            <!-- <button id="sighin" type="button" style="opacity: 0.9">Sign Up</button>
+            <button id="login" type="button" style="opacity: 0.9">Log In</button> -->
+            <button class="modal-button" href="#signinModal" id="sighin" type="button" style="opacity: 0.9">Sign
+                Up</button>
+            <button class="modal-button" href="#loginModal" id="login" type="button" style="opacity: 0.9">Log
+                In</button>
         </div>
     </div>
 
@@ -51,7 +55,9 @@
         <!-- Modal content -->
         <div class="modal-content">
             <span class="close">&times;</span>
+
             <img src="images/logo.jpg" alt="logo" style="width: 25%; height: 25%;" id="logoimg">
+            <h2 id="hf2">Sign Up</h2>
             <!-- <form class="form-style-7" id="singupForm" method="get">
                <legend>Sign Up Form</legend>
                 <fieldset>
@@ -87,7 +93,7 @@
                 </fieldset>
     
             </form> -->
-            <form class="form-style-7" id="singupForm">
+            <form class="form-style-7" id="singupForm" method="POST">
                 <ul>
                     <li>
                         <label for="username">User Name:</label>
@@ -126,16 +132,41 @@
             </form>
 
         </div>
-
     </div>
 
-    <div id="about">
-        <p style="color:aliceblue; size:100pt;"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia maiores
-            aspernatur nam cupiditate. Laboriosam sint,
-            numquam eos blanditiis sed magni excepturi quod, sequi asperiores aliquid nostrum? Ab possimus nesciunt
-            aliquam.</p>
-
+    <div id="loginModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+                <p style="color:aliceblue; size:100pt;"> log in  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia
+                        maiores
+                        aspernatur nam cupiditate. Laboriosam sint,
+                        numquam eos blanditiis sed magni excepturi quod, sequi asperiores aliquid nostrum? Ab possimus nesciunt
+                        aliquam.</p>
+        </div>
     </div>
+
+    <div id="aboutModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <p style="color:aliceblue; size:100pt;"> About  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia
+                maiores
+                aspernatur nam cupiditate. Laboriosam sint,
+                numquam eos blanditiis sed magni excepturi quod, sequi asperiores aliquid nostrum? Ab possimus nesciunt
+                aliquam.</p>
+        </div>
+    </div>
+
+    <div id="settingModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <p style="color:aliceblue; size:100pt;"> Setting  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia
+                maiores
+                aspernatur nam cupiditate. Laboriosam sint,
+                numquam eos blanditiis sed magni excepturi quod, sequi asperiores aliquid nostrum? Ab possimus nesciunt
+                aliquam.</p>
+        </div>
+    </div>
+
 
 
     <script src="js/game.js"></script>

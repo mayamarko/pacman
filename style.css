@@ -14,6 +14,11 @@ body {
     color: white;
     position: relative;
 }
+#hf2{
+  font-family:Impact, Charcoal, sans-serif; 
+  font-size: 200%; 
+  color: white;
+}
 #names{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 70%;
@@ -40,7 +45,7 @@ button:hover {opacity: 1}
 button:active {
   background-color: rgb(241, 92, 72);
   box-shadow: 0 5px rgb(255, 155, 155);
-  transform: translateY(4px);
+  /* transform: translateY(4px); */
 }
 
 #wrapper{
@@ -61,7 +66,7 @@ button:active {
   /* The Modal (background) */
 .modal {
     display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
+    position: fixed; /*Stay in place */
     z-index: 1; /* Sit on top */
     left: 0;
     top: 0;
