@@ -16,10 +16,10 @@ setInvisibale("about");
 //Start();
 
 
-function setInvisibale(div){
+function setInvisibale(div) {
     document.getElementById(div).style.display = "none";
 }
-function setVisibale(div){
+function setVisibale(div) {
     document.getElementById(div).style.display = "block";
 }
 
@@ -33,47 +33,50 @@ var btn = document.getElementById("sighin");
 var span = document.getElementsByClassName("close")[0];
 
 // When the user clicks on the button, open the modal 
-btn.onclick = function() {
-  modal.style.display = "block";
+btn.onclick = function () {
+    modal.style.display = "block";
 }
 
 // When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
+span.onclick = function () {
+    modal.style.display = "none";
 }
 
 // When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
 }
-$(document).ready(function(){
-    $( "#date" ).datepicker({
+/**
+ * All related to the sigh in form! - start
+ */
+$(document).ready(function () {
+    $("#date").datepicker({
         changeMonth: true,
         changeYear: true
-      });
+    });
 });
-$(document).ready(function(){
+$(document).ready(function () {
     $("#singupForm").validate({
-        rules:{
-            username:'required',
-            date:'required',
-            first_name:{
-                required:true,
-                regexn:true,
+        rules: {
+            username: 'required',
+            date: 'required',
+            first_name: {
+                required: true,
+                regexn: true,
             },
-            last_name:{
-                required:true,
-                regexn:true,
+            last_name: {
+                required: true,
+                regexn: true,
             },
-            email:{
-                required:true,
-                email:true,
+            email: {
+                required: true,
+                email: true,
             },
-            password:{
-                required:true,
-                regexp:true,
+            password: {
+                required: true,
+                regexp: true,
             }
         },
         messages: {},
@@ -83,7 +86,7 @@ $(document).ready(function(){
         unhighlight: function (element) {
             $(element).parent().removeClass('error')
         },
-        errorElement : 'div'
+        errorElement: 'div'
     });
 });
 $.validator.addMethod("regexp", function (value, element) {
@@ -94,8 +97,13 @@ $.validator.addMethod("regexn", function (value, element) {
 }, 'Letters only!');
 function adjust_textarea(h) {
     h.style.height = "20px";
-    h.style.height = (h.scrollHeight)+"px";
+    h.style.height = (h.scrollHeight) + "px";
 }
+/**
+ * All related to the sigh in form! - End
+ */
+
+
 // $("#welcomeing").click(function(){      
 //     $("#welcome").toggle();              
 // });
