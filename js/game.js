@@ -7,11 +7,6 @@ var start_time;
 var time_elapsed;
 var interval;
 
-
-// toggle_visibility("gameArea", "welcome");
-// toggle_visibility("gameArea","about");
-
-setInvisibale("gameArea");
 //Start();
 
 
@@ -23,8 +18,36 @@ function setVisibale(div) {
 }
 
 /**
- * Modal switch
+ * to show a div, call this function!
  */
+function PageLoaded() {
+    ShowDiv('Welcome');
+}
+
+function ShowDiv(id) {
+    //hide all sections
+    var div1 = document.getElementById('Welcome');
+    div1.style.display = "none";
+    var div2 = document.getElementById('signin');
+    div2.style.display = "none";
+    var div3 = document.getElementById('login');
+    div3.style.display = "none";
+    var div4 = document.getElementById('setting');
+    div4.style.display = "none";
+    var div5 = document.getElementById('gameArea');
+    div5.style.display = "none";
+
+    //show only one section
+    var selected = document.getElementById(id);
+    selected.style.display = "block";
+}
+
+
+/**
+ * Modal operation! 
+ * Generic function, we can add as many modal as we like!!
+ */
+
 // Get the button that opens the modal
 var btn = document.querySelectorAll("button.modal-button");
 
@@ -36,28 +59,28 @@ var spans = document.getElementsByClassName("close");
 
 // When the user clicks the button, open the modal
 for (var i = 0; i < btn.length; i++) {
- btn[i].onclick = function(e) {
-    e.preventDefault();
-    modal = document.querySelector(e.target.getAttribute("href"));
-    modal.style.display = "block";
- }
+    btn[i].onclick = function (e) {
+        //e.preventDefault();
+        modal = document.querySelector(e.target.getAttribute("href"));
+        modal.style.display = "block";
+    }
 }
 
 // When the user clicks on <span> (x), close the modal
 for (var i = 0; i < spans.length; i++) {
- spans[i].onclick = function() {
-    for (var index in modals) {
-      if (typeof modals[index].style !== 'undefined') modals[index].style.display = "none";    
+    spans[i].onclick = function () {
+        for (var index in modals) {
+            if (typeof modals[index].style !== 'undefined') modals[index].style.display = "none";
+        }
     }
- }
 }
 
 // When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
+window.onclick = function (event) {
     if (event.target.classList.contains('modal')) {
-     for (var index in modals) {
-      if (typeof modals[index].style !== 'undefined') modals[index].style.display = "none";    
-     }
+        for (var index in modals) {
+            if (typeof modals[index].style !== 'undefined') modals[index].style.display = "none";
+        }
     }
 }
 
@@ -116,37 +139,6 @@ function adjust_textarea(h) {
  * All related to the sigh in form! - End
  */
 
-
-// $("#welcomeing").click(function(){      
-//     $("#welcome").toggle();              
-// });
-
-// $("#abouting").click(function(){      
-//    setVisibale("about");
-//    setInvisibale("wrapper");
-// });
-
-// function showwelcome(){
-//     document.getElementById("wrapper").style.display = "block";
-//     document.getElementById("about").style.display = "none";
-// }
-
-// function showabout(){
-//     document.getElementById("about").style.display = "block";
-//     document.getElementById("wrapper").style.display = "none";
-// }
-// function toggle_visibility(id1, id2) {  
-//     var e = document.getElementById(id1);
-//     var e2 = document.getElementById(id2);
-//     if(e.style.display == 'block') {                
-//        e.style.display = 'block';             
-//        e2.style.display = 'none';
-//     }
-//     else {
-//        e.style.display = 'none';            
-//        e2.style.display = 'block';
-//     }              
-//  } 
 
 function Start() {
     board = new Array();

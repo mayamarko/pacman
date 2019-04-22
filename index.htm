@@ -14,17 +14,16 @@
 
 </head>
 
-<body>
+<body onload="PageLoaded()">
     <header>
         <img src="images/logo.jpg" alt="logo" style="width: 10%; height: 10%;" id="logoimg">
         <h1 id="hf">PACMAN GAME <small id="names"> Nofar Turteltaub & Maya Markovich</small></h1>
     </header>
 
     <menu id="menu">
-        <!-- <input type="button" name="wel" value="Welcome" onclick="showDiv()" /> -->
-        <button type="button" id="welcoming">Welcome</button>
+        <button onclick="ShowDiv('Welcome')" href="#" type="button">Welcome</button>
         <button class="modal-button" href="#aboutModal" type="button" id="abouting">About</button>
-        <button class="modal-button" href="#settingModal" type="button" id="sets">Setting</button>
+        <button onclick="ShowDiv('setting')" href="#" type="button">Setting</button>
         <br />
         <br />
     </menu>
@@ -40,25 +39,21 @@
         <canvas id="canvas" height="600" width="600"></canvas>
     </div>
 
-    <div id="wrapper">
-        <div id="Welcome">
-            <!-- <button id="sighin" type="button" style="opacity: 0.9">Sign Up</button>
-            <button id="login" type="button" style="opacity: 0.9">Log In</button> -->
-            <button class="modal-button" href="#signinModal" id="sighin" type="button" style="opacity: 0.9">Sign
+    <div id="Welcome">
+            <br />
+            <h1 id="hf3">Welcome to our game!</h1>
+            <h1 id="hf3">If you want to play you must register or sign in! </h1>
+        <div style="width: 20%; margin: 0 auto; text-align:center; align-content: center">
+            <button onclick="ShowDiv('signin')" href="#" type="button" style="opacity: 0.9" id="welcomebutton">Sign
                 Up</button>
-            <button class="modal-button" href="#loginModal" id="login" type="button" style="opacity: 0.9">Log
+            <button onclick="ShowDiv('login')" href="#" type="button" style="opacity: 0.9" id="welcomebutton">Log
                 In</button>
         </div>
     </div>
 
-    <div id="signinModal" class="modal">
-        <!-- Modal content -->
-        <div class="modal-content">
-            <span class="close">&times;</span>
-
-            <img src="images/logo.jpg" alt="logo" style="width: 25%; height: 25%;" id="logoimg">
-            <h2 id="hf2">Sign Up</h2>
-            <!-- <form class="form-style-7" id="singupForm" method="get">
+    <div id="signin">
+        <h2 id="hf2">Sign Up</h2>
+        <!-- <form class="form-style-7" id="singupForm" method="get">
                <legend>Sign Up Form</legend>
                 <fieldset>
                     <div>
@@ -93,62 +88,57 @@
                 </fieldset>
     
             </form> -->
-            <form class="form-style-7" id="singupForm" method="POST">
-                <ul>
-                    <li>
-                        <label for="username">User Name:</label>
-                        <input type="text" id="username" name="username" required></input>
-                        <span>Enter your chosen username here</span>
-                    </li>
-                    <li>
-                        <label for="first_name">First Name:</label>
-                        <input type="text" id="first_name" name="first_name"></input>
-                        <span>Enter your first name here</span>
-                    </li>
-                    <li>
-                        <label for="last_name">Last Name:</label>
-                        <input type="text" id="last_name" name="last_name"></input>
-                        <span>Enter your last name here</span>
-                    </li>
-                    <li>
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" name="email"></input>
-                        <span>Enter a valid email address</span>
-                    </li>
-                    <li>
-                        <label for="date">Date of birth:</label>
-                        <input type="text" id="date" name="date"></input>
-                        <span>Pick your date of birth</span>
-                    </li>
-                    <li>
-                        <label for="password">Password:</label>
-                        <input type="password" id="password" name="password"></input>
-                        <span>Please pick a password</span>
-                    </li>
-                    <li>
-                        <input type="submit" value="Submit">
-                    </li>
-                </ul>
-            </form>
-
-        </div>
+        <form class="form-style-7" id="singupForm" method="POST">
+            <ul>
+                <li>
+                    <label for="username">User Name:</label>
+                    <input type="text" id="username" name="username" required></input>
+                    <span>Enter your chosen username here</span>
+                </li>
+                <li>
+                    <label for="first_name">First Name:</label>
+                    <input type="text" id="first_name" name="first_name"></input>
+                    <span>Enter your first name here</span>
+                </li>
+                <li>
+                    <label for="last_name">Last Name:</label>
+                    <input type="text" id="last_name" name="last_name"></input>
+                    <span>Enter your last name here</span>
+                </li>
+                <li>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email"></input>
+                    <span>Enter a valid email address</span>
+                </li>
+                <li>
+                    <label for="date">Date of birth:</label>
+                    <input type="text" id="date" name="date"></input>
+                    <span>Pick your date of birth</span>
+                </li>
+                <li>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password"></input>
+                    <span>Please pick a password</span>
+                </li>
+                <li>
+                    <input type="submit" value="Submit">
+                </li>
+            </ul>
+        </form>
     </div>
 
-    <div id="loginModal" class="modal">
-        <!-- Modal content -->
-        <div class="modal-content">
-                <p style="color:aliceblue; size:100pt;"> log in  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia
-                        maiores
-                        aspernatur nam cupiditate. Laboriosam sint,
-                        numquam eos blanditiis sed magni excepturi quod, sequi asperiores aliquid nostrum? Ab possimus nesciunt
-                        aliquam.</p>
-        </div>
+    <div id="login">
+        <p style="color:aliceblue; size:100pt;"> log in Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia
+            maiores
+            aspernatur nam cupiditate. Laboriosam sint,
+            numquam eos blanditiis sed magni excepturi quod, sequi asperiores aliquid nostrum? Ab possimus nesciunt
+            aliquam.</p>
     </div>
 
     <div id="aboutModal" class="modal">
-        <!-- Modal content -->
         <div class="modal-content">
-            <p style="color:aliceblue; size:100pt;"> About  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia
+            <span class="close">&times;</span>
+            <p style="color:aliceblue; size:100pt;"> About Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia
                 maiores
                 aspernatur nam cupiditate. Laboriosam sint,
                 numquam eos blanditiis sed magni excepturi quod, sequi asperiores aliquid nostrum? Ab possimus nesciunt
@@ -156,26 +146,18 @@
         </div>
     </div>
 
-    <div id="settingModal" class="modal">
-        <!-- Modal content -->
-        <div class="modal-content">
-            <p style="color:aliceblue; size:100pt;"> Setting  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia
-                maiores
-                aspernatur nam cupiditate. Laboriosam sint,
-                numquam eos blanditiis sed magni excepturi quod, sequi asperiores aliquid nostrum? Ab possimus nesciunt
-                aliquam.</p>
-        </div>
+    <div id="setting">
+        <p style="color:aliceblue; size:100pt;"> Setting Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia
+            maiores
+            aspernatur nam cupiditate. Laboriosam sint,
+            numquam eos blanditiis sed magni excepturi quod, sequi asperiores aliquid nostrum? Ab possimus nesciunt
+            aliquam.</p>
     </div>
 
 
 
     <script src="js/game.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
-    <br />
-    <br />
-    <br />
-
-
 
 </body>
 

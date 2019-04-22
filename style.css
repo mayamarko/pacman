@@ -18,11 +18,31 @@ body {
   font-family:Impact, Charcoal, sans-serif; 
   font-size: 200%; 
   color: white;
+  text-align: center;
+}
+#hf3{
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 100%; 
+  color: white;
+  text-align: center;
 }
 #names{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 70%;
     color: white;
+}
+#welcomebutton{
+    background-color:  #f41e1e;
+    border: 1px solid rgb(235, 80, 75);
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    font-size: 16px;
+    margin: 4px 2px;
+    opacity: 0.6;
+    font-family:Impact, Charcoal, sans-serif;
+    text-decoration: none;
+    align-content: center;
 }
 button {
     background-color: #f41e1e;
@@ -46,15 +66,6 @@ button:active {
   background-color: rgb(241, 92, 72);
   box-shadow: 0 5px rgb(255, 155, 155);
   /* transform: translateY(4px); */
-}
-
-#wrapper{
-    width: 100%;
-    height: 660px;
-    /* border: 1px solid black; */
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 #gameArea{
