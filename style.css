@@ -99,6 +99,7 @@ button:active {
     padding: 20px;
     border: 1px solid #888;
     width: 50%; /* Could be more or less, depending on screen size */
+    border: 1px solid  yellow;
   }
   
   
@@ -261,5 +262,48 @@ div.error {
 }
 #pp1{
   font-family: Arial, Helvetica, sans-serif;
+  font-size:16px;
+}
+#pp2{
+  font-family: Arial, Helvetica, sans-serif;
   font-size:14px;
+}
+
+.settings-style{
+  max-width:400px;
+  margin:50px auto;
+  background:black;
+  border-radius:2px;
+  border: 1px solid  yellow;
+  padding:20px;
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+.settings-style ul{
+  list-style:none;
+  padding:0;
+  margin:0;	
+}
+.settings-style li{
+  display: block;
+  padding: 9px;
+  border:1px solid rgb(19, 4, 99);
+  margin-bottom: 30px;
+  border-radius: 3px;
+}
+.settings-style li > label{
+  display: block;
+  float: left;
+  margin-top: -19px;
+  background: black;
+  height: 14px;
+  padding: 2px 5px 2px 5px;
+  color: white;
+  font-size: 14px;
+  overflow: hidden;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.settings-style li:last-child{
+  border:none;
+  margin-bottom: 0px;
+  text-align: center;
 }

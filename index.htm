@@ -132,7 +132,7 @@
         <form class="formstyle" id="LogInForm" method="POST">
         <ul>
             <li>
-                <label for="username">User Name123:</label>
+                <label for="username">User Name:</label>
                 <input type="text" id="username" name="username" required></input>
             </li>
             <li>
@@ -153,16 +153,71 @@
             <span class="close">&times;</span>
             <p id="pp1" style="color:aliceblue; size:100pt;"> 
             We are Maya Markovitch and Nofar Turteltaub.
-            </br> While making this project we used: {*****to add JQuery plugin}.
-        </br>In addition the tamplate we used was: {*****to add templates}.
-    </br>Our main difficulty was: {****to add}
-</br>We hope you will enjoy playing the game.
-</br></br>       GOOD LUCK
+            </p>
+            <p id="pp2" style="color:aliceblue; size:100pt;"> 
+            </br> While making this project we used: {*****to add JQuery plugin*****}.
+            </br>In addition the tamplate we used was: {*****to add templates*****}.
+            </br>Our main difficulty was: {****to add****}
+            </br>We hope you will enjoy playing the game.
+            </br></br>GOOD LUCK!
             </p>
         </div>
     </div>
 
     <div id="setting">
+            <form class="settings-style" id="Settings" method="POST">
+                    <ul>
+                        <li>
+                            <label for="up">Up</label>
+                            <input type="text" id="up" name="up" onkeypress="keyPressedUp(event)" required ></input>
+                        </li>
+                        <li>
+                            <label for="down">Down</label>
+                            <input type="text" id="down" name="down" onkeypress="keyPressedDown(event)" required></input>
+                        </li>
+                        <li>
+                            <label for="left">Left</label>
+                            <input type="text" id="left" name="left" onkeypress="keyPressedLeft(event)" required></input>
+                        </li>
+                        <li>
+                            <label for="right">Right</label>
+                            <input type="text" id="right" name="right" onkeypress="keyPressedRight(event)" required></input>
+                        </li>
+                        <li>
+                            <label for="number">Number of balls:</label>
+                            <input type="text" id="number" name="ballsNum" required></input>
+                        </li>
+                        <li>
+                            <label for="color1">Color 1:</label>
+                            <input type="text" id="color1" name="color1" required></input>
+                        </li>
+                        <li>
+                                <label for="color1">Color 1:</label>
+                                <input type="text" id="color1" name="color1" required></input>
+                            </li>
+                        <li>
+                            <label for="color2">Color 2:</label>
+                            <input type="text" id="color2" name="color2" required></input>
+                        </li>
+                        <li>
+                            <label for="color3">Color 3:</label>
+                            <input type="text" id="color3" name="color3" required></input>
+                        </li>
+                        <li>
+                            <label for="time">Game duration(in sec):</label>
+                            <input type="text" id="time" name="time" required></input>
+                        </li>
+                        <li>
+                                <label for="monsters">Num Of Monsters:</label>
+                                <input type="text" id="monsters" name="monsters" required></input>
+                            </li>
+                        <li>
+                            <input type="submit" value="Log in">
+                        </li>
+                    </ul>
+                    </form>
+
+
         <p id="" style="color:aliceblue; size:100pt;"> Setting Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia
             maiores
             aspernatur nam cupiditate. Laboriosam sint,
