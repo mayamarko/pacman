@@ -6,9 +6,11 @@ var pac_color;
 var start_time;
 var time_elapsed;
 var interval;
+var usersContent=new Map(); // map of users by username and password
+usersContent.set("a","a");
+
 
 //Start();
-
 
 function setInvisibale(div) {
     document.getElementById(div).style.display = "none";
@@ -96,7 +98,9 @@ $(document).ready(function () {
 $(document).ready(function () {
     $("#singupForm").validate({
         rules: {
-            username: 'required',
+            username:{
+                required: true,
+            },
             date: 'required',
             first_name: {
                 required: true,
@@ -122,7 +126,13 @@ $(document).ready(function () {
         unhighlight: function (element) {
             $(element).parent().removeClass('error')
         },
-        errorElement: 'div'
+        errorElement: 'div',
+        submitHandler: function (form) {
+            var usernameI=document.getElementById("username");
+            var passwordI=document.getElementById("password");
+            usersContent.set(usernameI.value,passwordI.value); //adds the username and password to map
+            form.submit();
+        }
     });
 });
 $.validator.addMethod("regexp", function (value, element) {
@@ -134,6 +144,28 @@ $.validator.addMethod("regexn", function (value, element) {
 function adjust_textarea(h) {
     h.style.height = "20px";
     h.style.height = (h.scrollHeight) + "px";
+}
+
+function saveData(){
+    var usernameI=document.getElementById("username");
+    var passwordI=document.getElementById("password");
+    usersContent.set(usernameI.value,passwordI.value);
+}
+/**
+ * checks if the users exist in the map of users.
+ */
+function isUserExist(users, pass){
+    if(usersContent.has(users)){
+        if(usersContent.get(users)===pass){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    else{
+        return false;
+    }
 }
 /**
  * All related to the sigh in form! - End
