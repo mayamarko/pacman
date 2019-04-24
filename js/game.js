@@ -7,6 +7,7 @@ var start_time;
 var time_elapsed;
 var interval;
 var usersContent=new Map(); // map of users by username and password
+var chosenSettings=new Array();
 usersContent.set("a","a");
 
 
@@ -154,17 +155,23 @@ function saveData(){
 /**
  * checks if the users exist in the map of users.
  */
-function isUserExist(users, pass){
+function isUserExist(){
+    var users=document.getElementById("username").value;
+    window.alert(users);
+    var pass=document.getElementById("password").value;
     if(usersContent.has(users)){
         if(usersContent.get(users)===pass){
-            return true;
+            //return true;
+            alert("hello "+users+ " "+ pass+" You logged in");
         }
         else{
-            return false;
+            //return false;
+            alert("hello "+users+ " "+ pass+" Your password is incorrect");
         }
     }
     else{
-        return false;
+        //return false;
+        alert("hello "+users+ " "+ pass+ " Your username is incorrect");
     }
 }
 /**
@@ -172,7 +179,19 @@ function isUserExist(users, pass){
  */
  
  /******************************************************************************/
- 
+ /**
+ login- start
+ */
+
+function logUserIn(){
+
+}
+
+
+/**
+ login-end
+ */
+ /******************************************************************************/
  /**
  settings- start
  */
@@ -189,7 +208,6 @@ $(document).ready(function () {
             },
             color1,color2,color3: {
                 required: true,
-                
             },        
             time: {
                 required: true,
@@ -209,17 +227,61 @@ $(document).ready(function () {
             $(element).parent().removeClass('error')
         },
         errorElement: 'div',
- /*       submitHandler: function (form) {
-            var usernameI=document.getElementById("username");
-            var passwordI=document.getElementById("password");
-            usersContent.set(usernameI.value,passwordI.value); //adds the username and password to map
-            form.submit();
-        }
-		*/
     });
 });
 
+function keyPressedUp(event) {
+var up = event.keyCode;
+}
+function keyPressedDown(event) {
+var down = event.keyCode;
+}
+function keyPressedLeft(event) {
+var left = event.keyCode;
+}
+function keyPressedRight(event) {
+var right = event.keyCode;
+}
 
+function defaultSett(){
+    document.getElementById("up").value = "r";
+    document.getElementById("down").value = "d";
+    document.getElementById("left").value = "f";
+    document.getElementById("right").value = "c";
+    document.getElementById("ballsNum").value = "60";
+    document.getElementById("color1").value = "red";
+    document.getElementById("color2").value = "blue";
+    document.getElementById("color3").value = "yellow";
+    document.getElementById("time").value = "60";
+    document.getElementById("monsters").value = "3";  
+}
+function resetSett(){
+    document.getElementById("up").value = "";
+    document.getElementById("down").value = "";
+    document.getElementById("left").value = "";
+    document.getElementById("right").value = "";
+    document.getElementById("ballsNum").value = "";
+    document.getElementById("color1").value = "";
+    document.getElementById("color2").value = "";
+    document.getElementById("color3").value = "";
+    document.getElementById("time").value = "";
+    document.getElementById("monsters").value ="";
+}
+
+function saveSetings(){
+chosenSettings=new Array();
+chosenSettings.push( document.getElementById("up").keyCode);
+chosenSettings.push( document.getElementById("down").keyCode);
+chosenSettings.push( document.getElementById("left").keyCode);
+chosenSettings.push( document.getElementById("right").keyCode);
+chosenSettings.push( document.getElementById("ballsNum").value);
+chosenSettings.push( document.getElementById("color1").value);
+chosenSettings.push( document.getElementById("color2").value);
+chosenSettings.push( document.getElementById("color3").value);
+chosenSettings.push( document.getElementById("time").value);
+chosenSettings.push( document.getElementById("monsters").value);
+
+}
 
 /**
 *settings- end

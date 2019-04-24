@@ -140,7 +140,7 @@
                 <input type="password" id="password" name="password" required></input>
             </li>
             <li>
-                <input type="submit" value="Log in">
+                <input type="button" value="Log in" onclick="isUserExist()">
             </li>
         </ul>
         </form>
@@ -169,10 +169,10 @@
                     <ul>
                         <li>
                             <label for="up">Key moves:</label> 
-                            Up:<input type="text" id="up" name="up" onkeypress="keyPressedUp(event)" required ></input></br>
-                            Down:<input type="text" id="down" name="down" onkeypress="keyPressedDown(event)" required></input></br>
-                            Left:<input type="text" id="left" name="left" onkeypress="keyPressedLeft(event)" required></input></br>
-                            Right:<input type="text" id="right" name="right" onkeypress="keyPressedRight(event)" required></input></br>
+                            Up:    <input type="text" id="up" name="up" onkeypress="keyPressedUp(event)" required ></input></br>
+                            Down:  <input type="text" id="down" name="down" onkeypress="keyPressedDown(event)" required></input></br>
+                            Left:  <input type="text" id="left" name="left" onkeypress="keyPressedLeft(event)" required></input></br>
+                            Right: <input type="text" id="right" name="right" onkeypress="keyPressedRight(event)" required></input></br>
                         </li>
                         <!-- <li>
                             <label for="down">Down</label>
@@ -191,17 +191,19 @@
                             <input type="text" id="ballsNum" name="ballsNum" required></input>
                         </li>
                         <li>
-                                <label for="color1">Color 1:</label>
-                                <input type="text" id="color1" name="color1" required></input>
-                            </li>
-                        <li>
+                            <label for="color1">Ball Colors:</label></br>
+                            Color 1:<input type="text" id="color1" name="color1" required></input></br>
+                            Color 2:<input type="text" id="color2" name="color2" required></input></br>
+                            Color 3:<input type="text" id="color3" name="color3" required></input></br>
+                         </li>
+                        <!-- <li>
                             <label for="color2">Color 2:</label>
-                            <input type="text" id="color2" name="color2" required></input>
+                            
                         </li>
                         <li>
                             <label for="color3">Color 3:</label>
-                            <input type="text" id="color3" name="color3" required></input>
-                        </li>
+                           
+                        </li> -->
                         <li>
                             <label for="time">Game duration(in sec):</label>
                             <input type="text" id="time" name="time" required></input>
@@ -211,8 +213,10 @@
                                 <input type="text" id="monsters" name="monsters" required></input>
                             </li>
                         <li>
-                            <input type="submit" value="Apply">
-                            <input type="submit" value="Default settings">
+                            <input type="submit" value="Apply" onclick="saveSetings()">
+                            <!-- <input type="submit" value="Default settings" onclick="defaultSett()"> -->
+                            <input type="button" value="Default settings" onclick="defaultSett()">
+                            <input type="button" value="Reset" onclick="resetSett()">
                         </li>
                     </ul>
                     </form>
