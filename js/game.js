@@ -6,6 +6,9 @@ var pac_color;
 var start_time;
 var time_elapsed;
 var interval;
+var a;
+var b;
+var angle;
 var usersContent=new Map(); // map of users by username and password
 var chosenSettings=new Array();
 usersContent.set("a","a");
@@ -44,7 +47,10 @@ function ShowDiv(id) {
     var selected = document.getElementById(id);
     selected.style.display = "block";
 }
-
+function startGame(){
+    ShowDiv('gameArea');
+    Start();
+}
 
 /**
  * Modal operation! 
@@ -162,6 +168,7 @@ function isUserExist(){
         if(usersContent.get(users)===pass){
             //return true;
             alert("hello "+users+ " "+ pass+" You logged in");
+            startGame();
         }
         else{
             //return false;
@@ -172,6 +179,7 @@ function isUserExist(){
         //return false;
         alert("hello "+users+ " "+ pass+ " Your username is incorrect");
     }
+
 }
 /**
  * All related to the sigh in form! - End
@@ -290,6 +298,9 @@ chosenSettings.push( document.getElementById("monsters").value);
 function Start() {
     board = new Array();
     score = 0;
+    a=5;
+    b=-15;
+    angle=0;
     pac_color = "yellow";
     var cnt = 100;
     var food_remain = 50;
@@ -373,12 +384,12 @@ function Draw() {
             center.y = j * 60 + 30;
             if (board[i][j] === 2) {
                 context.beginPath();
-                context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
+                context.arc(center.x, center.y, 30, 0.15 * Math.PI+angle, 1.85 * Math.PI+angle); // half circle
                 context.lineTo(center.x, center.y);
                 context.fillStyle = pac_color; //color
                 context.fill();
                 context.beginPath();
-                context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
+                context.arc(center.x + a, center.y +b, 5, 0, 2 * Math.PI); // circle
                 context.fillStyle = "black"; //color
                 context.fill();
             } else if (board[i][j] === 1) {
@@ -404,21 +415,33 @@ function UpdatePosition() {
     if (x === 1) {
         if (shape.j > 0 && board[shape.i][shape.j - 1] !== 4) {
             shape.j--;
+            angle=0.5*Math.PI*3;
+            a=-15;
+            b=5;
         }
     }
     if (x === 2) {
         if (shape.j < 9 && board[shape.i][shape.j + 1] !== 4) {
             shape.j++;
+            angle=0.5*Math.PI*1;
+            a=-15;
+            b=5;
         }
     }
     if (x === 3) {
         if (shape.i > 0 && board[shape.i - 1][shape.j] !== 4) {
             shape.i--;
+            angle=0.5*Math.PI*2;
+            a=5;
+            b=-15;
         }
     }
     if (x === 4) {
         if (shape.i < 9 && board[shape.i + 1][shape.j] !== 4) {
             shape.i++;
+            angle=0.5*Math.PI*0;
+            a=5;
+            b=-15;
         }
     }
     if (board[shape.i][shape.j] === 1) {
