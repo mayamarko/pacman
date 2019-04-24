@@ -156,9 +156,8 @@ function saveData(){
  * checks if the users exist in the map of users.
  */
 function isUserExist(){
-    var users=document.getElementById("username").value;
-    window.alert(users);
-    var pass=document.getElementById("password").value;
+    var users=document.getElementById("username1").value;   
+    var pass=document.getElementById("password1").value;
     if(usersContent.has(users)){
         if(usersContent.get(users)===pass){
             //return true;
