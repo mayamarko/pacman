@@ -203,6 +203,54 @@ function isUserExist(){
  /**
  settings- start
  */
+function checkValidtion(){
+    submitOk="true";
+    var up=document.getElementById("up").value;
+    var down=document.getElementById("down").value;
+    var left=document.getElementById("left").value;
+    var right=document.getElementById("right").value;
+    var ballsNum=document.getElementById("ballsNum").value;
+    var color1=document.getElementById("color1").value;
+    var color2=document.getElementById("color2").value;
+    var color3=document.getElementById("color3").value;
+    var time=document.getElementById("time").value;
+    var monsters=document.getElementById("monsters").value;
+    if(up.length!=1||down.length!=1||left.length!=1||right.length!=1)
+    {
+        alert("must be only one key");
+        submitOk="false";
+    }
+    if(isNaN(up)||isNan(down)||isNan(left)||IsNaN(right)||isNaN(color1)||isNaN(color2)||isNan(color3))
+    {
+        alert("all fildes must be filled");
+        submitOk="false";
+    }
+    if(ballsNum<50||ballsNum>90)
+    {
+        alert("number of balls must be between 50 to 90");
+        submitOk="false";
+    }
+    if(time<60)
+    {
+        alert("game duration must be at least 60 min");
+        submitOk="false";
+    }
+    if(monsters<1|monsters>3)
+    {
+        alert("number of monsters must be between 1 and 3");
+        submitOk="false";
+    }
+    if(submitOk=="false"){
+        return false;
+    }else{
+        saveSetings();
+        form.submit();
+    }
+}
+
+
+
+
 $(document).ready(function () {
     $("#SettingsForm").validate({
         rules: {
@@ -227,7 +275,8 @@ $(document).ready(function () {
                 range: [1,3]
             }
         },
-        messages: {},
+        messages: {
+        },
         highlight: function (element) {
             $(element).parent().addClass('error')
         },
@@ -235,6 +284,7 @@ $(document).ready(function () {
             $(element).parent().removeClass('error')
         },
         errorElement: 'div',
+      
     });
 });
 
@@ -280,8 +330,8 @@ function saveSetings(){
 chosenSettings=new Array();
 chosenSettings.push( document.getElementById("up").value);
 chosenSettings.push( document.getElementById("down").value);
-chosenSettings.push( document.getElementById("left").value.keyCode);
-chosenSettings.push( document.getElementById("right").value.keyCode);
+chosenSettings.push( document.getElementById("left").value);
+chosenSettings.push( document.getElementById("right").value);
 chosenSettings.push( document.getElementById("ballsNum").value);
 chosenSettings.push( document.getElementById("color1").value);
 chosenSettings.push( document.getElementById("color2").value);
