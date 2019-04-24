@@ -277,11 +277,13 @@ div.error {
   border: 1px solid  yellow;
   padding:20px;
   font-family: Georgia, "Times New Roman", Times, serif;
+  
 }
 .settings-style ul{
   list-style:none;
   padding:0;
-  margin:0;	
+  margin:0;
+  color: white	
 }
 .settings-style li{
   display: block;
@@ -289,13 +291,17 @@ div.error {
   border:1px solid rgb(19, 4, 99);
   margin-bottom: 30px;
   border-radius: 3px;
+  
 }
+
+
 .settings-style li > label{
   display: block;
   float: left;
   margin-top: -19px;
   background: black;
   height: 14px;
+
   padding: 2px 5px 2px 5px;
   color: white;
   font-size: 14px;

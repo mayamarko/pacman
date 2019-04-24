@@ -165,13 +165,16 @@
     </div>
 
     <div id="setting">
-            <form class="settings-style" id="Settings" method="POST">
+            <form class="settings-style" id="SettingsForm" method="POST">
                     <ul>
                         <li>
-                            <label for="up">Up</label>
-                            <input type="text" id="up" name="up" onkeypress="keyPressedUp(event)" required ></input>
+                            <label for="up">Key moves:</label> 
+                            Up:<input type="text" id="up" name="up" onkeypress="keyPressedUp(event)" required ></input></br>
+                            Down:<input type="text" id="down" name="down" onkeypress="keyPressedDown(event)" required></input></br>
+                            Left:<input type="text" id="left" name="left" onkeypress="keyPressedLeft(event)" required></input></br>
+                            Right:<input type="text" id="right" name="right" onkeypress="keyPressedRight(event)" required></input></br>
                         </li>
-                        <li>
+                        <!-- <li>
                             <label for="down">Down</label>
                             <input type="text" id="down" name="down" onkeypress="keyPressedDown(event)" required></input>
                         </li>
@@ -182,14 +185,10 @@
                         <li>
                             <label for="right">Right</label>
                             <input type="text" id="right" name="right" onkeypress="keyPressedRight(event)" required></input>
-                        </li>
+                        </li> -->
                         <li>
-                            <label for="number">Number of balls:</label>
-                            <input type="text" id="number" name="ballsNum" required></input>
-                        </li>
-                        <li>
-                            <label for="color1">Color 1:</label>
-                            <input type="text" id="color1" name="color1" required></input>
+                            <label for="ballsNum">Number of balls:</label>
+                            <input type="text" id="ballsNum" name="ballsNum" required></input>
                         </li>
                         <li>
                                 <label for="color1">Color 1:</label>

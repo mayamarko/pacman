@@ -170,6 +170,60 @@ function isUserExist(users, pass){
 /**
  * All related to the sigh in form! - End
  */
+ 
+ /******************************************************************************/
+ 
+ /**
+ settings- start
+ */
+$(document).ready(function () {
+    $("#Settings").validate({
+        rules: {
+            up,down,left,right:{
+                required: true,
+				 exactlength: 1
+            },
+            ballsNum: {
+                required: true,
+                range: [50,90]
+            },
+            color1,color2,color3: {
+                required: true,
+                
+            },        
+            time: {
+                required: true,
+				minStrict: 60,
+				number: true
+            },
+			 monsters: {
+                required: true,
+                range: [1,3]
+            }
+        },
+        messages: {},
+        highlight: function (element) {
+            $(element).parent().addClass('error')
+        },
+        unhighlight: function (element) {
+            $(element).parent().removeClass('error')
+        },
+        errorElement: 'div',
+ /*       submitHandler: function (form) {
+            var usernameI=document.getElementById("username");
+            var passwordI=document.getElementById("password");
+            usersContent.set(usernameI.value,passwordI.value); //adds the username and password to map
+            form.submit();
+        }
+		*/
+    });
+});
+
+
+
+/**
+*settings- end
+*/
 
 
 function Start() {
