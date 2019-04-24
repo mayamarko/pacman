@@ -92,6 +92,13 @@ window.onclick = function (event) {
         }
     }
 }
+$(document).keydown(function(event) { 
+    if (event.keyCode == 27) { 
+      $('#aboutModal').hide();
+    }
+  });
+
+//when user press esc close the modal
 
 /**
  * All related to the sigh in form! - start
@@ -164,41 +171,35 @@ function saveData(){
 function isUserExist(){
     var users=document.getElementById("username1").value;   
     var pass=document.getElementById("password1").value;
+    submitOk="true";
     if(usersContent.has(users)){
         if(usersContent.get(users)===pass){
             //return true;
-            alert("hello "+users+ " "+ pass+" You logged in");
+            alert("hello  You logged in");
             startGame();
         }
         else{
             //return false;
             alert("hello "+users+ " "+ pass+" Your password is incorrect");
+        submitOk="false";
         }
     }
     else{
         //return false;
         alert("hello "+users+ " "+ pass+ " Your username is incorrect");
+        submitOk="false";
     }
-
+    if(submitOk=="false"){
+      return false;
+    }
 }
 /**
  * All related to the sigh in form! - End
  */
  
  /******************************************************************************/
- /**
- login- start
- */
-
-function logUserIn(){
-
-}
 
 
-/**
- login-end
- */
- /******************************************************************************/
  /**
  settings- start
  */
@@ -238,16 +239,16 @@ $(document).ready(function () {
 });
 
 function keyPressedUp(event) {
-var up = event.keyCode;
+chosenSettings[0] = event.keyCode;
 }
 function keyPressedDown(event) {
-var down = event.keyCode;
+chosenSettings[1] = event.keyCode;
 }
 function keyPressedLeft(event) {
-var left = event.keyCode;
+chosenSettings[2] = event.keyCode;
 }
 function keyPressedRight(event) {
-var right = event.keyCode;
+chosenSettings[3] = event.keyCode;
 }
 
 function defaultSett(){
@@ -277,10 +278,10 @@ function resetSett(){
 
 function saveSetings(){
 chosenSettings=new Array();
-chosenSettings.push( document.getElementById("up").keyCode);
-chosenSettings.push( document.getElementById("down").keyCode);
-chosenSettings.push( document.getElementById("left").keyCode);
-chosenSettings.push( document.getElementById("right").keyCode);
+chosenSettings.push( document.getElementById("up").value.keyCode);
+chosenSettings.push( document.getElementById("down").value.keyCode);
+chosenSettings.push( document.getElementById("left").value.keyCode);
+chosenSettings.push( document.getElementById("right").value.keyCode);
 chosenSettings.push( document.getElementById("ballsNum").value);
 chosenSettings.push( document.getElementById("color1").value);
 chosenSettings.push( document.getElementById("color2").value);
