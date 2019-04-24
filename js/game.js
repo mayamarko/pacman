@@ -276,6 +276,8 @@ $(document).ready(function () {
             }
         },
         messages: {
+            up,down,left,right:"dir",
+            time:'must be at least 60'
         },
         highlight: function (element) {
             $(element).parent().addClass('error')
@@ -284,7 +286,10 @@ $(document).ready(function () {
             $(element).parent().removeClass('error')
         },
         errorElement: 'div',
-      
+        submitHandler: function (form) {
+            form.submit();
+            saveSetings();
+        }
     });
 });
 
