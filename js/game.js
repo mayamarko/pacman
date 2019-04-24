@@ -175,18 +175,18 @@ function isUserExist(){
     if(usersContent.has(users)){
         if(usersContent.get(users)===pass){
             //return true;
-            alert("hello  You logged in");
+            alert("hello You logged in");
             startGame();
         }
         else{
             //return false;
-            alert("hello "+users+ " "+ pass+" Your password is incorrect");
+            alert("hello Your password is incorrect");
         submitOk="false";
         }
     }
     else{
         //return false;
-        alert("hello "+users+ " "+ pass+ " Your username is incorrect");
+        alert("hello Your username is incorrect");
         submitOk="false";
     }
     if(submitOk=="false"){
@@ -278,7 +278,7 @@ function resetSett(){
 
 function saveSetings(){
 chosenSettings=new Array();
-chosenSettings.push( document.getElementById("up").value.keyCode);
+chosenSettings.push( document.getElementById("up").value);
 chosenSettings.push( document.getElementById("down").value.keyCode);
 chosenSettings.push( document.getElementById("left").value.keyCode);
 chosenSettings.push( document.getElementById("right").value.keyCode);
