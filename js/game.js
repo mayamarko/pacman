@@ -177,7 +177,7 @@ function isUserExist(users, pass){
  settings- start
  */
 $(document).ready(function () {
-    $("#Settings").validate({
+    $("#SettingsForm").validate({
         rules: {
             up,down,left,right:{
                 required: true,
