@@ -279,7 +279,7 @@ function resetSett(){
 function saveSetings(){
 chosenSettings=new Array();
 chosenSettings.push( document.getElementById("up").value);
-chosenSettings.push( document.getElementById("down").value.keyCode);
+chosenSettings.push( document.getElementById("down").value);
 chosenSettings.push( document.getElementById("left").value.keyCode);
 chosenSettings.push( document.getElementById("right").value.keyCode);
 chosenSettings.push( document.getElementById("ballsNum").value);
