@@ -135,10 +135,10 @@ $(document).ready(function () {
         },
         messages: {},
         highlight: function (element) {
-            $(element).parent().addClass('error')
+            $(element).parent().addClass('error1')
         },
         unhighlight: function (element) {
-            $(element).parent().removeClass('error')
+            $(element).parent().removeClass('error1')
         },
         errorElement: 'div',
         submitHandler: function (form) {
@@ -289,32 +289,37 @@ $(document).ready(function () {
                 minStrict: jQuery.format("Must be grater then {0} min")              
             }
         },
-        // highlight: function (element) {
-        //     $(element).parent().addClass('error')
-        // },
-        // unhighlight: function (element) {
-        //     $(element).parent().removeClass('error')
-        // },
-        // errorElement: 'div',
+        highlight: function (element) {
+            $(element).parent().addClass('error')
+        },
+        unhighlight: function (element) {
+            $(element).parent().removeClass('error')
+        },
+        errorElement: 'div',
         submitHandler: function (form) {
             form.submit();
             saveSetings();
         }
     });
 });
+function adjust_textarea(h) {
+    h.style.height = "20px";
+    h.style.height = (h.scrollHeight) + "px";
+}
 
-function keyPressedUp(event) {
-chosenSettings[0] = event.keyCode;
-}
-function keyPressedDown(event) {
-chosenSettings[1] = event.keyCode;
-}
-function keyPressedLeft(event) {
-chosenSettings[2] = event.keyCode;
-}
-function keyPressedRight(event) {
-chosenSettings[3] = event.keyCode;
-}
+
+// function keyPressedUp(event) {
+// chosenSettings[0] = event.keyCode;
+// }
+// function keyPressedDown(event) {
+// chosenSettings[1] = event.keyCode;
+// }
+// function keyPressedLeft(event) {
+// chosenSettings[2] = event.keyCode;
+// }
+// function keyPressedRight(event) {
+// chosenSettings[3] = event.keyCode;
+// }
 
 function defaultSett(){
     document.getElementById("up").value = "r";
