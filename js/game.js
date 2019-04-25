@@ -43,6 +43,12 @@ function ShowDiv(id) {
     var div5 = document.getElementById('gameArea');
     div5.style.display = "none";
 
+    if(id=='login'){
+        resetLogin();
+    }
+    if(id=='setting'){
+        resetSett();
+    }
     //show only one section
     var selected = document.getElementById(id);
     selected.style.display = "block";
@@ -198,96 +204,119 @@ function isUserExist(){
  */
  
  /******************************************************************************/
-
+ function resetLogin(){
+    document.getElementById("username1").value = "";
+    document.getElementById("password1").value = "";
+}
 
  /**
  settings- start
  */
-function checkValidtion(){
-    submitOk="true";
-    var up=document.getElementById("up").value;
-    var down=document.getElementById("down").value;
-    var left=document.getElementById("left").value;
-    var right=document.getElementById("right").value;
-    var ballsNum=document.getElementById("ballsNum").value;
-    var color1=document.getElementById("color1").value;
-    var color2=document.getElementById("color2").value;
-    var color3=document.getElementById("color3").value;
-    var time=document.getElementById("time").value;
-    var monsters=document.getElementById("monsters").value;
-    if(up.length!=1||down.length!=1||left.length!=1||right.length!=1)
-    {
-        alert("must be only one key");
-        submitOk="false";
-    }
-    if(isNaN(up)||isNan(down)||isNan(left)||IsNaN(right)||isNaN(color1)||isNaN(color2)||isNan(color3))
-    {
-        alert("all fildes must be filled");
-        submitOk="false";
-    }
-    if(ballsNum<50||ballsNum>90)
-    {
-        alert("number of balls must be between 50 to 90");
-        submitOk="false";
-    }
-    if(time<60)
-    {
-        alert("game duration must be at least 60 min");
-        submitOk="false";
-    }
-    if(monsters<1|monsters>3)
-    {
-        alert("number of monsters must be between 1 and 3");
-        submitOk="false";
-    }
-    if(submitOk=="false"){
-        return false;
-    }else{
-        saveSetings();
-        form.submit();
-    }
-}
-
+// function checkValidtion(){
+//     submitOk="true";
+//     var up=document.getElementById("up").value;
+//     var down=document.getElementById("down").value;
+//     var left=document.getElementById("left").value;
+//     var right=document.getElementById("right").value;
+//     var ballsNum=document.getElementById("ballsNum").value;
+//     var color1=document.getElementById("color1").value;
+//     var color2=document.getElementById("color2").value;
+//     var color3=document.getElementById("color3").value;
+//     var time=document.getElementById("time").value;
+//     var monsters=document.getElementById("monsters").value;
+//     if(up.length!=1||down.length!=1||left.length!=1||right.length!=1)
+//     {
+//         alert("must be only one key");
+//         submitOk="false";
+//     }
+//     if(isNaN(up)||isNan(down)||isNan(left)||IsNaN(right)||isNaN(color1)||isNaN(color2)||isNan(color3))
+//     {
+//         alert("all fildes must be filled");
+//         submitOk="false";
+//     }
+//     if(ballsNum<50||ballsNum>90)
+//     {
+//         alert("number of balls must be between 50 to 90");
+//         submitOk="false";
+//     }
+//     if(time<60)
+//     {
+//         alert("game duration must be at least 60 min");
+//         submitOk="false";
+//     }
+//     if(monsters<1|monsters>3)
+//     {
+//         alert("number of monsters must be between 1 and 3");
+//         submitOk="false";
+//     }
+//     if(submitOk=="false"){
+//         return false;
+//     }else{
+//         saveSetings();
+//         form.submit();
+//     }
+// }
 
 
 
 $(document).ready(function () {
     $("#SettingsForm").validate({
         rules: {
-            up,down,left,right:{
+            up:{
                 required: true,
-				 exactlength: 1
+                rangelength:[1,1],
             },
+            down:{
+                required: true,
+                rangelength:[1,1],
+            },
+            left:{
+                required: true,
+                rangelength:[1,1],
+            },
+            right:{
+                required: true,
+                rangelength:[1,1],
+            },
+           
             ballsNum: {
                 required: true,
-                range: [50,90]
+                range: [50,90],
             },
-            color1,color2,color3: {
+            color1: {
                 required: true,
-            },        
+                regexletter:true,               
+            },
+            color2: {
+                required: true,  
+                regexletter:true,
+            },
+            color3: {
+                required: true, 
+                regexletter:true,              
+            },
             time: {
                 required: true,
-				minStrict: 60,
-				number: true
+                min: 60,
             },
-			 monsters: {
+            monsters: {
                 required: true,
-                range: [1,3]
+                range: [1,3],
             }
         },
         messages: {
-            // up:{
-            //     required: "dir",
-            //     minlength:"min len"
-            // } ,
-            // down:{
-            //     required: "dir",
-            //     minlength:"min len"
-            // } ,           
-            // time: {
-            //     required: "Enter a time",
-            //     minStrict: jQuery.format("Must be grater then {0} min")              
-            // }
+            up:{
+                rangelength: "There must be only one key"
+            },
+            down:{
+                rangelength: "There be only one key"
+            },
+            left:{
+                rangelength: "There be only one key"
+            },
+            right:{
+                rangelength: "There be only one key"
+            },
         },
         highlight: function (element) {
             $(element).parent().addClass('error1')
@@ -295,17 +324,73 @@ $(document).ready(function () {
         unhighlight: function (element) {
             $(element).parent().removeClass('error1')
         },
-        errorElement: 'div',
+        errorElement: 'div1',
         submitHandler: function (form) {
             form.submit();
-            saveSetings();
         }
     });
 });
-function adjust_textarea(h) {
-    h.style.height = "20px";
-    h.style.height = (h.scrollHeight) + "px";
-}
+$.validator.addMethod("regexletter", function (value, element) {
+    return this.optional(element) || /^[a-z]+$/.test(value);
+}, 'Small etters only!');
+
+
+
+// $(document).ready(function () {
+//     $("#SettingsForm").validate({
+//         rules: {
+//             up,down,left,right:{
+//                 required: true,
+// 				 exactlength: 1
+//             },
+//             ballsNum: {
+//                 required: true,
+//                 range: [50,90]
+//             },
+//             color1,color2,color3: {
+//                 required: true,
+//             },        
+//             time: {
+//                 required: true,
+// 				minStrict: 60,
+// 				number: true
+//             },
+// 			 monsters: {
+//                 required: true,
+//                 range: [1,3]
+//             }
+//         },
+//         messages: {
+//             // up:{
+//             //     required: "dir",
+//             //     minlength:"min len"
+//             // } ,
+//             // down:{
+//             //     required: "dir",
+//             //     minlength:"min len"
+//             // } ,           
+//             // time: {
+//             //     required: "Enter a time",
+//             //     minStrict: jQuery.format("Must be grater then {0} min")              
+//             // }
+//         },
+//         highlight: function (element) {
+//             $(element).parent().addClass('error1')
+//         },
+//         unhighlight: function (element) {
+//             $(element).parent().removeClass('error1')
+//         },
+//         errorElement: 'div',
+//         submitHandler: function (form) {
+//             form.submit();
+//             saveSetings();
+//         }
+//     });
+// });
+// function adjust_textarea(h) {
+//     h.style.height = "20px";
+//     h.style.height = (h.scrollHeight) + "px";
+// }
 
 
 // function keyPressedUp(event) {

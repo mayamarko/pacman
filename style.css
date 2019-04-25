@@ -294,9 +294,9 @@ div.error {
 }
 
 .settings-style{
-  max-width:400px;
+  max-width:600px;
   margin:50px auto;
-  /* background:black; */
+  background:black;
 
   border-radius:2px;
   border: 1px solid  yellow;
@@ -325,7 +325,7 @@ div.error {
   display: block;
   float: left;
   margin-top: -19px;
-  /* background: black; */
+  background: black;
   height: 14px;
 
   padding: 2px 5px 2px 5px;
@@ -355,10 +355,18 @@ div.error {
     font-size: 14px;
     padding: 0;
     font-family: Georgia, "Times New Roman", Times, serif;
-    /* background-color: black; */
-    /* color: white; */
+    background-color: black;
+    color: white;
  
 }
 #SettingsForm .error1 {
   color: red;
+}
+div1.error1 {
+  width:200px;
+  font-size:11px;
+  background-color:black;
+  color:#FFFFFF;
+  padding:3px;
+  margin-left:5px;
 }
