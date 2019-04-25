@@ -276,16 +276,26 @@ $(document).ready(function () {
             }
         },
         messages: {
-            up,down,left,right:"dir",
-            time:'must be at least 60'
+            up:{
+                required: "dir",
+                minlength:"min len"
+            } ,
+            down:{
+                required: "dir",
+                minlength:"min len"
+            } ,           
+            time: {
+                required: "Enter a time",
+                minStrict: jQuery.format("Must be grater then {0} min")              
+            }
         },
-        highlight: function (element) {
-            $(element).parent().addClass('error')
-        },
-        unhighlight: function (element) {
-            $(element).parent().removeClass('error')
-        },
-        errorElement: 'div',
+        // highlight: function (element) {
+        //     $(element).parent().addClass('error')
+        // },
+        // unhighlight: function (element) {
+        //     $(element).parent().removeClass('error')
+        // },
+        // errorElement: 'div',
         submitHandler: function (form) {
             form.submit();
             saveSetings();
