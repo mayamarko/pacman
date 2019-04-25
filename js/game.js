@@ -135,10 +135,10 @@ $(document).ready(function () {
         },
         messages: {},
         highlight: function (element) {
-            $(element).parent().addClass('error1')
+            $(element).parent().addClass('error')
         },
         unhighlight: function (element) {
-            $(element).parent().removeClass('error1')
+            $(element).parent().removeClass('error')
         },
         errorElement: 'div',
         submitHandler: function (form) {
@@ -276,24 +276,24 @@ $(document).ready(function () {
             }
         },
         messages: {
-            up:{
-                required: "dir",
-                minlength:"min len"
-            } ,
-            down:{
-                required: "dir",
-                minlength:"min len"
-            } ,           
-            time: {
-                required: "Enter a time",
-                minStrict: jQuery.format("Must be grater then {0} min")              
-            }
+            // up:{
+            //     required: "dir",
+            //     minlength:"min len"
+            // } ,
+            // down:{
+            //     required: "dir",
+            //     minlength:"min len"
+            // } ,           
+            // time: {
+            //     required: "Enter a time",
+            //     minStrict: jQuery.format("Must be grater then {0} min")              
+            // }
         },
         highlight: function (element) {
-            $(element).parent().addClass('error')
+            $(element).parent().addClass('error1')
         },
         unhighlight: function (element) {
-            $(element).parent().removeClass('error')
+            $(element).parent().removeClass('error1')
         },
         errorElement: 'div',
         submitHandler: function (form) {
