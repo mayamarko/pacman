@@ -53,7 +53,8 @@ function ShowDiv(id) {
     var selected = document.getElementById(id);
     selected.style.display = "block";
 }
-function startGame(){
+function startGame(users){
+    usershow.value = users;
     ShowDiv('gameArea');
     Start();
 }
@@ -182,7 +183,7 @@ function isUserExist(){
         if(usersContent.get(users)===pass){
             //return true;
             alert("hello You logged in");
-            startGame();
+            startGame(users);
         }
         else{
             //return false;
