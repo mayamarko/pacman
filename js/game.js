@@ -688,6 +688,47 @@ function Draw() {
         }
     }
     drawOutline();
+    // drawGhost(0,30);
+}
+
+function drawGhost(x,y) {
+    context.beginPath();
+    context.moveTo(x, y);
+    context.lineTo(x, y-14);
+    context.bezierCurveTo(x, y-22, x+6, y-28, x+14, y-28);
+    context.bezierCurveTo(x+22, y-28, x+28, y-22, x+28, y-14);
+    context.lineTo(x+28, y);
+    context.lineTo(x+23.333, y-4.667);
+    context.lineTo(x+18.333, y);
+    context.lineTo(x+14, y-4.667);
+    context.lineTo(x+9.333, y);
+    context.lineTo(x+4.666, y-4.667);
+    context.lineTo(x, y);
+    context.fillStyle = "white"; //color
+    context.fill();
+
+    // context.fillStyle = 'white';
+    // context.beginPath();
+    // context.moveTo(91, 96);
+    // context.bezierCurveTo(88, 96, 87, 99, 87, 101);
+    // context.bezierCurveTo(87, 103, 88, 106, 91, 106);
+    // context.bezierCurveTo(94, 106, 95, 103, 95, 101);
+    // context.bezierCurveTo(95, 99, 94, 96, 91, 96);
+    // context.moveTo(103, 96);
+    // context.bezierCurveTo(100, 96, 99, 99, 99, 101);
+    // context.bezierCurveTo(99, 103, 100, 106, 103, 106);
+    // context.bezierCurveTo(106, 106, 107, 103, 107, 101);
+    // context.bezierCurveTo(107, 99, 106, 96, 103, 96);
+    // context.fill();
+
+    // context.fillStyle = 'black';
+    // context.beginPath();
+    // context.arc(101, 102, 2, 0, Math.PI * 2, true);
+    // context.fill();
+
+    // context.beginPath();
+    // context.arc(89, 102, 2, 0, Math.PI * 2, true);
+    // context.fill();
 }
 
 function createColBalls(colorballs, number, x, y) {
