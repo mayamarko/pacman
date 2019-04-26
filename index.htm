@@ -32,20 +32,23 @@
 
 
     <div id="gameArea">
-        <br />
-        SCORE:
+
+        <label for="score">SCORE:</label>
         <input id="lblScore" type="text" />
-        <br />
-        TIME:
+
+        <label for="timeGame">TIME:</label>
         <input id="lblTime" type="text" />
         <br />
-        <canvas id="canvas" height="600" width="600"></canvas>
+        <br />
+        <div id="can">
+            <canvas id="canvas" height="360" width="360"></canvas>
+        </div>
     </div>
 
     <div id="Welcome">
-            <br />
-            <h1 id="hf3">Welcome to our game!</h1>
-            <h1 id="hf3">If you want to play you must register or sign in! </h1>
+        <br />
+        <h1 id="hf3">Welcome to our game!</h1>
+        <h1 id="hf3">If you want to play you must register or sign in! </h1>
         <div style="width: 20%; margin: 0 auto; text-align:center; align-content: center">
             <button onclick="ShowDiv('signin')" href="#" type="button" style="opacity: 0.9" id="welcomebutton">Sign
                 Up</button>
@@ -96,80 +99,80 @@
     </div>
 
     <div id="login">
-              </br></br>
+        </br></br>
         <form class="formstyle" id="LogInForm" method="POST">
-        <ul>
-            <li>
-                <label for="username1">User Name:</label>
-                <input type="text" id="username1" name="username1" required></input>
-            </li>
-            <li>
-                <label for="password1">Password:</label>
-                <input type="password" id="password1" name="password1" required></input>
-            </li>
-            <li>
-                <input type="button" value="Log in" onclick="isUserExist()">
-            </li>
-        </ul>
+            <ul>
+                <li>
+                    <label for="username1">User Name:</label>
+                    <input type="text" id="username1" name="username1" required></input>
+                </li>
+                <li>
+                    <label for="password1">Password:</label>
+                    <input type="password" id="password1" name="password1" required></input>
+                </li>
+                <li>
+                    <input type="button" value="Log in" onclick="isUserExist()">
+                </li>
+            </ul>
         </form>
-        
-      
+
+
     </div>
 
     <div id="aboutModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <p id="pp1" style="color:aliceblue; size:100pt;"> 
-            We are Maya Markovitch and Nofar Turteltaub.
+            <p id="pp1" style="color:aliceblue; size:100pt;">
+                We are Maya Markovitch and Nofar Turteltaub.
             </p>
-            <p id="pp2" style="color:aliceblue; size:100pt;"> 
-            </br> While making this project we used: {*****to add JQuery plugin*****}.
-            </br>In addition the tamplate we used was: {*****to add templates*****}.
-            </br>Our main difficulty was: {****to add****}
-            </br>We hope you will enjoy playing the game.
-            </br></br>GOOD LUCK!
+            <p id="pp2" style="color:aliceblue; size:100pt;">
+                </br> While making this project we used: {*****to add JQuery plugin*****}.
+                </br>In addition the tamplate we used was: {*****to add templates*****}.
+                </br>Our main difficulty was: {****to add****}
+                </br>We hope you will enjoy playing the game.
+                </br></br>GOOD LUCK!
             </p>
         </div>
     </div>
 
     <div id="setting">
-            <form class="settings-style" id="SettingsForm" method="POST">
-                    <ul>
-                        <li>
-                            <label for="up">Key moves:</label> 
-                            Up:    <input type="text" id="up" name="up" required ></input></br>
-                            Down:  <input type="text" id="down" name="down"  required></input></br>
-                            Left:  <input type="text" id="left" name="left"  required></input></br>
-                            Right: <input type="text" id="right" name="right" required></input></br>
-                            <!-- Right: <input type="text" id="right" name="right" onkeypress="keyPressedRight(event)" required></input></br> -->
-                        </li>
-                        <li>
-                            <label for="ballsNum">Number of balls:</label>
-                            <input type="text" id="ballsNum" name="ballsNum" required></input>
-                        </li>
-                        <li>
-                            <label for="color1">Ball Colors:</label></br>
-                            Color 1 (of 5 points):<input type="text" id="color1" name="color1" required></input></br>
-                            Color 2 (of 15 points):<input type="text" id="color2" name="color2" required></input></br>
-                            Color 3 (of 25 points):<input type="text" id="color3" name="color3" required></input></br>
-                         </li>
-                        <li>
-                            <label for="time">Game duration(in sec):</label>
-                            <input type="text" id="time" name="time" required></input>
-                        </li>
-                        <li>
-                            <label for="monsters">Num Of Monsters:</label>
-                            <input type="text" id="monsters" name="monsters" required></input>
-                        </li>
-                        <li>
-                            <input type="submit" value="Apply">
-                            <!-- <input type="button" value="Apply" onclick="checkValidtion()"> -->
-                            <!-- <input type="submit" value="Default settings" onclick="defaultSett()"> -->
-                            <input type="button" value="Default settings" onclick="defaultSett()">
-                            <input type="button" value="Reset" onclick="resetSett()">
-                        </li>
-                    </ul>
-                    </form>
+        <form class="settings-style" id="SettingsForm" method="POST">
+            <ul>
+                <li>
+                    <label for="up">Key moves:</label>
+                    Up: <input type="text" id="up" name="up" required></input></br>
+                    Down: <input type="text" id="down" name="down" required></input></br>
+                    Left: <input type="text" id="left" name="left" required></input></br>
+                    Right: <input type="text" id="right" name="right" required></input></br>
+                    <!-- Right: <input type="text" id="right" name="right" onkeypress="keyPressedRight(event)" required></input></br> -->
+                </li>
+                <li>
+                    <label for="ballsNum">Number of balls:</label>
+                    <input type="text" id="ballsNum" name="ballsNum" required></input>
+                </li>
+                <li>
+                    <label for="color1">Ball Colors:</label></br>
+                    Color 1 (of 5 points):<input type="text" id="color1" name="color1" required></input></br>
+                    Color 2 (of 15 points):<input type="text" id="color2" name="color2" required></input></br>
+                    Color 3 (of 25 points):<input type="text" id="color3" name="color3" required></input></br>
+                </li>
+                <li>
+                    <label for="time">Game duration(in sec):</label>
+                    <input type="text" id="time" name="time" required></input>
+                </li>
+                <li>
+                    <label for="monsters">Num Of Monsters:</label>
+                    <input type="text" id="monsters" name="monsters" required></input>
+                </li>
+                <li>
+                    <input type="submit" value="Apply">
+                    <!-- <input type="button" value="Apply" onclick="checkValidtion()"> -->
+                    <!-- <input type="submit" value="Default settings" onclick="defaultSett()"> -->
+                    <input type="button" value="Default settings" onclick="defaultSett()">
+                    <input type="button" value="Reset" onclick="resetSett()">
+                </li>
+            </ul>
+        </form>
     </div>
 
 

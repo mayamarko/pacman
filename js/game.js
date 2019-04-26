@@ -454,19 +454,19 @@ chosenSettings.push( document.getElementById("monsters").value);
 function Start() {
     board = new Array();
     score = 0;
-    a=5;
-    b=-15;
+    a=2.5;
+    b=-7.5;
     angle=0;
     pac_color = "yellow";
     var cnt = 100;
     var food_remain = 50;
     var pacman_remain = 1;
     start_time = new Date();
-    for (var i = 0; i < 10; i++) {
+    for (var i = 0; i < 12; i++) {
         board[i] = new Array();
         //put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
-        for (var j = 0; j < 10; j++) {
-            if ((i === 3 && j === 3) || (i === 3 && j === 4) || (i === 3 && j === 5) || (i === 6 && j === 1) || (i === 6 && j === 2)) {
+        for (var j = 0; j < 12; j++) {
+            if (obstacles(i, j)/*(i === 3 && j === 3) || (i === 3 && j === 4) || (i === 3 && j === 5) || (i === 6 && j === 1) || (i === 6 && j === 2)*/) {
                 board[i][j] = 4;
             } else {
                 var randomNum = Math.random();
@@ -500,6 +500,61 @@ function Start() {
     interval = setInterval(UpdatePosition, 250);
 }
 
+function obstacles(i, j) {
+    if (i === 0) {
+        if (j === 5 || j === 6) {
+            return true;
+        }
+    }
+    else if (i === 1) {
+        if (j === 2 || j === 5 || j === 6 || j === 10) {
+            return true;
+        }
+    }
+    else if (i === 3) {
+        if (j === 0 || j === 3 || j === 7 || j === 8) {
+            return true;
+        }
+    }
+    else if (i === 4) {
+        if (j === 0 || j === 5 || j === 10) {
+            return true;
+        }
+    }
+    else if (i === 5) {
+        if (j === 0 || j === 1 || j === 2 || j === 5 || j === 6 || j === 9 || j === 10) {
+            return true;
+        }
+    }
+    else if (i === 6) {
+        if (j === 0 || j === 5 || j === 10) {
+            return true;
+        }
+    }
+    else if (i === 7) {
+        if (j === 0 || j === 7 || j === 8) {
+            return true;
+        }
+    }
+    else if(i===8){
+        if(j===3){
+            return true;
+        }
+    }
+    else if (i === 10) {
+        if (j === 2 || j === 5 || j === 6 || j === 10) {
+            return true;
+        }
+    }
+    else if (i === 11) {
+        if (j === 5 || j === 6) {
+            return true;
+        }
+    } else {
+        return false;
+    }
+
+}
 
 function findRandomEmptyCell(board) {
     var i = Math.floor((Math.random() * 9) + 1);
@@ -533,36 +588,48 @@ function Draw() {
     context.clearRect(0, 0, canvas.width, canvas.height); //clean board
     lblScore.value = score;
     lblTime.value = time_elapsed;
-    for (var i = 0; i < 10; i++) {
-        for (var j = 0; j < 10; j++) {
+    for (var i = 0; i < 12; i++) {
+        for (var j = 0; j < 12; j++) {
             var center = new Object();
-            center.x = i * 60 + 30;
-            center.y = j * 60 + 30;
+            center.x = i * 30 + 15;
+            center.y = j * 30 + 15;
             if (board[i][j] === 2) {
                 context.beginPath();
-                context.arc(center.x, center.y, 30, 0.15 * Math.PI+angle, 1.85 * Math.PI+angle); // half circle
+                context.arc(center.x, center.y, 15, 0.15 * Math.PI+angle, 1.85 * Math.PI+angle); // half circle
                 context.lineTo(center.x, center.y);
                 context.fillStyle = pac_color; //color
                 context.fill();
                 context.beginPath();
-                context.arc(center.x + a, center.y +b, 5, 0, 2 * Math.PI); // circle
+                context.arc(center.x + a, center.y +b, 2.5, 0, 2 * Math.PI); // circle
                 context.fillStyle = "black"; //color
                 context.fill();
             } else if (board[i][j] === 1) {
                 context.beginPath();
-                context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
-                context.fillStyle = "black"; //color
+                context.arc(center.x, center.y, 7.5, 0, 2 * Math.PI); // circle
+                context.fillStyle = "white"; //color
                 context.fill();
             } else if (board[i][j] === 4) {
                 context.beginPath();
-                context.rect(center.x - 30, center.y - 30, 60, 60);
-                context.fillStyle = "grey"; //color
+                context.rect(center.x - 15, center.y - 15, 30, 30);
+                context.fillStyle = "rgb(19, 4, 99)"; //color
                 context.fill();
             }
         }
     }
+}
 
-
+function roundedRect(x, y, width, height, radius) {
+    context.beginPath();
+    context.moveTo(x, y + radius);
+    context.lineTo(x, y + height - radius);
+    context.arcTo(x, y + height, x + radius, y + height, radius);
+    context.lineTo(x + width - radius, y + height);
+    context.arcTo(x + width, y + height, x + width, y + height - radius, radius);
+    context.lineTo(x + width, y + radius);
+    context.arcTo(x + width, y, x + width - radius, y, radius);
+    context.lineTo(x + radius, y);
+    context.arcTo(x, y, x, y + radius, radius);
+    context.stroke();
 }
 
 function UpdatePosition() {
@@ -572,32 +639,32 @@ function UpdatePosition() {
         if (shape.j > 0 && board[shape.i][shape.j - 1] !== 4) {
             shape.j--;
             angle=0.5*Math.PI*3;
-            a=-15;
-            b=5;
+            a=-7.5;
+            b=2.5;
         }
     }
     if (x === 2) {
-        if (shape.j < 9 && board[shape.i][shape.j + 1] !== 4) {
+        if (shape.j < 11 && board[shape.i][shape.j + 1] !== 4) {
             shape.j++;
             angle=0.5*Math.PI*1;
-            a=-15;
-            b=5;
+            a=-7.5;
+            b=2.5;
         }
     }
     if (x === 3) {
         if (shape.i > 0 && board[shape.i - 1][shape.j] !== 4) {
             shape.i--;
             angle=0.5*Math.PI*2;
-            a=5;
-            b=-15;
+            a=2.5;
+            b=-7.5;
         }
     }
     if (x === 4) {
-        if (shape.i < 9 && board[shape.i + 1][shape.j] !== 4) {
+        if (shape.i < 11 && board[shape.i + 1][shape.j] !== 4) {
             shape.i++;
             angle=0.5*Math.PI*0;
-            a=5;
-            b=-15;
+            a=2.5;
+            b=-7.5;
         }
     }
     if (board[shape.i][shape.j] === 1) {
