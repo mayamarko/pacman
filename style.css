@@ -80,7 +80,7 @@ button:active {
 }
 canvas{
   background-color: transparent;
-  border:2px solid rgb(19, 4, 99);
+  /* border:2px solid rgb(19, 4, 99); */
 }
 #lbl{
   font-family:Verdana, Geneva, Tahoma, sans-serif;

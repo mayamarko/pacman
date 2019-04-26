@@ -11,7 +11,7 @@ var b;
 var angle;
 var col1;
 var col2;
-var col3; 
+var col3;
 var usersContent = new Map(); // map of users by username and password
 var chosenSettings = new Array();
 usersContent.set("a", "a");
@@ -483,15 +483,15 @@ function Start() {
                 //     food_remain--;
                 //     board[i][j] = 1;
                 // }
-                if ((randomNum <= 1.0 * food_remain / cnt)&&fivepoint>0) {
+                if ((randomNum <= 1.0 * food_remain / cnt) && fivepoint > 0) {
                     food_remain--;
                     fivepoint--;
                     board[i][j] = 5;
-                }else if ((randomNum <= 1.0 * food_remain / cnt)&&fifteenpoint>0) {
+                } else if ((randomNum <= 1.0 * food_remain / cnt) && fifteenpoint > 0) {
                     food_remain--;
                     fifteenpoint--;
                     board[i][j] = 6;
-                }else if ((randomNum <= 1.0 * food_remain / cnt)&&twentyfivepoint>0) {
+                } else if ((randomNum <= 1.0 * food_remain / cnt) && twentyfivepoint > 0) {
                     food_remain--;
                     twentyfivepoint--;
                     board[i][j] = 7;
@@ -530,7 +530,7 @@ function Start() {
         twentyfivepoint--;
         food_remain--;
     }
-    if(pacman_remain>0){
+    if (pacman_remain > 0) {
         var emptyCell = findRandomEmptyCell(board);
         shape.i = emptyCell[0];
         shape.j = emptyCell[1];
@@ -642,9 +642,9 @@ function GetKeyPressed() {
 }
 
 function Draw() {
-    col1="green";
-    col2="red";
-    col3="orange";
+    col1 = "green";
+    col2 = "red";
+    col3 = "orange";
     context.clearRect(0, 0, canvas.width, canvas.height); //clean board
     lblScore.value = score;
     lblTime.value = time_elapsed;
@@ -655,7 +655,7 @@ function Draw() {
             center.y = j * 30 + 15;
             if (board[i][j] === 2) {
                 context.beginPath();
-                context.arc(center.x, center.y, 15, 0.15 * Math.PI + angle, 1.85 * Math.PI + angle); // half circle
+                context.arc(center.x, center.y, 13, 0.15 * Math.PI + angle, 1.85 * Math.PI + angle); // half circle
                 context.lineTo(center.x, center.y);
                 context.fillStyle = pac_color; //color
                 context.fill();
@@ -663,21 +663,21 @@ function Draw() {
                 context.arc(center.x + a, center.y + b, 2.5, 0, 2 * Math.PI); // circle
                 context.fillStyle = "black"; //color
                 context.fill();
-            } 
+            }
             // else if (board[i][j] === 1) {
             //     context.beginPath();
             //     context.arc(center.x, center.y, 7.5, 0, 2 * Math.PI); // circle
             //     context.fillStyle = "white"; //color
             //     context.fill();
             // } 
-            else if(board[i][j] === 5){
-                createColBalls(col1, 5, center.x,center.y);
+            else if (board[i][j] === 5) {
+                createColBalls(col1, 5, center.x, center.y);
             }
-            else if(board[i][j] === 6){
-                createColBalls(col2, 15, center.x,center.y);
+            else if (board[i][j] === 6) {
+                createColBalls(col2, 15, center.x, center.y);
             }
-            else if(board[i][j] === 7){
-                createColBalls(col3, 25, center.x,center.y);
+            else if (board[i][j] === 7) {
+                createColBalls(col3, 25, center.x, center.y);
             }
             else if (board[i][j] === 4) {
                 context.beginPath();
@@ -687,20 +687,22 @@ function Draw() {
             }
         }
     }
+    drawOutline();
 }
 
-function createColBalls(colorballs, number, x,y) {
+function createColBalls(colorballs, number, x, y) {
     context.beginPath();
     context.arc(x, y, 7.5, 0, 2 * Math.PI); // circle
     context.fillStyle = colorballs; //color
     context.fill();
     context.fillStyle = "black";
-    if(number===5){
+    if (number === 5) {
         context.fillText(number, x - 3, y + 3);
-    }else{
+    } else {
         context.fillText(number, x - 5.5, y + 3);
     }
 }
+
 function roundedRect(x, y, width, height, radius) {
     context.beginPath();
     context.moveTo(x, y + radius);
@@ -715,28 +717,67 @@ function roundedRect(x, y, width, height, radius) {
     context.stroke();
 }
 
+function drawOutline() {
+    var h = canvas.height;
+    var w = canvas.width;
+    context.beginPath();
+    context.moveTo(0, 0);
+    context.lineTo(0, h / 2 - 29);
+    context.lineTo(90, h / 2 - 29);
+    context.moveTo(90, h / 2);
+    context.lineTo(0, h / 2);
+    context.lineTo(0, h);
+    context.lineTo(w, h);
+    context.lineTo(w, h / 2);
+    context.lineTo(w - 90, h / 2);
+    context.moveTo(w - 90, h / 2 - 29);
+    context.lineTo(w, h / 2 - 29);
+    context.lineTo(w, 0);
+    context.lineTo(0, 0);
+    context.lineWidth = 2;
+    context.lineJoin = "bevel";
+    context.lineCap = "butt";
+    context.strokeStyle = "rgb(19, 4, 99)"
+    context.stroke();
+}
+
 function UpdatePosition() {
     board[shape.i][shape.j] = 0;
     var x = GetKeyPressed();
     if (x === 1) {
         if (shape.j > 0 && board[shape.i][shape.j - 1] !== 4) {
-            shape.j--;
-            angle = 0.5 * Math.PI * 3;
-            a = -7.5;
-            b = 2.5;
+            if ((shape.j === 6||shape.j === 5) && (shape.i === 0 || shape.i === 1 || shape.i === 2 || shape.i === 13 || shape.i === 14 || shape.i === 15)) {
+
+            }
+            else {
+                shape.j--;
+                angle = 0.5 * Math.PI * 3;
+                a = -7.5;
+                b = 2.5;
+            }
         }
     }
     if (x === 2) {
         if (shape.j < 11 && board[shape.i][shape.j + 1] !== 4) {
-            shape.j++;
-            angle = 0.5 * Math.PI * 1;
-            a = -7.5;
-            b = 2.5;
+            if ((shape.j === 4||shape.j === 5) && (shape.i === 0 || shape.i === 1 || shape.i === 2 || shape.i === 13 || shape.i === 14 || shape.i === 15)) {
+
+            } else {
+                shape.j++;
+                angle = 0.5 * Math.PI * 1;
+                a = -7.5;
+                b = 2.5;
+            }
         }
     }
     if (x === 3) {
         if (shape.i > 0 && board[shape.i - 1][shape.j] !== 4) {
             shape.i--;
+            angle = 0.5 * Math.PI * 2;
+            a = 2.5;
+            b = -7.5;
+        }
+        else if(shape.j===5&&shape.i===0){
+            shape.i=15;
             angle = 0.5 * Math.PI * 2;
             a = 2.5;
             b = -7.5;
@@ -749,18 +790,24 @@ function UpdatePosition() {
             a = 2.5;
             b = -7.5;
         }
+        else if(shape.j===5&&shape.i===15){
+            shape.i=0;
+            angle = 0.5 * Math.PI * 0;
+            a = 2.5;
+            b = -7.5;
+        }
     }
     // if (board[shape.i][shape.j] === 1) {
     //     score++;
     // }
     if (board[shape.i][shape.j] === 5) {
-        score+=5;
+        score += 5;
     }
     if (board[shape.i][shape.j] === 6) {
-        score+=15;
+        score += 15;
     }
     if (board[shape.i][shape.j] === 7) {
-        score+=25;
+        score += 25;
     }
     board[shape.i][shape.j] = 2;
     var currentTime = new Date();
