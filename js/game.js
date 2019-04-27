@@ -4,6 +4,7 @@ var board;
 var score;
 var pac_color;
 var start_time;
+var start_time1;
 var time_elapsed;
 var interval;
 var a;
@@ -16,6 +17,7 @@ var usersContent = new Map(); // map of users by username and password
 var chosenSettings = new Array();
 usersContent.set("a", "a");
 var soundTrack;
+var timeLeft=20000;
 
 //Start();
 
@@ -448,6 +450,7 @@ function defaultSett() {
     document.getElementById("color3").value = "yellow";
     document.getElementById("time").value = "60";
     document.getElementById("monsters").value = "3";
+    //timeLeft=60000;
 }
 function resetSett() {
     document.getElementById("up").value = "";
@@ -460,6 +463,7 @@ function resetSett() {
     document.getElementById("color3").value = "";
     document.getElementById("time").value = "";
     document.getElementById("monsters").value = "";
+    //timeLeft=0;
 }
 
 function saveSetings() {
@@ -474,7 +478,7 @@ function saveSetings() {
     chosenSettings.push(document.getElementById("color3").value);
     chosenSettings.push(document.getElementById("time").value);
     chosenSettings.push(document.getElementById("monsters").value);
-
+    //timeLeft=chosenSettings[8]*100;
 }
 
 /**
@@ -497,7 +501,7 @@ function Start() {
     var twentyfivepoint = Math.floor(ballsnums * 0.1);
     var pacman_remain = 1;
     start_time = new Date();
-   
+    start_time1 = new Date();
     for (var i = 0; i < 16; i++) {
         board[i] = new Array();
         //put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
@@ -534,7 +538,13 @@ function Start() {
             }
         }
     }
-    soundTrack.play();
+
+    //************************************ To Open Before Submitting *********************************** */
+    //soundTrack.play();
+  //************************************ To Open Before Submitting *********************************** */
+
+
+
     // while (food_remain > 0) {
     //     var emptyCell = findRandomEmptyCell(board);
     //     board[emptyCell[0]][emptyCell[1]] = 1;
@@ -676,6 +686,7 @@ function Draw() {
     context.clearRect(0, 0, canvas.width, canvas.height); //clean board
     lblScore.value = score;
     lblTime.value = time_elapsed;
+    lblRest.value=timeLeft/1000;
     for (var i = 0; i < 16; i++) {
         for (var j = 0; j < 12; j++) {
             var center = new Object();
@@ -880,7 +891,22 @@ function UpdatePosition() {
     }
     board[shape.i][shape.j] = 2;
     var currentTime = new Date();
-    time_elapsed = (currentTime - start_time) / 1000;
+    time_elapsed = (currentTime - start_time) / 1000; 
+    var delta=(currentTime-start_time1);
+    timeLeft-=delta;
+    start_time1=currentTime;
+    if(timeLeft<=0){
+        timeLeft=0;
+        endGame();
+        if(score<150){
+            // alert("You can do better");
+            // window.clearInterval(interval);
+        }else{
+            alert("We have a Winner!!!");
+           // window.clearInterval(interval);
+        }
+        
+    }
     if (score >= 300 && time_elapsed <= 10) {
         pac_color = "green";
     }
