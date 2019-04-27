@@ -15,7 +15,7 @@ var col3;
 var usersContent = new Map(); // map of users by username and password
 var chosenSettings = new Array();
 usersContent.set("a", "a");
-
+var soundTrack;
 
 //Start();
 
@@ -31,6 +31,7 @@ function setVisibale(div) {
  */
 function PageLoaded() {
     ShowDiv('Welcome');
+    soundTrack = document.getElementById( "soundTrack" );
 }
 
 function ShowDiv(id) {
@@ -46,12 +47,20 @@ function ShowDiv(id) {
     var div5 = document.getElementById('gameArea');
     div5.style.display = "none";
 
+    if (id == 'Welcome') {
+        endMusic(); 
+    }
     if (id == 'login') {
-        resetLogin();
+        resetLogin();  
+    }
+    if (id == 'signin') {
+        resetSignIn();  
     }
     if (id == 'setting') {
         resetSett();
+       endMusic();
     }
+
     //show only one section
     var selected = document.getElementById(id);
     selected.style.display = "block";
@@ -62,6 +71,13 @@ function startGame(users) {
     Start();
 }
 
+function endMusic(){
+ 
+        if(soundTrack &&!soundTrack.paused){
+            soundTrack.pause();
+        soundTrack.currentTime=0.0;
+        }
+}
 /**
  * Modal operation! 
  * Generic function, we can add as many modal as we like!!
@@ -411,6 +427,16 @@ $.validator.addMethod("regexletter", function (value, element) {
 // chosenSettings[3] = event.keyCode;
 // }
 
+
+function resetSignIn(){
+    document.getElementById("username").value = "";
+    document.getElementById("first_name").value = "";
+    document.getElementById("last_name").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("date").value = "";
+    document.getElementById("password").value = "";
+}
+
 function defaultSett() {
     document.getElementById("up").value = "r";
     document.getElementById("down").value = "d";
@@ -471,6 +497,7 @@ function Start() {
     var twentyfivepoint = Math.floor(ballsnums * 0.1);
     var pacman_remain = 1;
     start_time = new Date();
+   
     for (var i = 0; i < 16; i++) {
         board[i] = new Array();
         //put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
@@ -507,6 +534,7 @@ function Start() {
             }
         }
     }
+    soundTrack.play();
     // while (food_remain > 0) {
     //     var emptyCell = findRandomEmptyCell(board);
     //     board[emptyCell[0]][emptyCell[1]] = 1;
@@ -859,7 +887,12 @@ function UpdatePosition() {
     if (score === 400) {
         window.clearInterval(interval);
         window.alert("Game completed");
+        endGame();
     } else {
         Draw();
     }
+}
+
+function endGame(){
+ endMusic();
 }
