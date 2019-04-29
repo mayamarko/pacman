@@ -1,5 +1,10 @@
 var context = canvas.getContext("2d");
 var shape = new Object();
+var ghosts;
+var ghost1 = new Object();
+var ghost2 = new Object();
+var ghost3 = new Object();
+var lastPosGhost=0;
 var board;
 var score;
 var pac_color;
@@ -7,6 +12,7 @@ var start_time;
 var start_time1;
 var time_elapsed;
 var interval;
+var intervalMosters;
 var a;
 var b;
 var angle;
@@ -17,7 +23,9 @@ var usersContent = new Map(); // map of users by username and password
 var chosenSettings = new Array();
 usersContent.set("a", "a");
 var soundTrack;
-var timeLeft=20000;
+var timeLeft = 20000;
+var numGhost = 3; //need to be set at setting!!! ****
+var colors;
 
 //Start();
 
@@ -33,7 +41,7 @@ function setVisibale(div) {
  */
 function PageLoaded() {
     ShowDiv('Welcome');
-    soundTrack = document.getElementById( "soundTrack" );
+    soundTrack = document.getElementById("soundTrack");
 }
 
 function ShowDiv(id) {
@@ -50,17 +58,17 @@ function ShowDiv(id) {
     div5.style.display = "none";
 
     if (id == 'Welcome') {
-        endMusic(); 
+        endMusic();
     }
     if (id == 'login') {
-        resetLogin();  
+        resetLogin();
     }
     if (id == 'signin') {
-        resetSignIn();  
+        resetSignIn();
     }
     if (id == 'setting') {
         resetSett();
-       endMusic();
+        endMusic();
     }
 
     //show only one section
@@ -73,12 +81,12 @@ function startGame(users) {
     Start();
 }
 
-function endMusic(){
- 
-        if(soundTrack &&!soundTrack.paused){
-            soundTrack.pause();
-        soundTrack.currentTime=0.0;
-        }
+function endMusic() {
+
+    if (soundTrack && !soundTrack.paused) {
+        soundTrack.pause();
+        soundTrack.currentTime = 0.0;
+    }
 }
 /**
  * Modal operation! 
@@ -430,7 +438,7 @@ $.validator.addMethod("regexletter", function (value, element) {
 // }
 
 
-function resetSignIn(){
+function resetSignIn() {
     document.getElementById("username").value = "";
     document.getElementById("first_name").value = "";
     document.getElementById("last_name").value = "";
@@ -500,13 +508,33 @@ function Start() {
     var fifteenpoint = Math.floor(ballsnums * 0.3);
     var twentyfivepoint = Math.floor(ballsnums * 0.1);
     var pacman_remain = 1;
+    var numGn = numGhost;
     start_time = new Date();
     start_time1 = new Date();
+    createGhosts();
     for (var i = 0; i < 16; i++) {
         board[i] = new Array();
         //put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
         for (var j = 0; j < 12; j++) {
-            if (obstacles(i, j)) {
+            if (i === 0 && j === 0) {
+                numGn--;
+                board[i][j] = 8;
+                ghosts[0].i = i;
+                ghosts[0].j = j;
+            }
+            else if (numGn > 0 && (i === 0 && j === 11)) {
+                numGn--;
+                board[i][j] = 9;
+                ghosts[1].i = i;
+                ghosts[1].j = j;
+            }
+            else if (numGn > 0 && (i === 15 && j === 0)) {
+                numGn--;
+                board[i][j] = 10;
+                ghosts[2].i = i;
+                ghosts[2].j = j;
+            }
+            else if (obstacles(i, j)) {
                 board[i][j] = 4;
             } else {
                 var randomNum = Math.random();
@@ -541,7 +569,7 @@ function Start() {
 
     //************************************ To Open Before Submitting *********************************** */
     //soundTrack.play();
-  //************************************ To Open Before Submitting *********************************** */
+    //************************************ To Open Before Submitting *********************************** */
 
 
 
@@ -583,6 +611,29 @@ function Start() {
         keysDown[e.code] = false;
     }, false);
     interval = setInterval(UpdatePosition, 250);
+    var g = 1;
+    while (g <= numGhost) {
+        intervalMosters[g - 1] = setInterval(UpdatePositionGhost(g), 1000);
+        g++;
+    }
+}
+
+function createGhosts() {
+    if (numGhost === 1) {
+        colors = new Array("blue");
+        intervalMosters = new Array(0);
+        ghosts = new Array(new Object());
+    }
+    if (numGhost === 2) {
+        colors = new Array("blue", "pink");
+        intervalMosters = new Array(0, 0);
+        ghosts = new Array(new Object(), new Object());
+    }
+    if (numGhost === 3) {
+        colors = new Array("blue", "pink", "purple");
+        intervalMosters = new Array(0, 0, 0);
+        ghosts = new Array(new Object(), new Object(), new Object());
+    }
 }
 
 function obstacles(i, j) {
@@ -686,7 +737,7 @@ function Draw() {
     context.clearRect(0, 0, canvas.width, canvas.height); //clean board
     lblScore.value = score;
     lblTime.value = time_elapsed;
-    lblRest.value=timeLeft/1000;
+    lblRest.value = timeLeft / 1000;
     for (var i = 0; i < 16; i++) {
         for (var j = 0; j < 12; j++) {
             var center = new Object();
@@ -724,26 +775,36 @@ function Draw() {
                 context.fillStyle = "rgb(19, 4, 99)"; //color
                 context.fill();
             }
+            else if (board[i][j] === 8) {
+                drawGhost(1, center.x - 15, center.y + 15);
+            }
+            else if (board[i][j] === 9) {
+                drawGhost(2, center.x - 15, center.y + 15);
+            }
+            else if (board[i][j] === 10) {
+                drawGhost(3, center.x - 15, center.y + 15);
+            }
         }
     }
     drawOutline();
-    // drawGhost(0,30);
 }
 
-function drawGhost(x,y) {
+
+function drawGhost(numOfGhost, x, y) {
+    var colorfill = colors[numOfGhost - 1];
     context.beginPath();
     context.moveTo(x, y);
-    context.lineTo(x, y-14);
-    context.bezierCurveTo(x, y-22, x+6, y-28, x+14, y-28);
-    context.bezierCurveTo(x+22, y-28, x+28, y-22, x+28, y-14);
-    context.lineTo(x+28, y);
-    context.lineTo(x+23.333, y-4.667);
-    context.lineTo(x+18.333, y);
-    context.lineTo(x+14, y-4.667);
-    context.lineTo(x+9.333, y);
-    context.lineTo(x+4.666, y-4.667);
+    context.lineTo(x, y - 14);
+    context.bezierCurveTo(x, y - 22, x + 6, y - 28, x + 14, y - 28);
+    context.bezierCurveTo(x + 22, y - 28, x + 28, y - 22, x + 28, y - 14);
+    context.lineTo(x + 28, y);
+    context.lineTo(x + 23.333, y - 4.667);
+    context.lineTo(x + 18.333, y);
+    context.lineTo(x + 14, y - 4.667);
+    context.lineTo(x + 9.333, y);
+    context.lineTo(x + 4.666, y - 4.667);
     context.lineTo(x, y);
-    context.fillStyle = "white"; //color
+    context.fillStyle = colorfill; //color
     context.fill();
 
     // context.fillStyle = 'white';
@@ -769,6 +830,7 @@ function drawGhost(x,y) {
     // context.arc(89, 102, 2, 0, Math.PI * 2, true);
     // context.fill();
 }
+
 
 function createColBalls(colorballs, number, x, y) {
     context.beginPath();
@@ -826,7 +888,7 @@ function UpdatePosition() {
     var x = GetKeyPressed();
     if (x === 1) {
         if (shape.j > 0 && board[shape.i][shape.j - 1] !== 4) {
-            if ((shape.j === 6||shape.j === 5) && (shape.i === 0 || shape.i === 1 || shape.i === 2 || shape.i === 13 || shape.i === 14 || shape.i === 15)) {
+            if ((shape.j === 6 || shape.j === 5) && (shape.i === 0 || shape.i === 1 || shape.i === 2 || shape.i === 13 || shape.i === 14 || shape.i === 15)) {
 
             }
             else {
@@ -839,7 +901,7 @@ function UpdatePosition() {
     }
     if (x === 2) {
         if (shape.j < 11 && board[shape.i][shape.j + 1] !== 4) {
-            if ((shape.j === 4||shape.j === 5) && (shape.i === 0 || shape.i === 1 || shape.i === 2 || shape.i === 13 || shape.i === 14 || shape.i === 15)) {
+            if ((shape.j === 4 || shape.j === 5) && (shape.i === 0 || shape.i === 1 || shape.i === 2 || shape.i === 13 || shape.i === 14 || shape.i === 15)) {
 
             } else {
                 shape.j++;
@@ -856,8 +918,8 @@ function UpdatePosition() {
             a = 2.5;
             b = -7.5;
         }
-        else if(shape.j===5&&shape.i===0){
-            shape.i=15;
+        else if (shape.j === 5 && shape.i === 0) {
+            shape.i = 15;
             angle = 0.5 * Math.PI * 2;
             a = 2.5;
             b = -7.5;
@@ -870,8 +932,8 @@ function UpdatePosition() {
             a = 2.5;
             b = -7.5;
         }
-        else if(shape.j===5&&shape.i===15){
-            shape.i=0;
+        else if (shape.j === 5 && shape.i === 15) {
+            shape.i = 0;
             angle = 0.5 * Math.PI * 0;
             a = 2.5;
             b = -7.5;
@@ -891,21 +953,21 @@ function UpdatePosition() {
     }
     board[shape.i][shape.j] = 2;
     var currentTime = new Date();
-    time_elapsed = (currentTime - start_time) / 1000; 
-    var delta=(currentTime-start_time1);
-    timeLeft-=delta;
-    start_time1=currentTime;
-    if(timeLeft<=0){
-        timeLeft=0;
+    time_elapsed = (currentTime - start_time) / 1000;
+    var delta = (currentTime - start_time1);
+    timeLeft -= delta;
+    start_time1 = currentTime;
+    if (timeLeft <= 0) {
+        timeLeft = 0;
         endGame();
-        if(score<150){
+        if (score < 150) {
             // alert("You can do better");
             // window.clearInterval(interval);
-        }else{
-            alert("We have a Winner!!!");
-           // window.clearInterval(interval);
+        } else {
+            // alert("We have a Winner!!!");
+            // window.clearInterval(interval);
         }
-        
+
     }
     if (score >= 300 && time_elapsed <= 10) {
         pac_color = "green";
@@ -919,6 +981,74 @@ function UpdatePosition() {
     }
 }
 
-function endGame(){
- endMusic();
+function UpdatePositionGhost(numofGhost) {
+    // var move = chooseMove(numofGhost); //ghost gets the direstion to go
+    var move=0;
+    numofGhost--;
+    board[ghosts[numofGhost].i][ghosts[numofGhost].j] = 0;
+    if (move === 1) {
+        if (ghosts[numofGhost].j > 0 && board[ghosts[numofGhost].i][ghosts[numofGhost].j - 1] !== 4) {
+            if ((ghosts[numofGhost].j === 6 || ghosts[numofGhost].j === 5) && (ghosts[numofGhost].i === 0 || ghosts[numofGhost].i === 1 || ghosts[numofGhost].i === 2 || ghosts[numofGhost].i === 13 || ghosts[numofGhost].i === 14 || ghosts[numofGhost].i === 15)) {
+
+            }
+            else {
+                board[ghosts[numofGhost].i][ghosts[numofGhost].j] = lastPosGhost;
+                ghosts[numofGhost].j--;
+                lastPosGhost = board[ghosts[numofGhost].i][ghosts[numofGhost].j]; //get the number of balls or empty space
+            }
+        }
+    }
+    if (move === 2) {
+        if (ghosts[numofGhost].j < 11 && board[ghosts[numofGhost].i][ghosts[numofGhost].j + 1] !== 4) {
+            if ((ghosts[numofGhost].j === 4 || ghosts[numofGhost].j === 5) && (ghosts[numofGhost].i === 0 || ghosts[numofGhost].i === 1 || ghosts[numofGhost].i === 2 || ghosts[numofGhost].i === 13 || ghosts[numofGhost].i === 14 || ghosts[numofGhost].i === 15)) {
+
+            } else {
+                board[ghosts[numofGhost].i][ghosts[numofGhost].j] = lastPosGhost;
+                ghosts[numofGhost].j++;
+                lastPosGhost = board[ghosts[numofGhost].i][ghosts[numofGhost].j]; //get the number of balls or empty space
+            }
+        }
+    }
+    if (move === 3) {
+        if (ghosts[numofGhost].i > 0 && board[ghosts[numofGhost].i - 1][ghosts[numofGhost].j] !== 4) {
+            board[ghosts[numofGhost].i][ghosts[numofGhost].j] = lastPosGhost;
+            ghosts[numofGhost].i--;
+            lastPosGhost = board[ghosts[numofGhost].i][ghosts[numofGhost].j]; //get the number of balls or empty space
+        }
+        else if (ghosts[numofGhost].j === 5 && ghosts[numofGhost].i === 0) {
+            board[ghosts[numofGhost].i][ghosts[numofGhost].j] = lastPosGhost;
+            ghosts[numofGhost].i = 15;
+            lastPosGhost = board[ghosts[numofGhost].i][ghosts[numofGhost].j]; //get the number of balls or empty space
+        }
+    }
+    if (move === 4) {
+        if (ghosts[numofGhost].i < 15 && board[ghosts[numofGhost].i + 1][ghosts[numofGhost].j] !== 4) {
+            board[ghosts[numofGhost].i][ghosts[numofGhost].j] = lastPosGhost;
+            ghosts[numofGhost].i++;
+            lastPosGhost = board[ghosts[numofGhost].i][ghosts[numofGhost].j]; //get the number of balls or empty space
+        }
+        else if (ghosts[numofGhost].j === 5 && ghosts[numofGhost].i === 15) {
+            board[ghosts[numofGhost].i][ghosts[numofGhost].j] = lastPosGhost;
+            ghosts[numofGhost].i = 0;
+            lastPosGhost = board[ghosts[numofGhost].i][ghosts[numofGhost].j]; //get the number of balls or empty space
+        }
+    }
+    board[ghosts[numofGhost].i][ghosts[numofGhost].j] = numofGhost + 8; //ghost signature
+    if (move === 5) {
+    } else {
+        Draw();
+    }
+}
+function chooseMove(numofGhost) {
+    if (numofGhost === 3) {
+        return 3;
+    }
+    else {
+        return 4;
+    }
+}
+
+
+function endGame() {
+    endMusic();
 }
