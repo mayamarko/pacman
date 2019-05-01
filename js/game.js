@@ -943,6 +943,21 @@ function UpdatePositionGhost(numofGhost) {
     }
 }
 function chooseMove(numofGhost) {
+    var move;
+    var pacCordinationx = shape.i;
+    var pacCordinationy = shape.j;
+    var ghoCordinationx = ghosts[numofGhost].i;
+    var ghoCordinationy = ghosts[numofGhost].j;
+    if (pacCordinationx === ghoCordinationx) {
+        if (pacCordinationy > ghoCordinationy) {
+            if (board[ghoCordinationx][ghoCordinationy + 1] !== 4) {
+                move = 2;
+            }
+            else{
+                var rand=Math.random();
+            }
+        }
+    }
     if (numofGhost === 3) {
         return 3;
     }
