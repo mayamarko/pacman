@@ -153,6 +153,7 @@ $(document).ready(function () {
         rules: {
             username: {
                 required: true,
+                reguser:true,
             },
             date: 'required',
             first_name: {
@@ -194,6 +195,9 @@ $.validator.addMethod("regexp", function (value, element) {
 $.validator.addMethod("regexn", function (value, element) {
     return this.optional(element) || /^[A-Za-z]+$/.test(value);
 }, 'Letters only!');
+$.validator.addMethod("reguser", function (value, element) {
+    return this.optional(element) || !usersContent.has(value);
+}, 'Sorry..Username is taken.');
 function adjust_textarea(h) {
     h.style.height = "20px";
     h.style.height = (h.scrollHeight) + "px";
