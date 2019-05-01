@@ -27,6 +27,7 @@ var timeLeft = 60000;
 var numGhost = 3; //need to be set at setting!!! ****
 var colors;
 var usernameDisplay;
+var lifeRemaining=3;
 
 //Start();
 
@@ -79,7 +80,7 @@ function ShowDiv(id) {
 function startGame() {
     usershow.value = usernameDisplay;
     ShowDiv('gameArea');
-    
+
     Start();
 }
 
@@ -244,52 +245,6 @@ function resetLogin() {
 settings- start
 */
 
-// function checkValidtion(){
-//     submitOk="true";
-//     var up=document.getElementById("up").value;
-//     var down=document.getElementById("down").value;
-//     var left=document.getElementById("left").value;
-//     var right=document.getElementById("right").value;
-//     var ballsNum=document.getElementById("ballsNum").value;
-//     var color1=document.getElementById("color1").value;
-//     var color2=document.getElementById("color2").value;
-//     var color3=document.getElementById("color3").value;
-//     var time=document.getElementById("time").value;
-//     var monsters=document.getElementById("monsters").value;
-//     if(up.length!=1||down.length!=1||left.length!=1||right.length!=1)
-//     {
-//         alert("must be only one key");
-//         submitOk="false";
-//     }
-//     if(isNaN(up)||isNan(down)||isNan(left)||IsNaN(right)||isNaN(color1)||isNaN(color2)||isNan(color3))
-//     {
-//         alert("all fildes must be filled");
-//         submitOk="false";
-//     }
-//     if(ballsNum<50||ballsNum>90)
-//     {
-//         alert("number of balls must be between 50 to 90");
-//         submitOk="false";
-//     }
-//     if(time<60)
-//     {
-//         alert("game duration must be at least 60 min");
-//         submitOk="false";
-//     }
-//     if(monsters<1|monsters>3)
-//     {
-//         alert("number of monsters must be between 1 and 3");
-//         submitOk="false";
-//     }
-//     if(submitOk=="false"){
-//         return false;
-//     }else{
-//         saveSetings();
-//         form.submit();
-//     }
-// }
-
-
 
 $(document).ready(function () {
     $("#SettingsForm").validate({
@@ -365,64 +320,6 @@ $(document).ready(function () {
 $.validator.addMethod("regexletter", function (value, element) {
     return this.optional(element) || /^[a-z]+$/.test(value);
 }, 'Small etters only!');
-
-
-
-// $(document).ready(function () {
-//     $("#SettingsForm").validate({
-//         rules: {
-//             up,down,left,right:{
-//                 required: true,
-// 				 exactlength: 1
-//             },
-//             ballsNum: {
-//                 required: true,
-//                 range: [50,90]
-//             },
-//             color1,color2,color3: {
-//                 required: true,
-//             },        
-//             time: {
-//                 required: true,
-// 				minStrict: 60,
-// 				number: true
-//             },
-// 			 monsters: {
-//                 required: true,
-//                 range: [1,3]
-//             }
-//         },
-//         messages: {
-//             // up:{
-//             //     required: "dir",
-//             //     minlength:"min len"
-//             // } ,
-//             // down:{
-//             //     required: "dir",
-//             //     minlength:"min len"
-//             // } ,           
-//             // time: {
-//             //     required: "Enter a time",
-//             //     minStrict: jQuery.format("Must be grater then {0} min")              
-//             // }
-//         },
-//         highlight: function (element) {
-//             $(element).parent().addClass('error1')
-//         },
-//         unhighlight: function (element) {
-//             $(element).parent().removeClass('error1')
-//         },
-//         errorElement: 'div',
-//         submitHandler: function (form) {
-//             form.submit();
-//             saveSetings();
-//         }
-//     });
-// });
-// function adjust_textarea(h) {
-//     h.style.height = "20px";
-//     h.style.height = (h.scrollHeight) + "px";
-// }
 
 
 // function keyPressedUp(event) {
@@ -1050,6 +947,19 @@ function chooseMove(numofGhost) {
     }
 }
 
+function meetGhost(){
+    if(isHitGhost){
+        lifeRemaining--;
+        score=score-10;
+    }
+    if(lifeRemaining<=0){
+        endGame();
+    }
+}
+function isHitGhost(){
+var px=shape.x;
+var py=shape.py;
+}
 
 function endGame() {
     endMusic();
