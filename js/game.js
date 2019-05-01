@@ -23,9 +23,10 @@ var usersContent = new Map(); // map of users by username and password
 var chosenSettings = new Array();
 usersContent.set("a", "a");
 var soundTrack;
-var timeLeft = 20000;
+var timeLeft = 60000;
 var numGhost = 3; //need to be set at setting!!! ****
 var colors;
+var usernameDisplay;
 
 //Start();
 
@@ -75,9 +76,10 @@ function ShowDiv(id) {
     var selected = document.getElementById(id);
     selected.style.display = "block";
 }
-function startGame(users) {
-    usershow.value = users;
+function startGame() {
+    usershow.value = usernameDisplay;
     ShowDiv('gameArea');
+    
     Start();
 }
 
@@ -207,22 +209,21 @@ function saveData() {
 function isUserExist() {
     var users = document.getElementById("username1").value;
     var pass = document.getElementById("password1").value;
+    usernameDisplay=document.getElementById("username1").value;
     submitOk = "true";
     if (usersContent.has(users)) {
         if (usersContent.get(users) === pass) {
-            //return true;
             alert("hello You logged in");
-            startGame(users);
+           // startGame(users);
+           ShowDiv('setting');
         }
-        else {
-            //return false;
-            alert("hello Your password is incorrect");
+        else {    
+            alert("Your password is incorrect");
             submitOk = "false";
         }
     }
     else {
-        //return false;
-        alert("hello Your username is incorrect");
+        alert("Your username is incorrect");
         submitOk = "false";
     }
     if (submitOk == "false") {
@@ -458,7 +459,7 @@ function defaultSett() {
     document.getElementById("color3").value = "yellow";
     document.getElementById("time").value = "60";
     document.getElementById("monsters").value = "3";
-    //timeLeft=60000;
+    timeLeft=60000;
 }
 function resetSett() {
     document.getElementById("up").value = "";
@@ -471,7 +472,7 @@ function resetSett() {
     document.getElementById("color3").value = "";
     document.getElementById("time").value = "";
     document.getElementById("monsters").value = "";
-    //timeLeft=0;
+    timeLeft=0;
 }
 
 function saveSetings() {
@@ -486,7 +487,8 @@ function saveSetings() {
     chosenSettings.push(document.getElementById("color3").value);
     chosenSettings.push(document.getElementById("time").value);
     chosenSettings.push(document.getElementById("monsters").value);
-    //timeLeft=chosenSettings[8]*100;
+    timeLeft=chosenSettings[8]*1000;
+    startGame();
 }
 
 /**
@@ -503,7 +505,7 @@ function Start() {
     pac_color = "yellow";
     var cnt = 192;
     var food_remain = 50;
-    var ballsnums = 50;
+    var ballsnums = chosenSettings[4];
     var fivepoint = Math.floor(ballsnums * 0.6);
     var fifteenpoint = Math.floor(ballsnums * 0.3);
     var twentyfivepoint = Math.floor(ballsnums * 0.1);
@@ -731,9 +733,9 @@ function GetKeyPressed() {
 }
 
 function Draw() {
-    col1 = "green";
-    col2 = "red";
-    col3 = "orange";
+    col1 = chosenSettings[5];
+    col2 = chosenSettings[6];
+    col3 = chosenSettings[7];
     context.clearRect(0, 0, canvas.width, canvas.height); //clean board
     lblScore.value = score;
     lblTime.value = time_elapsed;
