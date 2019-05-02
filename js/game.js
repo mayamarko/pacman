@@ -4,7 +4,7 @@ var ghosts;
 var ghost1 = new Object();
 var ghost2 = new Object();
 var ghost3 = new Object();
-var lastPosGhost=0;
+var lastPosGhost = new Array();
 var board;
 var score;
 var pac_color;
@@ -27,7 +27,7 @@ var timeLeft = 60000;
 var numGhost = 3; //need to be set at setting!!! ****
 var colors;
 var usernameDisplay;
-var lifeRemaining=3;
+var lifeRemaining = 3;
 
 //Start();
 
@@ -153,7 +153,7 @@ $(document).ready(function () {
         rules: {
             username: {
                 required: true,
-                reguser:true,
+                reguser: true,
             },
             date: 'required',
             first_name: {
@@ -214,15 +214,15 @@ function saveData() {
 function isUserExist() {
     var users = document.getElementById("username1").value;
     var pass = document.getElementById("password1").value;
-    usernameDisplay=document.getElementById("username1").value;
+    usernameDisplay = document.getElementById("username1").value;
     submitOk = "true";
     if (usersContent.has(users)) {
         if (usersContent.get(users) === pass) {
             alert("hello You logged in");
-           // startGame(users);
-           ShowDiv('setting');
+            // startGame(users);
+            ShowDiv('setting');
         }
-        else {    
+        else {
             alert("Your password is incorrect");
             submitOk = "false";
         }
@@ -360,7 +360,7 @@ function defaultSett() {
     document.getElementById("color3").value = "yellow";
     document.getElementById("time").value = "60";
     document.getElementById("monsters").value = "3";
-    timeLeft=60000;
+    timeLeft = 60000;
 }
 function resetSett() {
     document.getElementById("up").value = "";
@@ -373,7 +373,7 @@ function resetSett() {
     document.getElementById("color3").value = "";
     document.getElementById("time").value = "";
     document.getElementById("monsters").value = "";
-    timeLeft=0;
+    timeLeft = 0;
 }
 
 function saveSetings() {
@@ -388,7 +388,7 @@ function saveSetings() {
     chosenSettings.push(document.getElementById("color3").value);
     chosenSettings.push(document.getElementById("time").value);
     chosenSettings.push(document.getElementById("monsters").value);
-    timeLeft=chosenSettings[8]*1000;
+    timeLeft = chosenSettings[8] * 1000;
     startGame();
 }
 
@@ -437,8 +437,8 @@ function Start() {
                 ghosts[2].i = i;
                 ghosts[2].j = j;
             }
-            else if(i==4&& j==0){   //mooving score cherry 
-                board[i][j]=11;
+            else if (i == 4 && j == 0) {   //mooving score cherry 
+                board[i][j] = 11;
             }
             else if (obstacles(i, j)) {
                 board[i][j] = 4;
@@ -476,8 +476,6 @@ function Start() {
     //************************************ To Open Before Submitting *********************************** */
     //soundTrack.play();
     //************************************ To Open Before Submitting *********************************** */
-
-
 
     // while (food_remain > 0) {
     //     var emptyCell = findRandomEmptyCell(board);
@@ -517,10 +515,12 @@ function Start() {
         keysDown[e.code] = false;
     }, false);
     interval = setInterval(UpdatePosition, 250);
-    var g = 1;
-    while (g <= numGhost) {
-        intervalMosters[g - 1] = setInterval(UpdatePositionGhost(g), 1000);
-        g++;
+    intervalMosters[0] = setInterval(chomo1, 2000);
+    if (numGhost > 1) {
+        intervalMosters[1] = setInterval(chomo2, 2000);
+    }
+    if (numGhost > 2) {
+        intervalMosters[2] = setInterval(chomo3, 2000);
     }
 }
 
@@ -529,16 +529,19 @@ function createGhosts() {
         colors = new Array("blue");
         intervalMosters = new Array(0);
         ghosts = new Array(new Object());
+        lastPosGhost = new Array(0);
     }
     if (numGhost === 2) {
         colors = new Array("blue", "pink");
         intervalMosters = new Array(0, 0);
         ghosts = new Array(new Object(), new Object());
+        lastPosGhost = new Array(0, 0);
     }
     if (numGhost === 3) {
         colors = new Array("blue", "pink", "purple");
         intervalMosters = new Array(0, 0, 0);
         ghosts = new Array(new Object(), new Object(), new Object());
+        lastPosGhost = new Array(0, 0, 0);
     }
 }
 
@@ -634,7 +637,7 @@ function GetKeyPressed() {
     if (keysDown['ArrowRight']) {
         return 4;
     }
-   
+
 }
 
 function Draw() {
@@ -645,7 +648,7 @@ function Draw() {
     lblScore.value = score;
     lblTime.value = time_elapsed;
     lblRest.value = timeLeft / 1000;
-    lbllife.value=lifeRemaining;
+    lbllife.value = lifeRemaining;
     for (var i = 0; i < 16; i++) {
         for (var j = 0; j < 12; j++) {
             var center = new Object();
@@ -668,8 +671,8 @@ function Draw() {
             //     context.fillStyle = "white"; //color
             //     context.fill();
             // } 
-            else if(board[i][j]==11){
-                drawCherry(center.x-15,center.y+15,20)
+            else if (board[i][j] == 11) {
+                drawCherry(center.x - 15, center.y + 15, 20)
             }
             else if (board[i][j] === 5) {
                 createColBalls(col1, 5, center.x, center.y);
@@ -862,8 +865,8 @@ function UpdatePosition() {
     if (board[shape.i][shape.j] === 7) {
         score += 25;
     }
-    if(board[shape.i][shape.j]===11){
-        score+=50;
+    if (board[shape.i][shape.j] === 11) {
+        score += 50;
     }
     board[shape.i][shape.j] = 2;
     var currentTime = new Date();
@@ -895,10 +898,8 @@ function UpdatePosition() {
     }
 }
 
-function UpdatePositionGhost(numofGhost) {
-    // var move = chooseMove(numofGhost); //ghost gets the direstion to go
-    var move=0;
-    numofGhost--;
+function UpdatePositionGhost(move, numofGhost) {
+    var isSuc = false;
     board[ghosts[numofGhost].i][ghosts[numofGhost].j] = 0;
     if (move === 1) {
         if (ghosts[numofGhost].j > 0 && board[ghosts[numofGhost].i][ghosts[numofGhost].j - 1] !== 4) {
@@ -906,9 +907,10 @@ function UpdatePositionGhost(numofGhost) {
 
             }
             else {
-                board[ghosts[numofGhost].i][ghosts[numofGhost].j] = lastPosGhost;
+                board[ghosts[numofGhost].i][ghosts[numofGhost].j] = lastPosGhost[numofGhost];
                 ghosts[numofGhost].j--;
-                lastPosGhost = board[ghosts[numofGhost].i][ghosts[numofGhost].j]; //get the number of balls or empty space
+                isSuc = true;
+                lastPosGhost[numofGhost] = board[ghosts[numofGhost].i][ghosts[numofGhost].j]; //get the number of balls or empty space
             }
         }
     }
@@ -917,107 +919,126 @@ function UpdatePositionGhost(numofGhost) {
             if ((ghosts[numofGhost].j === 4 || ghosts[numofGhost].j === 5) && (ghosts[numofGhost].i === 0 || ghosts[numofGhost].i === 1 || ghosts[numofGhost].i === 2 || ghosts[numofGhost].i === 13 || ghosts[numofGhost].i === 14 || ghosts[numofGhost].i === 15)) {
 
             } else {
-                board[ghosts[numofGhost].i][ghosts[numofGhost].j] = lastPosGhost;
+                board[ghosts[numofGhost].i][ghosts[numofGhost].j] = lastPosGhost[numofGhost];
                 ghosts[numofGhost].j++;
-                lastPosGhost = board[ghosts[numofGhost].i][ghosts[numofGhost].j]; //get the number of balls or empty space
+                isSuc = true;
+                lastPosGhost[numofGhost] = board[ghosts[numofGhost].i][ghosts[numofGhost].j]; //get the number of balls or empty space
             }
         }
     }
     if (move === 3) {
         if (ghosts[numofGhost].i > 0 && board[ghosts[numofGhost].i - 1][ghosts[numofGhost].j] !== 4) {
-            board[ghosts[numofGhost].i][ghosts[numofGhost].j] = lastPosGhost;
+            board[ghosts[numofGhost].i][ghosts[numofGhost].j] = lastPosGhost[numofGhost];
             ghosts[numofGhost].i--;
-            lastPosGhost = board[ghosts[numofGhost].i][ghosts[numofGhost].j]; //get the number of balls or empty space
+            isSuc = true;
+            lastPosGhost[numofGhost] = board[ghosts[numofGhost].i][ghosts[numofGhost].j]; //get the number of balls or empty space
         }
         else if (ghosts[numofGhost].j === 5 && ghosts[numofGhost].i === 0) {
-            board[ghosts[numofGhost].i][ghosts[numofGhost].j] = lastPosGhost;
+            board[ghosts[numofGhost].i][ghosts[numofGhost].j] = lastPosGhost[numofGhost];
             ghosts[numofGhost].i = 15;
-            lastPosGhost = board[ghosts[numofGhost].i][ghosts[numofGhost].j]; //get the number of balls or empty space
+            isSuc = true;
+            lastPosGhost[numofGhost] = board[ghosts[numofGhost].i][ghosts[numofGhost].j]; //get the number of balls or empty space
         }
     }
     if (move === 4) {
         if (ghosts[numofGhost].i < 15 && board[ghosts[numofGhost].i + 1][ghosts[numofGhost].j] !== 4) {
-            board[ghosts[numofGhost].i][ghosts[numofGhost].j] = lastPosGhost;
+            board[ghosts[numofGhost].i][ghosts[numofGhost].j] = lastPosGhost[numofGhost];
             ghosts[numofGhost].i++;
-            lastPosGhost = board[ghosts[numofGhost].i][ghosts[numofGhost].j]; //get the number of balls or empty space
+            isSuc = true;
+            lastPosGhost[numofGhost] = board[ghosts[numofGhost].i][ghosts[numofGhost].j]; //get the number of balls or empty space
         }
         else if (ghosts[numofGhost].j === 5 && ghosts[numofGhost].i === 15) {
-            board[ghosts[numofGhost].i][ghosts[numofGhost].j] = lastPosGhost;
+            board[ghosts[numofGhost].i][ghosts[numofGhost].j] = lastPosGhost[numofGhost];
             ghosts[numofGhost].i = 0;
-            lastPosGhost = board[ghosts[numofGhost].i][ghosts[numofGhost].j]; //get the number of balls or empty space
+            isSuc = true;
+            lastPosGhost[numofGhost] = board[ghosts[numofGhost].i][ghosts[numofGhost].j]; //get the number of balls or empty space
         }
     }
-    board[ghosts[numofGhost].i][ghosts[numofGhost].j] = numofGhost + 8; //ghost signature
-    if (move === 5) {
-    } else {
+    if (isSuc) {
+        board[ghosts[numofGhost].i][ghosts[numofGhost].j] = numofGhost + 8; //ghost signature
         Draw();
     }
+    return isSuc;
 }
+
+function chomo1() {
+    chooseMove(0);
+}
+function chomo2() {
+    chooseMove(1);
+}
+function chomo3() {
+    chooseMove(2);
+}
+
 function chooseMove(numofGhost) {
-    var move;
     var pacCordinationx = shape.i;
     var pacCordinationy = shape.j;
     var ghoCordinationx = ghosts[numofGhost].i;
     var ghoCordinationy = ghosts[numofGhost].j;
-    if (pacCordinationx === ghoCordinationx) {
-        if (pacCordinationy > ghoCordinationy) {
-            if (board[ghoCordinationx][ghoCordinationy + 1] !== 4) {
-                move = 2;
-            }
-            else{
-                var rand=Math.random();
-            }
-        }
+    console.log(numofGhost, ghoCordinationx, ghoCordinationy);
+    var up = new Array(1, distance(pacCordinationx, pacCordinationy, ghoCordinationx, ghoCordinationy - 1));
+    var down = new Array(2, distance(pacCordinationx, pacCordinationy, ghoCordinationx, ghoCordinationy + 1));
+    var left = new Array(3, distance(pacCordinationx, pacCordinationy, ghoCordinationx - 1, ghoCordinationy));
+    var right = new Array(4, distance(pacCordinationx, pacCordinationy, ghoCordinationx + 1, ghoCordinationy));
+    var ary = new Array(up, down, left, right);
+    ary.sort(function (a, b) { return a[1] - b[1] });
+    var isSuc = false;
+    var tmp = 0;
+    while (!isSuc) {
+        isSuc = UpdatePositionGhost(ary[tmp][0], numofGhost);
+        tmp++;
     }
-    if (numofGhost === 3) {
-        return 3;
-    }
-    else {
-        return 4;
-    }
+
 }
 
-function meetGhost(){
-    if(isHitGhost){
+function distance(x, y, xp, yp) {
+    var dist = Math.pow(Math.abs(x - xp), 2) + Math.pow(Math.abs(y - yp), 2);
+    return Math.sqrt(dist);
+}
+
+
+function meetGhost() {
+    if (isHitGhost) {
         lifeRemaining--;
-        score=score-10;
+        score = score - 10;
     }
-    if(lifeRemaining<=0){
+    if (lifeRemaining <= 0) {
         endGame();
     }
 }
-function isHitGhost(){
-var px=shape.x;
-var py=shape.py;
+function isHitGhost() {
+    var px = shape.x;
+    var py = shape.y;
 }
 
-function drawCherry(x,y,size){
-    
+function drawCherry(x, y, size) {
+
     context.moveTo(x - (size / 2), y - (size / 2) + 1)
     context.beginPath();
     context.fillStyle = "#ff0000";
-	context.arc(size / 8, size - (size / 2.8), size / 4, Math.PI * 2, -Math.PI * 2, true);
-	context.arc(size - size / 3, size - (size / 4), size / 4, Math.PI * 2, -Math.PI * 2, true);
-	context.fill();
-	context.closePath();
-	context.beginPath();
-	context.fillStyle = "#670303";
-	context.arc(size / 7.2, size - (size / 2.25), size / 14, Math.PI * 2, -Math.PI * 2, true);
-	context.arc(size - size / 3, size - (size / 3), size / 14, Math.PI * 2, -Math.PI * 2, true);
-	context.fill();
-	context.closePath();
-	context.beginPath();
-	context.strokeStyle = "#959817";
-	context.lineWidth = 2;
-	context.moveTo(size / 8, size - (size / 2));
-	context.bezierCurveTo(size / 6, size / 1.5, size / 7, size / 4, size - size / 4, size / 8);
-	context.moveTo(size - size / 2.5, size - size / 3);
-	context.bezierCurveTo(size / 1.3, size / 1.5, size / 3, size / 2.5, size - size / 4, size / 8);
-	context.stroke();
-	context.closePath();
-	context.fillStyle = "#959817";
-	context.fillRect(size - size / 3, size / 12, size / 9, size / 9);
-	context.closePath();
+    context.arc(size / 8, size - (size / 2.8), size / 4, Math.PI * 2, -Math.PI * 2, true);
+    context.arc(size - size / 3, size - (size / 4), size / 4, Math.PI * 2, -Math.PI * 2, true);
+    context.fill();
+    context.closePath();
+    context.beginPath();
+    context.fillStyle = "#670303";
+    context.arc(size / 7.2, size - (size / 2.25), size / 14, Math.PI * 2, -Math.PI * 2, true);
+    context.arc(size - size / 3, size - (size / 3), size / 14, Math.PI * 2, -Math.PI * 2, true);
+    context.fill();
+    context.closePath();
+    context.beginPath();
+    context.strokeStyle = "#959817";
+    context.lineWidth = 2;
+    context.moveTo(size / 8, size - (size / 2));
+    context.bezierCurveTo(size / 6, size / 1.5, size / 7, size / 4, size - size / 4, size / 8);
+    context.moveTo(size - size / 2.5, size - size / 3);
+    context.bezierCurveTo(size / 1.3, size / 1.5, size / 3, size / 2.5, size - size / 4, size / 8);
+    context.stroke();
+    context.closePath();
+    context.fillStyle = "#959817";
+    context.fillRect(size - size / 3, size / 12, size / 9, size / 9);
+    context.closePath();
 }
 
 function endGame() {
