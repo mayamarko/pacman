@@ -437,6 +437,9 @@ function Start() {
                 ghosts[2].i = i;
                 ghosts[2].j = j;
             }
+            else if(i==4&& j==0){   //mooving score cherry 
+                board[i][j]=11;
+            }
             else if (obstacles(i, j)) {
                 board[i][j] = 4;
             } else {
@@ -631,6 +634,7 @@ function GetKeyPressed() {
     if (keysDown['ArrowRight']) {
         return 4;
     }
+   
 }
 
 function Draw() {
@@ -641,6 +645,7 @@ function Draw() {
     lblScore.value = score;
     lblTime.value = time_elapsed;
     lblRest.value = timeLeft / 1000;
+    lbllife.value=lifeRemaining;
     for (var i = 0; i < 16; i++) {
         for (var j = 0; j < 12; j++) {
             var center = new Object();
@@ -663,6 +668,9 @@ function Draw() {
             //     context.fillStyle = "white"; //color
             //     context.fill();
             // } 
+            else if(board[i][j]==11){
+                drawCherry(center.x-15,center.y+15,20)
+            }
             else if (board[i][j] === 5) {
                 createColBalls(col1, 5, center.x, center.y);
             }
@@ -854,6 +862,9 @@ function UpdatePosition() {
     if (board[shape.i][shape.j] === 7) {
         score += 25;
     }
+    if(board[shape.i][shape.j]===11){
+        score+=50;
+    }
     board[shape.i][shape.j] = 2;
     var currentTime = new Date();
     time_elapsed = (currentTime - start_time) / 1000;
@@ -978,6 +989,35 @@ function meetGhost(){
 function isHitGhost(){
 var px=shape.x;
 var py=shape.py;
+}
+
+function drawCherry(x,y,size){
+    
+    context.moveTo(x - (size / 2), y - (size / 2) + 1)
+    context.beginPath();
+    context.fillStyle = "#ff0000";
+	context.arc(size / 8, size - (size / 2.8), size / 4, Math.PI * 2, -Math.PI * 2, true);
+	context.arc(size - size / 3, size - (size / 4), size / 4, Math.PI * 2, -Math.PI * 2, true);
+	context.fill();
+	context.closePath();
+	context.beginPath();
+	context.fillStyle = "#670303";
+	context.arc(size / 7.2, size - (size / 2.25), size / 14, Math.PI * 2, -Math.PI * 2, true);
+	context.arc(size - size / 3, size - (size / 3), size / 14, Math.PI * 2, -Math.PI * 2, true);
+	context.fill();
+	context.closePath();
+	context.beginPath();
+	context.strokeStyle = "#959817";
+	context.lineWidth = 2;
+	context.moveTo(size / 8, size - (size / 2));
+	context.bezierCurveTo(size / 6, size / 1.5, size / 7, size / 4, size - size / 4, size / 8);
+	context.moveTo(size - size / 2.5, size - size / 3);
+	context.bezierCurveTo(size / 1.3, size / 1.5, size / 3, size / 2.5, size - size / 4, size / 8);
+	context.stroke();
+	context.closePath();
+	context.fillStyle = "#959817";
+	context.fillRect(size - size / 3, size / 12, size / 9, size / 9);
+	context.closePath();
 }
 
 function endGame() {
