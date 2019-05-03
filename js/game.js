@@ -5,6 +5,7 @@ var ghost1 = new Object();
 var ghost2 = new Object();
 var ghost3 = new Object();
 var lastPosGhost = new Array();
+var cherry=new Object();
 var board;
 var score;
 var pac_color;
@@ -13,6 +14,7 @@ var start_time1;
 var time_elapsed;
 var interval;
 var intervalMosters;
+var intervalCherry;
 var a;
 var b;
 var angle;
@@ -218,7 +220,7 @@ function isUserExist() {
     submitOk = "true";
     if (usersContent.has(users)) {
         if (usersContent.get(users) === pass) {
-            alert("hello You logged in");
+        //    alert("hello You logged in");
             // startGame(users);
             ShowDiv('setting');
         }
@@ -437,8 +439,10 @@ function Start() {
                 ghosts[2].i = i;
                 ghosts[2].j = j;
             }
-            else if (i == 4 && j == 0) {   //mooving score cherry 
+            else if (i == 15 && j == 11) {   //mooving score cherry 
                 board[i][j] = 11;
+                cherry.i=i;
+                cherry.j=j;
             }
             else if (obstacles(i, j)) {
                 board[i][j] = 4;
@@ -522,6 +526,7 @@ function Start() {
     if (numGhost > 2) {
         intervalMosters[2] = setInterval(chomo3, 2000);
     }
+    intervalCherry=setInterval(UpdatePositionCherry,2000)
 }
 
 function createGhosts() {
@@ -672,7 +677,7 @@ function Draw() {
             //     context.fill();
             // } 
             else if (board[i][j] == 11) {
-                drawCherry(center.x - 15, center.y + 15, 20)
+                drawCherry(center.x - 10, center.y+5, 20)
             }
             else if (board[i][j] === 5) {
                 createColBalls(col1, 5, center.x, center.y);
@@ -1014,32 +1019,112 @@ function isHitGhost() {
 
 function drawCherry(x, y, size) {
 
-    context.moveTo(x - (size / 2), y - (size / 2) + 1)
     context.beginPath();
+   // context.moveTo(x,y);
     context.fillStyle = "#ff0000";
-    context.arc(size / 8, size - (size / 2.8), size / 4, Math.PI * 2, -Math.PI * 2, true);
-    context.arc(size - size / 3, size - (size / 4), size / 4, Math.PI * 2, -Math.PI * 2, true);
-    context.fill();
+    context.arc(x, y, 6, 0, 2 * Math.PI,-2 * Math.PI,true);
+    context.moveTo(x+17,y);
+    context.arc(x+12, y, 6, 0, 2 * Math.PI,-2 * Math.PI,true);
+    context.fill()
     context.closePath();
+    context.stroke();
     context.beginPath();
     context.fillStyle = "#670303";
-    context.arc(size / 7.2, size - (size / 2.25), size / 14, Math.PI * 2, -Math.PI * 2, true);
-    context.arc(size - size / 3, size - (size / 3), size / 14, Math.PI * 2, -Math.PI * 2, true);
-    context.fill();
+    context.arc(x, y-3.5, 2, Math.PI * 2, -Math.PI * 2, true);
+    context.arc(x+12, y-3.5, 2, Math.PI * 2, -Math.PI * 2, true);
+    context.fill()
     context.closePath();
     context.beginPath();
     context.strokeStyle = "#959817";
-    context.lineWidth = 2;
-    context.moveTo(size / 8, size - (size / 2));
-    context.bezierCurveTo(size / 6, size / 1.5, size / 7, size / 4, size - size / 4, size / 8);
-    context.moveTo(size - size / 2.5, size - size / 3);
-    context.bezierCurveTo(size / 1.3, size / 1.5, size / 3, size / 2.5, size - size / 4, size / 8);
+    context.lineWidth = 4;
+    context.moveTo(x,y-8);
+    context.bezierCurveTo(x+8, y-10, x-10, y-30, x+20,y-15);
+    context.moveTo(x+12,y-8);
+    context.bezierCurveTo(x+8, y-15, x-10, y-30, x+20, y-15);
     context.stroke();
     context.closePath();
     context.fillStyle = "#959817";
+    // ctx.fillRect(120, 180, 50, 50);
+    // ctx.closePath();
     context.fillRect(size - size / 3, size / 12, size / 9, size / 9);
     context.closePath();
 }
+
+function UpdatePositionCherry(){
+    var i=cherry.i;
+    var j=cherry.j;
+    var rand=Math.floor(Math.random() * 4) + 1 ;
+    var bool=true;
+    while(bool){
+        rand=Math.floor(Math.random() * 4) + 1;
+        if(rand==1){
+            if(i+1>=0&&i+1<=15&&board[i+1][j]!==4){
+                board[i+1][j]=11;
+                board[i][j]=0;
+                cherry.i=i+1;
+                bool=false; 
+            }
+            
+        } 
+        else if(rand==2){
+            if(i-1>=0&&i-1<=15&&board[i-1][j]!==4){
+                board[i-1][j]=11;
+                board[i][j]=0;
+                cherry.i=i-1;
+                bool=false; 
+            }
+            
+        }
+        else if(rand==3){
+            if(j-1>=0&&j-1<=11&&board[i][j-1]!==4){
+                board[i][j-1]=11;
+                board[i][j]=0;
+                cherry.j=j-1;
+                bool=false;
+            }
+           
+        }    
+        else if(rand==4){
+            if(j+1>=0&&j+1<=11&&board[i][j+1]!==4){
+                board[i][j+1]=11;
+                board[i][j]=0;
+                cherry.j=j+1;
+                bool=false; 
+            }
+            
+        }
+    }
+    Draw();
+}
+
+// function drawCherry(x, y, size) {
+
+//     context.moveTo(x - (size / 2), y - (size / 2) + 1)
+//     context.beginPath();
+//     context.fillStyle = "#ff0000";
+//     context.arc(size / 8, size - (size / 2.8), size / 4, Math.PI * 2, -Math.PI * 2, true);
+//     context.arc(size - size / 3, size - (size / 4), size / 4, Math.PI * 2, -Math.PI * 2, true);
+//     context.fill();
+//     context.closePath();
+//     context.beginPath();
+//     context.fillStyle = "#670303";
+//     context.arc(size / 7.2, size - (size / 2.25), size / 14, Math.PI * 2, -Math.PI * 2, true);
+//     context.arc(size - size / 3, size - (size / 3), size / 14, Math.PI * 2, -Math.PI * 2, true);
+//     context.fill();
+//     context.closePath();
+//     context.beginPath();
+//     context.strokeStyle = "#959817";
+//     context.lineWidth = 2;
+//     context.moveTo(size / 8, size - (size / 2));
+//     context.bezierCurveTo(size / 6, size / 1.5, size / 7, size / 4, size - size / 4, size / 8);
+//     context.moveTo(size - size / 2.5, size - size / 3);
+//     context.bezierCurveTo(size / 1.3, size / 1.5, size / 3, size / 2.5, size - size / 4, size / 8);
+//     context.stroke();
+//     context.closePath();
+//     context.fillStyle = "#959817";
+//     context.fillRect(size - size / 3, size / 12, size / 9, size / 9);
+//     context.closePath();
+// }
 
 function endGame() {
     endMusic();
