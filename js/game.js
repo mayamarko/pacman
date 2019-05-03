@@ -526,7 +526,7 @@ function Start() {
     if (numGhost > 2) {
         intervalMosters[2] = setInterval(chomo3, 2000);
     }
-    intervalCherry=setInterval(UpdatePositionCherry,2000)
+    intervalCherry=setInterval(UpdatePositionCherry,2000);
 }
 
 function createGhosts() {
