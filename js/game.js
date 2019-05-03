@@ -705,6 +705,8 @@ function Draw() {
 
 
 function drawGhost(numOfGhost, x, y) {
+    var i=0;
+    var j=0;
     var colorfill = colors[numOfGhost - 1];
     context.beginPath();
     context.moveTo(x, y);
@@ -720,29 +722,30 @@ function drawGhost(numOfGhost, x, y) {
     context.lineTo(x, y);
     context.fillStyle = colorfill; //color
     context.fill();
+    
+    //eyes
+    context.fillStyle = 'white';
+    context.beginPath();
+    context.moveTo(x+8, y-20);
+    context.bezierCurveTo(x+5, y-20, x+4, y-17, x+4, y-15);
+    context.bezierCurveTo(x+4, y-13, x+5, y-10, x+8, y-10);
+    context.bezierCurveTo(x+11, y-10, x+12, y-13, x+12, y-15);
+    context.bezierCurveTo(x+12, y-17, x+11, y-20, x+8, y-20);
+    context.moveTo(x+20, y-20);
+    context.bezierCurveTo(x+17, y-20, x+16, y-17, x+16, y-15);
+    context.bezierCurveTo(x+16, y-13, x+17, y-10, x+20, y-10);
+    context.bezierCurveTo(x+23, y-10, x+24, y-13, x+24, y-15);
+    context.bezierCurveTo(x+24, y-17, x+23, y-20, x+20, y-20);
+    context.fill();
 
-    // context.fillStyle = 'white';
-    // context.beginPath();
-    // context.moveTo(91, 96);
-    // context.bezierCurveTo(88, 96, 87, 99, 87, 101);
-    // context.bezierCurveTo(87, 103, 88, 106, 91, 106);
-    // context.bezierCurveTo(94, 106, 95, 103, 95, 101);
-    // context.bezierCurveTo(95, 99, 94, 96, 91, 96);
-    // context.moveTo(103, 96);
-    // context.bezierCurveTo(100, 96, 99, 99, 99, 101);
-    // context.bezierCurveTo(99, 103, 100, 106, 103, 106);
-    // context.bezierCurveTo(106, 106, 107, 103, 107, 101);
-    // context.bezierCurveTo(107, 99, 106, 96, 103, 96);
-    // context.fill();
+    context.fillStyle = 'black';
+    context.beginPath();
+    context.arc(x+18+i, y-14+j, 2, 0, Math.PI * 2, true);
+    context.fill();
 
-    // context.fillStyle = 'black';
-    // context.beginPath();
-    // context.arc(101, 102, 2, 0, Math.PI * 2, true);
-    // context.fill();
-
-    // context.beginPath();
-    // context.arc(89, 102, 2, 0, Math.PI * 2, true);
-    // context.fill();
+    context.beginPath();
+    context.arc(x+6+i, y-14+j, 2, 0, Math.PI * 2, true);
+    context.fill();
 }
 
 
@@ -906,6 +909,9 @@ function UpdatePositionGhost(move, numofGhost) {
             if ((ghosts[numofGhost].j === 6 || ghosts[numofGhost].j === 5) && (ghosts[numofGhost].i === 0 || ghosts[numofGhost].i === 1 || ghosts[numofGhost].i === 2 || ghosts[numofGhost].i === 13 || ghosts[numofGhost].i === 14 || ghosts[numofGhost].i === 15)) {
 
             }
+            else if (isHitGhostGhost(numofGhost, ghosts[numofGhost].i, ghosts[numofGhost].j - 1)) {
+                isSuc = false;
+            }
             else {
                 board[ghosts[numofGhost].i][ghosts[numofGhost].j] = lastPosGhost[numofGhost];
                 ghosts[numofGhost].j--;
@@ -918,6 +924,9 @@ function UpdatePositionGhost(move, numofGhost) {
         if (ghosts[numofGhost].j < 11 && board[ghosts[numofGhost].i][ghosts[numofGhost].j + 1] !== 4) {
             if ((ghosts[numofGhost].j === 4 || ghosts[numofGhost].j === 5) && (ghosts[numofGhost].i === 0 || ghosts[numofGhost].i === 1 || ghosts[numofGhost].i === 2 || ghosts[numofGhost].i === 13 || ghosts[numofGhost].i === 14 || ghosts[numofGhost].i === 15)) {
 
+            }
+            else if (isHitGhostGhost(numofGhost, ghosts[numofGhost].i, ghosts[numofGhost].j + 1)) {
+                isSuc = false;
             } else {
                 board[ghosts[numofGhost].i][ghosts[numofGhost].j] = lastPosGhost[numofGhost];
                 ghosts[numofGhost].j++;
@@ -928,30 +937,46 @@ function UpdatePositionGhost(move, numofGhost) {
     }
     if (move === 3) {
         if (ghosts[numofGhost].i > 0 && board[ghosts[numofGhost].i - 1][ghosts[numofGhost].j] !== 4) {
-            board[ghosts[numofGhost].i][ghosts[numofGhost].j] = lastPosGhost[numofGhost];
-            ghosts[numofGhost].i--;
-            isSuc = true;
-            lastPosGhost[numofGhost] = board[ghosts[numofGhost].i][ghosts[numofGhost].j]; //get the number of balls or empty space
+            if (isHitGhostGhost(numofGhost, ghosts[numofGhost].i - 1, ghosts[numofGhost].j)) {
+                isSuc = false;
+            } else {
+                board[ghosts[numofGhost].i][ghosts[numofGhost].j] = lastPosGhost[numofGhost];
+                ghosts[numofGhost].i--;
+                isSuc = true;
+                lastPosGhost[numofGhost] = board[ghosts[numofGhost].i][ghosts[numofGhost].j]; //get the number of balls or empty space
+            }
         }
         else if (ghosts[numofGhost].j === 5 && ghosts[numofGhost].i === 0) {
-            board[ghosts[numofGhost].i][ghosts[numofGhost].j] = lastPosGhost[numofGhost];
-            ghosts[numofGhost].i = 15;
-            isSuc = true;
-            lastPosGhost[numofGhost] = board[ghosts[numofGhost].i][ghosts[numofGhost].j]; //get the number of balls or empty space
+            if (isHitGhostGhost(numofGhost, 15, ghosts[numofGhost].j)) {
+                isSuc = false;
+            } else {
+                board[ghosts[numofGhost].i][ghosts[numofGhost].j] = lastPosGhost[numofGhost];
+                ghosts[numofGhost].i = 15;
+                isSuc = true;
+                lastPosGhost[numofGhost] = board[ghosts[numofGhost].i][ghosts[numofGhost].j]; //get the number of balls or empty space
+            }
         }
     }
     if (move === 4) {
         if (ghosts[numofGhost].i < 15 && board[ghosts[numofGhost].i + 1][ghosts[numofGhost].j] !== 4) {
-            board[ghosts[numofGhost].i][ghosts[numofGhost].j] = lastPosGhost[numofGhost];
-            ghosts[numofGhost].i++;
-            isSuc = true;
-            lastPosGhost[numofGhost] = board[ghosts[numofGhost].i][ghosts[numofGhost].j]; //get the number of balls or empty space
+            if (isHitGhostGhost(numofGhost, ghosts[numofGhost].i + 1, ghosts[numofGhost].j)) {
+                isSuc = false;
+            } else {
+                board[ghosts[numofGhost].i][ghosts[numofGhost].j] = lastPosGhost[numofGhost];
+                ghosts[numofGhost].i++;
+                isSuc = true;
+                lastPosGhost[numofGhost] = board[ghosts[numofGhost].i][ghosts[numofGhost].j]; //get the number of balls or empty space
+            }
         }
         else if (ghosts[numofGhost].j === 5 && ghosts[numofGhost].i === 15) {
-            board[ghosts[numofGhost].i][ghosts[numofGhost].j] = lastPosGhost[numofGhost];
-            ghosts[numofGhost].i = 0;
-            isSuc = true;
-            lastPosGhost[numofGhost] = board[ghosts[numofGhost].i][ghosts[numofGhost].j]; //get the number of balls or empty space
+            if (isHitGhostGhost(numofGhost, 0, ghosts[numofGhost].j)) {
+                isSuc = false;
+            } else {
+                board[ghosts[numofGhost].i][ghosts[numofGhost].j] = lastPosGhost[numofGhost];
+                ghosts[numofGhost].i = 0;
+                isSuc = true;
+                lastPosGhost[numofGhost] = board[ghosts[numofGhost].i][ghosts[numofGhost].j]; //get the number of balls or empty space
+            }
         }
     }
     if (isSuc) {
@@ -976,7 +1001,6 @@ function chooseMove(numofGhost) {
     var pacCordinationy = shape.j;
     var ghoCordinationx = ghosts[numofGhost].i;
     var ghoCordinationy = ghosts[numofGhost].j;
-    console.log(numofGhost, ghoCordinationx, ghoCordinationy);
     var up = new Array(1, distance(pacCordinationx, pacCordinationy, ghoCordinationx, ghoCordinationy - 1));
     var down = new Array(2, distance(pacCordinationx, pacCordinationy, ghoCordinationx, ghoCordinationy + 1));
     var left = new Array(3, distance(pacCordinationx, pacCordinationy, ghoCordinationx - 1, ghoCordinationy));
@@ -985,11 +1009,11 @@ function chooseMove(numofGhost) {
     ary.sort(function (a, b) { return a[1] - b[1] });
     var isSuc = false;
     var tmp = 0;
-    while (!isSuc) {
+    while (!isSuc&&tmp<4) {
         isSuc = UpdatePositionGhost(ary[tmp][0], numofGhost);
         tmp++;
     }
-
+    meetGhost();
 }
 
 function distance(x, y, xp, yp) {
@@ -998,18 +1022,78 @@ function distance(x, y, xp, yp) {
 }
 
 
+function setRandomPac() {
+    board[shape.i][shape.j] = 0;
+    var emptyCell = findRandomEmptyCell(board);
+    while(emptyCell[0]===shape.i&&emptyCell[1]===shape.j){
+        emptyCell = findRandomEmptyCell(board);
+    }
+    shape.i = emptyCell[0];
+    shape.j = emptyCell[1];
+    board[emptyCell[0]][emptyCell[1]] = 2;
+}
+
 function meetGhost() {
-    if (isHitGhost) {
+    if (isHitGhost()) {
         lifeRemaining--;
         score = score - 10;
+        setRandomPac();
+        Draw();
     }
     if (lifeRemaining <= 0) {
         endGame();
     }
 }
 function isHitGhost() {
-    var px = shape.x;
-    var py = shape.y;
+    var px = shape.i;
+    var py = shape.j;
+    var g1x = ghosts[0].i;
+    var g1y = ghosts[0].j;
+    if (px === g1x && py === g1y) {
+        ghosts[0].i=0;
+        ghosts[0].j=0;
+        board[0][0]=8;
+        lastPosGhost[0]=0;
+        return true;
+    }
+    if (numGhost > 1) {
+        var g2x = ghosts[1].i;
+        var g2y = ghosts[1].j;
+        if (px === g2x && py === g2y) {
+            ghosts[1].i=0;
+            ghosts[1].j=11;
+            board[0][11]=9;
+            lastPosGhost[1]=0;
+            return true;
+        }
+    }
+    if (numGhost > 2) {
+        var g3x = ghosts[2].i;
+        var g3y = ghosts[2].j;
+        if (px === g3x && py === g3y) {
+            ghosts[2].i=15;
+            ghosts[2].j=0;
+            board[15][0]=10;
+            lastPosGhost[2]=0;
+            return true;
+        }
+    }
+    return false;
+}
+function isHitGhostGhost(numOfGhost,x,y) {
+    var g1x = x;
+    var g1y = y;
+    for (var i = 0; i < numGhost; i++) {
+        if (i === numOfGhost) {
+            continue;
+        }
+        var gx = ghosts[i].i;
+        var gy = ghosts[i].j;
+        if (gx === g1x && gy === g1y) {
+            return true;
+        }
+    }
+    return false;
 }
 
 function drawCherry(x, y, size) {
