@@ -31,6 +31,7 @@ var numGhost; //need to be set at setting!!! ****
 var colors;
 var usernameDisplay;
 var lifeRemaining = 3;
+var lastPosChherry=0;
 
 //Start();
 
@@ -1138,8 +1139,17 @@ function isHitGhostGhost(numOfGhost, x, y) {
     return false;
 }
 
-function drawCherry(x, y, size) {
+function isHitCherry(){
+    var px = shape.i;
+    var py = shape.j;
+    var cx=cherry.i;
+    var cy=cherry.j;
+    if(px==cx&&py==cy){
 
+    }
+}
+
+function drawCherry(x, y, size) {
     context.beginPath();
     // context.moveTo(x,y);
     context.fillStyle = "#ff0000";
@@ -1180,8 +1190,9 @@ function UpdatePositionCherry() {
         rand = Math.floor(Math.random() * 4) + 1;
         if (rand == 1) {
             if (i + 1 >= 0 && i + 1 <= 15 && board[i + 1][j] !== 4) {
+                board[i][j] = lastPosChherry;
+                lastPosChherry= board[i + 1][j];
                 board[i + 1][j] = 11;
-                board[i][j] = 0;
                 cherry.i = i + 1;
                 bool = false;
             }
@@ -1189,8 +1200,9 @@ function UpdatePositionCherry() {
         }
         else if (rand == 2) {
             if (i - 1 >= 0 && i - 1 <= 15 && board[i - 1][j] !== 4) {
-                board[i - 1][j] = 11;
-                board[i][j] = 0;
+                board[i][j] = lastPosChherry;
+                lastPosChherry= board[i - 1][j];
+                board[i - 1][j] = 11;               
                 cherry.i = i - 1;
                 bool = false;
             }
@@ -1198,8 +1210,9 @@ function UpdatePositionCherry() {
         }
         else if (rand == 3) {
             if (j - 1 >= 0 && j - 1 <= 11 && board[i][j - 1] !== 4) {
-                board[i][j - 1] = 11;
-                board[i][j] = 0;
+                board[i][j] = lastPosChherry;
+                lastPosChherry= board[i][j-1];
+                board[i][j - 1] = 11;            
                 cherry.j = j - 1;
                 bool = false;
             }
@@ -1207,8 +1220,9 @@ function UpdatePositionCherry() {
         }
         else if (rand == 4) {
             if (j + 1 >= 0 && j + 1 <= 11 && board[i][j + 1] !== 4) {
+                board[i][j] = lastPosChherry;
+                lastPosChherry= board[i][j+1];
                 board[i][j + 1] = 11;
-                board[i][j] = 0;
                 cherry.j = j + 1;
                 bool = false;
             }
