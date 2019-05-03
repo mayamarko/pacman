@@ -360,9 +360,9 @@ function defaultSett() {
     document.getElementById("left").value = "f";
     document.getElementById("right").value = "c";
     document.getElementById("ballsNum").value = "60";
-    document.getElementById("color1").value = "red";
-    document.getElementById("color2").value = "blue";
-    document.getElementById("color3").value = "yellow";
+    document.getElementById("color1").value = "#7ae7bf";
+    document.getElementById("color2").value = "#a4bdfc";
+    document.getElementById("color3").value = "#ffb878";
     document.getElementById("time").value = "60";
     document.getElementById("monsters").value = "3";
     timeLeft = 60000;
