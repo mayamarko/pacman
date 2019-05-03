@@ -26,11 +26,11 @@ var usersContent = new Map(); // map of users by username and password
 var chosenSettings = new Array();
 usersContent.set("a", "a");
 var soundTrack;
-var timeLeft = 60000;
+var timeLeft;
 var numGhost; //need to be set at setting!!! ****
 var colors;
 var usernameDisplay;
-var lifeRemaining = 3;
+var lifeRemaining;
 var lastPosChherry=0;
 
 //Start();
@@ -84,7 +84,7 @@ function ShowDiv(id) {
 function startGame() {
     usershow.value = usernameDisplay;
     ShowDiv('gameArea');
-
+    document.getElementById('sett').style.display="block";
     Start();
 }
 
@@ -280,15 +280,15 @@ $(document).ready(function () {
             },
             color1: {
                 required: true,
-                regexletter: true,
+                // regexletter: true,
             },
             color2: {
                 required: true,
-                regexletter: true,
+                // regexletter: true,
             },
             color3: {
                 required: true,
-                regexletter: true,
+                // regexletter: true,
             },
             time: {
                 required: true,
@@ -417,6 +417,8 @@ function Start() {
     var twentyfivepoint = Math.floor(ballsnums * 0.1);
     var pacman_remain = 1;
     var numGn = numGhost;
+    lifeRemaining=3;
+    timeLeft = chosenSettings[8] * 1000;
     start_time = new Date();
     start_time1 = new Date();
     createGhosts();

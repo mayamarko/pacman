@@ -12,6 +12,9 @@ body {
     height: 100px;
     background: #555;
 }
+#sett{
+  display:none;
+}
 #hf{
     font-family:Impact, Charcoal, sans-serif;
     font-size: 150%;
@@ -77,10 +80,16 @@ button:active {
     height:100%;
     color:white;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
+    margin: 0 auto;
 }
 canvas{
   background-color: transparent;
   /* border:2px solid rgb(19, 4, 99); */
+  float: left;
+}
+
+#rest{
+  margin-left: 40%;
 }
 #lbl{
   font-family:Verdana, Geneva, Tahoma, sans-serif;
@@ -94,6 +103,7 @@ canvas{
   border: none;
   border-bottom: 1px solid yellow;
 }
+
   /* The Modal (background) */
 .modal {
     display: none; /* Hidden by default */
