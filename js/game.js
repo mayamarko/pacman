@@ -32,6 +32,7 @@ var colors;
 var usernameDisplay;
 var lifeRemaining;
 var lastPosChherry=0;
+var ballsLeft;
 
 //Start();
 
@@ -394,6 +395,7 @@ function saveSetings() {
     chosenSettings.push(document.getElementById("monsters").value);
     timeLeft = chosenSettings[8] * 1000;
     numGhost = parseInt(chosenSettings[9]);
+    ballsLeft=chosenSettings[4];
     startGame();
 }
 
@@ -872,12 +874,15 @@ function UpdatePosition() {
     // }
     if (board[shape.i][shape.j] === 5) {
         score += 5;
+        ballsLeft--;
     }
     if (board[shape.i][shape.j] === 6) {
         score += 15;
+        ballsLeft--;
     }
     if (board[shape.i][shape.j] === 7) {
         score += 25;
+        ballsLeft--;
     }
     if (board[shape.i][shape.j] === 11) {
         score += 50;
@@ -891,27 +896,19 @@ function UpdatePosition() {
     start_time1 = currentTime;
     if (timeLeft <= 0) {
         timeLeft = 0;
-        endGame();
-        if (score < 150) {
-            // alert("You can do better");
-            // window.clearInterval(interval);
-        } else {
-            // alert("We have a Winner!!!");
-            // window.clearInterval(interval);
-        }
-
+        endGame(1);
     }
-    if (score >= 300 && time_elapsed <= 10) {
-        pac_color = "green";
-    }
-    if (score === 400) {
-        window.clearInterval(interval);
-        window.alert("Game completed");
-        endGame();
-    } else {
+    else if (ballsLeft === 0) {
+        endGame(3);
+    } 
+    else if (score === 400) {
+        endGame(2);
+    }else {
         Draw();
+        meetGhost();
     }
-    meetGhost();
+    
+  
 }
 
 function UpdatePositionGhost(move, numofGhost) {
@@ -1066,7 +1063,7 @@ function meetGhost() {
         Draw();
     }
     if (lifeRemaining <= 0) {
-        endGame();
+        endGame(0);
     }
 }
 function isHitGhost() {
@@ -1170,7 +1167,7 @@ function drawCherry(x, y, size) {
     context.fillStyle = "#959817";
     // ctx.fillRect(120, 180, 50, 50);
     // ctx.closePath();
-    context.fillRect(size - size / 3, size / 12, size / 9, size / 9);
+    //context.fillRect(size - size / 3, size / 12, size / 9, size / 9);
     context.closePath();
 }
 
@@ -1257,6 +1254,68 @@ function UpdatePositionCherry() {
 //     context.closePath();
 // }
 
-function endGame() {
+function endGame(vers) {
     endMusic();
+    if(vers==0){                                             //life is over
+        alert("Your lives are over.. you lost")
+        window.clearInterval(interval);
+             window.clearInterval(intervalMosters[0]);
+             if(numGhost>1){
+                window.clearInterval(intervalMosters[1]);
+             }
+             if(numGhost>2){
+                window.clearInterval(intervalMosters[2]);
+             }
+             window.clearInterval(intervalCherry);
+    }
+    if(vers==1){                                             //time is over
+        if (score < 150) {
+             alert("You can do better");
+             window.clearInterval(interval);
+             window.clearInterval(intervalMosters[0]);
+             if(numGhost>1){
+                window.clearInterval(intervalMosters[1]);
+             }
+             if(numGhost>2){
+                window.clearInterval(intervalMosters[2]);
+             }
+             window.clearInterval(intervalCherry);
+        } else {
+             alert("We have a Winner!!!");
+             window.clearInterval(interval);
+             window.clearInterval(intervalMosters[0]);
+             if(numGhost>1){
+                window.clearInterval(intervalMosters[1]);
+             }
+             if(numGhost>2){
+                window.clearInterval(intervalMosters[2]);
+             }
+             window.clearInterval(intervalCherry);
+        }
+    }
+    if(vers==2){                            // got to exectly 400 points
+        window.alert("Game completed"); 
+        window.clearInterval(interval);
+        window.clearInterval(intervalMosters[0]);
+        if(numGhost>1){
+           window.clearInterval(intervalMosters[1]);
+        }
+        if(numGhost>2){
+           window.clearInterval(intervalMosters[2]);
+        }
+        window.clearInterval(intervalCherry);
+    }
+    if(vers==3){
+        window.alert("You ate all the food! Game completed");    //ate all the balls
+        window.clearInterval(interval);
+        window.clearInterval(intervalMosters[0]);
+        if(numGhost>1){
+           window.clearInterval(intervalMosters[1]);
+        }
+        if(numGhost>2){
+           window.clearInterval(intervalMosters[2]);
+        }
+        window.clearInterval(intervalCherry);
+    }
+    
 }
