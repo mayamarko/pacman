@@ -879,6 +879,7 @@ function UpdatePosition() {
     }
     if (board[shape.i][shape.j] === 11) {
         score += 50;
+        cherry=null;
     }
     board[shape.i][shape.j] = 2;
     var currentTime = new Date();
@@ -1139,16 +1140,6 @@ function isHitGhostGhost(numOfGhost, x, y) {
     return false;
 }
 
-function isHitCherry(){
-    var px = shape.i;
-    var py = shape.j;
-    var cx=cherry.i;
-    var cy=cherry.j;
-    if(px==cx&&py==cy){
-
-    }
-}
-
 function drawCherry(x, y, size) {
     context.beginPath();
     // context.moveTo(x,y);
@@ -1182,54 +1173,57 @@ function drawCherry(x, y, size) {
 }
 
 function UpdatePositionCherry() {
-    var i = cherry.i;
-    var j = cherry.j;
-    var rand = Math.floor(Math.random() * 4) + 1;
-    var bool = true;
-    while (bool) {
-        rand = Math.floor(Math.random() * 4) + 1;
-        if (rand == 1) {
-            if (i + 1 >= 0 && i + 1 <= 15 && board[i + 1][j] !== 4) {
-                board[i][j] = lastPosChherry;
-                lastPosChherry= board[i + 1][j];
-                board[i + 1][j] = 11;
-                cherry.i = i + 1;
-                bool = false;
+    if(cherry!=null){
+        var i = cherry.i;
+        var j = cherry.j;
+        var rand = Math.floor(Math.random() * 4) + 1;
+        var bool = true;
+        while (bool) {
+            rand = Math.floor(Math.random() * 4) + 1;
+            if (rand == 1) {
+                if (i + 1 >= 0 && i + 1 <= 15 && board[i + 1][j] !== 4) {
+                    board[i][j] = lastPosChherry;
+                    lastPosChherry= board[i + 1][j];
+                    board[i + 1][j] = 11;
+                    cherry.i = i + 1;
+                    bool = false;
+                }
+    
             }
-
-        }
-        else if (rand == 2) {
-            if (i - 1 >= 0 && i - 1 <= 15 && board[i - 1][j] !== 4) {
-                board[i][j] = lastPosChherry;
-                lastPosChherry= board[i - 1][j];
-                board[i - 1][j] = 11;               
-                cherry.i = i - 1;
-                bool = false;
+            else if (rand == 2) {
+                if (i - 1 >= 0 && i - 1 <= 15 && board[i - 1][j] !== 4) {
+                    board[i][j] = lastPosChherry;
+                    lastPosChherry= board[i - 1][j];
+                    board[i - 1][j] = 11;               
+                    cherry.i = i - 1;
+                    bool = false;
+                }
+    
+    
             }
-
-        }
-        else if (rand == 3) {
-            if (j - 1 >= 0 && j - 1 <= 11 && board[i][j - 1] !== 4) {
-                board[i][j] = lastPosChherry;
-                lastPosChherry= board[i][j-1];
-                board[i][j - 1] = 11;            
-                cherry.j = j - 1;
-                bool = false;
+            else if (rand == 3) {
+                if (j - 1 >= 0 && j - 1 <= 11 && board[i][j - 1] !== 4) {
+                    board[i][j] = lastPosChherry;
+                    lastPosChherry= board[i][j-1];
+                    board[i][j - 1] = 11;            
+                    cherry.j = j - 1;
+                    bool = false;
+                }
+    
             }
-
-        }
-        else if (rand == 4) {
-            if (j + 1 >= 0 && j + 1 <= 11 && board[i][j + 1] !== 4) {
-                board[i][j] = lastPosChherry;
-                lastPosChherry= board[i][j+1];
-                board[i][j + 1] = 11;
-                cherry.j = j + 1;
-                bool = false;
+            else if (rand == 4) {
+                if (j + 1 >= 0 && j + 1 <= 11 && board[i][j + 1] !== 4 ) {
+                    board[i][j] = lastPosChherry;
+                    lastPosChherry= board[i][j+1];
+                    board[i][j + 1] = 11;
+                    cherry.j = j + 1;
+                    bool = false;
+                }
+    
             }
-
         }
+        Draw();
     }
-    Draw();
 }
 
 // function drawCherry(x, y, size) {
