@@ -907,6 +907,7 @@ function UpdatePosition() {
     } else {
         Draw();
     }
+    meetGhost();
 }
 
 function UpdatePositionGhost(move, numofGhost) {
@@ -1070,35 +1071,56 @@ function isHitGhost() {
     var g1x = ghosts[0].i;
     var g1y = ghosts[0].j;
     if (px === g1x && py === g1y) {
-        ghosts[0].i = 0;
-        ghosts[0].j = 0;
-        board[0][0] = 8;
-        lastPosGhost[0] = 0;
+        resetGhost(0);
         return true;
     }
     if (numGhost > 1) {
         var g2x = ghosts[1].i;
         var g2y = ghosts[1].j;
         if (px === g2x && py === g2y) {
-            ghosts[1].i = 0;
-            ghosts[1].j = 11;
-            board[0][11] = 9;
-            lastPosGhost[1] = 0;
+            resetGhost(1);
             return true;
         }
     }
     if (numGhost > 2) {
+        var g2x = ghosts[1].i;
+        var g2y = ghosts[1].j;
         var g3x = ghosts[2].i;
         var g3y = ghosts[2].j;
         if (px === g3x && py === g3y) {
-            ghosts[2].i = 15;
-            ghosts[2].j = 0;
-            board[15][0] = 10;
-            lastPosGhost[2] = 0;
+            resetGhost(2);
             return true;
         }
     }
     return false;
+}
+
+function resetGhost(numMeet) {
+    lastPosGhost[numMeet] = 0;
+    var g1x = ghosts[0].i;
+    var g1y = ghosts[0].j;
+    ghosts[0].i = 0;
+    ghosts[0].j = 0;
+    board[0][0] = 8;
+    board[g1x][g1y] = lastPosGhost[0];
+    if (numGhost > 1) {
+        var g2x = ghosts[1].i;
+        var g2y = ghosts[1].j;
+        ghosts[1].i = 0;
+        ghosts[1].j = 11;
+        board[0][11] = 9;
+        board[g2x][g2y] = lastPosGhost[1];
+        lastPosGhost[1] = 0;
+    }
+    if (numGhost > 2) {
+        var g3x = ghosts[2].i;
+        var g3y = ghosts[2].j;
+        ghosts[2].i = 15;
+        ghosts[2].j = 0;
+        board[15][0] = 10;
+        board[g3x][g3y] = lastPosGhost[2];
+        lastPosGhost[2] = 0;
+    }
 }
 function isHitGhostGhost(numOfGhost, x, y) {
     var g1x = x;
