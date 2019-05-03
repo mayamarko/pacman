@@ -5,7 +5,7 @@ var ghost1 = new Object();
 var ghost2 = new Object();
 var ghost3 = new Object();
 var lastPosGhost = new Array();
-var cherry=new Object();
+var cherry = new Object();
 var board;
 var score;
 var pac_color;
@@ -17,6 +17,7 @@ var intervalMosters;
 var intervalCherry;
 var a;
 var b;
+var eyes;
 var angle;
 var col1;
 var col2;
@@ -220,7 +221,7 @@ function isUserExist() {
     submitOk = "true";
     if (usersContent.has(users)) {
         if (usersContent.get(users) === pass) {
-        //    alert("hello You logged in");
+            //    alert("hello You logged in");
             // startGame(users);
             ShowDiv('setting');
         }
@@ -391,7 +392,7 @@ function saveSetings() {
     chosenSettings.push(document.getElementById("time").value);
     chosenSettings.push(document.getElementById("monsters").value);
     timeLeft = chosenSettings[8] * 1000;
-    numGhost=parseInt(chosenSettings[9]);
+    numGhost = parseInt(chosenSettings[9]);
     startGame();
 }
 
@@ -442,8 +443,8 @@ function Start() {
             }
             else if (i == 15 && j == 11) {   //mooving score cherry 
                 board[i][j] = 11;
-                cherry.i=i;
-                cherry.j=j;
+                cherry.i = i;
+                cherry.j = j;
             }
             else if (obstacles(i, j)) {
                 board[i][j] = 4;
@@ -527,7 +528,7 @@ function Start() {
     if (numGhost > 2) {
         intervalMosters[2] = setInterval(chomo3, 2000);
     }
-    intervalCherry=setInterval(UpdatePositionCherry,2000);
+    intervalCherry = setInterval(UpdatePositionCherry, 2000);
 }
 
 function createGhosts() {
@@ -536,18 +537,21 @@ function createGhosts() {
         intervalMosters = new Array(0);
         ghosts = new Array(new Object());
         lastPosGhost = new Array(0);
+        eyes = new Array(new Array(2, 0));
     }
     if (numGhost === 2) {
         colors = new Array("blue", "pink");
         intervalMosters = new Array(0, 0);
         ghosts = new Array(new Object(), new Object());
         lastPosGhost = new Array(0, 0);
+        eyes = new Array(new Array(2, 0), new Array(2, 0));
     }
     if (numGhost === 3) {
         colors = new Array("blue", "pink", "purple");
         intervalMosters = new Array(0, 0, 0);
         ghosts = new Array(new Object(), new Object(), new Object());
         lastPosGhost = new Array(0, 0, 0);
+        eyes = new Array(new Array(2, 0), new Array(2, 0), new Array(2, 0));
     }
 }
 
@@ -678,7 +682,7 @@ function Draw() {
             //     context.fill();
             // } 
             else if (board[i][j] == 11) {
-                drawCherry(center.x - 10, center.y+5, 20)
+                drawCherry(center.x - 10, center.y + 5, 20)
             }
             else if (board[i][j] === 5) {
                 createColBalls(col1, 5, center.x, center.y);
@@ -696,13 +700,13 @@ function Draw() {
                 context.fill();
             }
             else if (board[i][j] === 8) {
-                drawGhost(1, center.x - 15, center.y + 15);
+                drawGhost(0, center.x - 15, center.y + 15);
             }
             else if (board[i][j] === 9) {
-                drawGhost(2, center.x - 15, center.y + 15);
+                drawGhost(1, center.x - 15, center.y + 15);
             }
             else if (board[i][j] === 10) {
-                drawGhost(3, center.x - 15, center.y + 15);
+                drawGhost(2, center.x - 15, center.y + 15);
             }
         }
     }
@@ -711,9 +715,7 @@ function Draw() {
 
 
 function drawGhost(numOfGhost, x, y) {
-    var i=0;
-    var j=0;
-    var colorfill = colors[numOfGhost - 1];
+    var colorfill = colors[numOfGhost];
     context.beginPath();
     context.moveTo(x, y);
     context.lineTo(x, y - 14);
@@ -728,29 +730,29 @@ function drawGhost(numOfGhost, x, y) {
     context.lineTo(x, y);
     context.fillStyle = colorfill; //color
     context.fill();
-    
+
     //eyes
     context.fillStyle = 'white';
     context.beginPath();
-    context.moveTo(x+8, y-20);
-    context.bezierCurveTo(x+5, y-20, x+4, y-17, x+4, y-15);
-    context.bezierCurveTo(x+4, y-13, x+5, y-10, x+8, y-10);
-    context.bezierCurveTo(x+11, y-10, x+12, y-13, x+12, y-15);
-    context.bezierCurveTo(x+12, y-17, x+11, y-20, x+8, y-20);
-    context.moveTo(x+20, y-20);
-    context.bezierCurveTo(x+17, y-20, x+16, y-17, x+16, y-15);
-    context.bezierCurveTo(x+16, y-13, x+17, y-10, x+20, y-10);
-    context.bezierCurveTo(x+23, y-10, x+24, y-13, x+24, y-15);
-    context.bezierCurveTo(x+24, y-17, x+23, y-20, x+20, y-20);
+    context.moveTo(x + 8, y - 20);
+    context.bezierCurveTo(x + 5, y - 20, x + 4, y - 17, x + 4, y - 15);
+    context.bezierCurveTo(x + 4, y - 13, x + 5, y - 10, x + 8, y - 10);
+    context.bezierCurveTo(x + 11, y - 10, x + 12, y - 13, x + 12, y - 15);
+    context.bezierCurveTo(x + 12, y - 17, x + 11, y - 20, x + 8, y - 20);
+    context.moveTo(x + 20, y - 20);
+    context.bezierCurveTo(x + 17, y - 20, x + 16, y - 17, x + 16, y - 15);
+    context.bezierCurveTo(x + 16, y - 13, x + 17, y - 10, x + 20, y - 10);
+    context.bezierCurveTo(x + 23, y - 10, x + 24, y - 13, x + 24, y - 15);
+    context.bezierCurveTo(x + 24, y - 17, x + 23, y - 20, x + 20, y - 20);
     context.fill();
 
     context.fillStyle = 'black';
     context.beginPath();
-    context.arc(x+18+i, y-14+j, 2, 0, Math.PI * 2, true);
+    context.arc(x + 18 + eyes[numOfGhost][0], y - 14 + eyes[numOfGhost][1], 2, 0, Math.PI * 2, true);
     context.fill();
 
     context.beginPath();
-    context.arc(x+6+i, y-14+j, 2, 0, Math.PI * 2, true);
+    context.arc(x + 6 + eyes[numOfGhost][0], y - 14 + eyes[numOfGhost][1], 2, 0, Math.PI * 2, true);
     context.fill();
 }
 
@@ -922,6 +924,8 @@ function UpdatePositionGhost(move, numofGhost) {
                 board[ghosts[numofGhost].i][ghosts[numofGhost].j] = lastPosGhost[numofGhost];
                 ghosts[numofGhost].j--;
                 isSuc = true;
+                eyes[numofGhost][0] = 2;
+                eyes[numofGhost][1] = -4;
                 lastPosGhost[numofGhost] = board[ghosts[numofGhost].i][ghosts[numofGhost].j]; //get the number of balls or empty space
             }
         }
@@ -937,6 +941,8 @@ function UpdatePositionGhost(move, numofGhost) {
                 board[ghosts[numofGhost].i][ghosts[numofGhost].j] = lastPosGhost[numofGhost];
                 ghosts[numofGhost].j++;
                 isSuc = true;
+                eyes[numofGhost][0] = 2;
+                eyes[numofGhost][1] = 2;
                 lastPosGhost[numofGhost] = board[ghosts[numofGhost].i][ghosts[numofGhost].j]; //get the number of balls or empty space
             }
         }
@@ -948,6 +954,8 @@ function UpdatePositionGhost(move, numofGhost) {
             } else {
                 board[ghosts[numofGhost].i][ghosts[numofGhost].j] = lastPosGhost[numofGhost];
                 ghosts[numofGhost].i--;
+                eyes[numofGhost][0] = 0;
+                eyes[numofGhost][1] = 0;
                 isSuc = true;
                 lastPosGhost[numofGhost] = board[ghosts[numofGhost].i][ghosts[numofGhost].j]; //get the number of balls or empty space
             }
@@ -958,6 +966,8 @@ function UpdatePositionGhost(move, numofGhost) {
             } else {
                 board[ghosts[numofGhost].i][ghosts[numofGhost].j] = lastPosGhost[numofGhost];
                 ghosts[numofGhost].i = 15;
+                eyes[numofGhost][0] = 0;
+                eyes[numofGhost][1] = 0;
                 isSuc = true;
                 lastPosGhost[numofGhost] = board[ghosts[numofGhost].i][ghosts[numofGhost].j]; //get the number of balls or empty space
             }
@@ -970,6 +980,8 @@ function UpdatePositionGhost(move, numofGhost) {
             } else {
                 board[ghosts[numofGhost].i][ghosts[numofGhost].j] = lastPosGhost[numofGhost];
                 ghosts[numofGhost].i++;
+                eyes[numofGhost][0] = 4;
+                eyes[numofGhost][1] = 0;
                 isSuc = true;
                 lastPosGhost[numofGhost] = board[ghosts[numofGhost].i][ghosts[numofGhost].j]; //get the number of balls or empty space
             }
@@ -980,6 +992,8 @@ function UpdatePositionGhost(move, numofGhost) {
             } else {
                 board[ghosts[numofGhost].i][ghosts[numofGhost].j] = lastPosGhost[numofGhost];
                 ghosts[numofGhost].i = 0;
+                eyes[numofGhost][0] = 4;
+                eyes[numofGhost][1] = 0;
                 isSuc = true;
                 lastPosGhost[numofGhost] = board[ghosts[numofGhost].i][ghosts[numofGhost].j]; //get the number of balls or empty space
             }
@@ -1015,7 +1029,7 @@ function chooseMove(numofGhost) {
     ary.sort(function (a, b) { return a[1] - b[1] });
     var isSuc = false;
     var tmp = 0;
-    while (!isSuc&&tmp<4) {
+    while (!isSuc && tmp < 4) {
         isSuc = UpdatePositionGhost(ary[tmp][0], numofGhost);
         tmp++;
     }
@@ -1031,7 +1045,7 @@ function distance(x, y, xp, yp) {
 function setRandomPac() {
     board[shape.i][shape.j] = 0;
     var emptyCell = findRandomEmptyCell(board);
-    while(emptyCell[0]===shape.i&&emptyCell[1]===shape.j){
+    while (emptyCell[0] === shape.i && emptyCell[1] === shape.j) {
         emptyCell = findRandomEmptyCell(board);
     }
     shape.i = emptyCell[0];
@@ -1056,20 +1070,20 @@ function isHitGhost() {
     var g1x = ghosts[0].i;
     var g1y = ghosts[0].j;
     if (px === g1x && py === g1y) {
-        ghosts[0].i=0;
-        ghosts[0].j=0;
-        board[0][0]=8;
-        lastPosGhost[0]=0;
+        ghosts[0].i = 0;
+        ghosts[0].j = 0;
+        board[0][0] = 8;
+        lastPosGhost[0] = 0;
         return true;
     }
     if (numGhost > 1) {
         var g2x = ghosts[1].i;
         var g2y = ghosts[1].j;
         if (px === g2x && py === g2y) {
-            ghosts[1].i=0;
-            ghosts[1].j=11;
-            board[0][11]=9;
-            lastPosGhost[1]=0;
+            ghosts[1].i = 0;
+            ghosts[1].j = 11;
+            board[0][11] = 9;
+            lastPosGhost[1] = 0;
             return true;
         }
     }
@@ -1077,16 +1091,16 @@ function isHitGhost() {
         var g3x = ghosts[2].i;
         var g3y = ghosts[2].j;
         if (px === g3x && py === g3y) {
-            ghosts[2].i=15;
-            ghosts[2].j=0;
-            board[15][0]=10;
-            lastPosGhost[2]=0;
+            ghosts[2].i = 15;
+            ghosts[2].j = 0;
+            board[15][0] = 10;
+            lastPosGhost[2] = 0;
             return true;
         }
     }
     return false;
 }
-function isHitGhostGhost(numOfGhost,x,y) {
+function isHitGhostGhost(numOfGhost, x, y) {
     var g1x = x;
     var g1y = y;
     for (var i = 0; i < numGhost; i++) {
@@ -1105,27 +1119,27 @@ function isHitGhostGhost(numOfGhost,x,y) {
 function drawCherry(x, y, size) {
 
     context.beginPath();
-   // context.moveTo(x,y);
+    // context.moveTo(x,y);
     context.fillStyle = "#ff0000";
-    context.arc(x, y, 6, 0, 2 * Math.PI,-2 * Math.PI,true);
-    context.moveTo(x+17,y);
-    context.arc(x+12, y, 6, 0, 2 * Math.PI,-2 * Math.PI,true);
+    context.arc(x, y, 6, 0, 2 * Math.PI, -2 * Math.PI, true);
+    context.moveTo(x + 17, y);
+    context.arc(x + 12, y, 6, 0, 2 * Math.PI, -2 * Math.PI, true);
     context.fill()
     context.closePath();
     context.stroke();
     context.beginPath();
     context.fillStyle = "#670303";
-    context.arc(x, y-3.5, 2, Math.PI * 2, -Math.PI * 2, true);
-    context.arc(x+12, y-3.5, 2, Math.PI * 2, -Math.PI * 2, true);
+    context.arc(x, y - 3.5, 2, Math.PI * 2, -Math.PI * 2, true);
+    context.arc(x + 12, y - 3.5, 2, Math.PI * 2, -Math.PI * 2, true);
     context.fill()
     context.closePath();
     context.beginPath();
     context.strokeStyle = "#959817";
     context.lineWidth = 4;
-    context.moveTo(x,y-8);
-    context.bezierCurveTo(x+8, y-10, x-10, y-30, x+20,y-15);
-    context.moveTo(x+12,y-8);
-    context.bezierCurveTo(x+8, y-15, x-10, y-30, x+20, y-15);
+    context.moveTo(x, y - 8);
+    context.bezierCurveTo(x + 8, y - 10, x - 10, y - 30, x + 20, y - 15);
+    context.moveTo(x + 12, y - 8);
+    context.bezierCurveTo(x + 8, y - 15, x - 10, y - 30, x + 20, y - 15);
     context.stroke();
     context.closePath();
     context.fillStyle = "#959817";
@@ -1135,48 +1149,48 @@ function drawCherry(x, y, size) {
     context.closePath();
 }
 
-function UpdatePositionCherry(){
-    var i=cherry.i;
-    var j=cherry.j;
-    var rand=Math.floor(Math.random() * 4) + 1 ;
-    var bool=true;
-    while(bool){
-        rand=Math.floor(Math.random() * 4) + 1;
-        if(rand==1){
-            if(i+1>=0&&i+1<=15&&board[i+1][j]!==4){
-                board[i+1][j]=11;
-                board[i][j]=0;
-                cherry.i=i+1;
-                bool=false; 
+function UpdatePositionCherry() {
+    var i = cherry.i;
+    var j = cherry.j;
+    var rand = Math.floor(Math.random() * 4) + 1;
+    var bool = true;
+    while (bool) {
+        rand = Math.floor(Math.random() * 4) + 1;
+        if (rand == 1) {
+            if (i + 1 >= 0 && i + 1 <= 15 && board[i + 1][j] !== 4) {
+                board[i + 1][j] = 11;
+                board[i][j] = 0;
+                cherry.i = i + 1;
+                bool = false;
             }
-            
-        } 
-        else if(rand==2){
-            if(i-1>=0&&i-1<=15&&board[i-1][j]!==4){
-                board[i-1][j]=11;
-                board[i][j]=0;
-                cherry.i=i-1;
-                bool=false; 
-            }
-            
+
         }
-        else if(rand==3){
-            if(j-1>=0&&j-1<=11&&board[i][j-1]!==4){
-                board[i][j-1]=11;
-                board[i][j]=0;
-                cherry.j=j-1;
-                bool=false;
+        else if (rand == 2) {
+            if (i - 1 >= 0 && i - 1 <= 15 && board[i - 1][j] !== 4) {
+                board[i - 1][j] = 11;
+                board[i][j] = 0;
+                cherry.i = i - 1;
+                bool = false;
             }
-           
-        }    
-        else if(rand==4){
-            if(j+1>=0&&j+1<=11&&board[i][j+1]!==4){
-                board[i][j+1]=11;
-                board[i][j]=0;
-                cherry.j=j+1;
-                bool=false; 
+
+        }
+        else if (rand == 3) {
+            if (j - 1 >= 0 && j - 1 <= 11 && board[i][j - 1] !== 4) {
+                board[i][j - 1] = 11;
+                board[i][j] = 0;
+                cherry.j = j - 1;
+                bool = false;
             }
-            
+
+        }
+        else if (rand == 4) {
+            if (j + 1 >= 0 && j + 1 <= 11 && board[i][j + 1] !== 4) {
+                board[i][j + 1] = 11;
+                board[i][j] = 0;
+                cherry.j = j + 1;
+                bool = false;
+            }
+
         }
     }
     Draw();
