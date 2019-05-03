@@ -26,7 +26,7 @@ var chosenSettings = new Array();
 usersContent.set("a", "a");
 var soundTrack;
 var timeLeft = 60000;
-var numGhost = 3; //need to be set at setting!!! ****
+var numGhost ; //need to be set at setting!!! ****
 var colors;
 var usernameDisplay;
 var lifeRemaining = 3;
@@ -391,6 +391,7 @@ function saveSetings() {
     chosenSettings.push(document.getElementById("time").value);
     chosenSettings.push(document.getElementById("monsters").value);
     timeLeft = chosenSettings[8] * 1000;
+    numGhost=chosenSettings[9];
     startGame();
 }
 
