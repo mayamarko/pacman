@@ -91,6 +91,9 @@ canvas{
 #rest{
   margin-left: 40%;
 }
+#colorgh{
+  margin-left: 40%;
+}
 #lbl{
   font-family:Verdana, Geneva, Tahoma, sans-serif;
   font-weight: bold;
@@ -437,4 +440,12 @@ div.error {
   height: 0;
   border: 6px solid transparent;
   border-color: #fff transparent transparent transparent;
+}
+
+
+#colorgh .select {
+  border: none;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  background-color: rgb(214, 66, 60);
+  color:white;
 }
