@@ -508,7 +508,8 @@ function Start() {
             }
             else if (i == 4 && j == 0) {   //add time
                 board[i][j] = 12;
-               
+               addTime.i=i;
+               addTime.j=j;
             }
             else if (obstacles(i, j)) {
                 board[i][j] = 4;
@@ -589,6 +590,7 @@ function Start() {
         intervalMosters[2] = setInterval(chomo3, 2000);
     }
     intervalCherry = setInterval(UpdatePositionCherry, 2000);
+    intervalclock=setInterval(setRandomClock,8500);
 }
 
 function createGhosts() {
@@ -1291,6 +1293,17 @@ function drawClock(x,y){
     context.fill();
 }
 
+function setRandomClock() {
+    board[addTime.i][addTime.j] = 0;
+    var emptyCell = findRandomEmptyCell(board);
+    while (emptyCell[0] === addTime.i && emptyCell[1] === addTime.j) {
+        emptyCell = findRandomEmptyCell(board);
+    }
+    addTime.i = emptyCell[0];
+    addTime.j = emptyCell[1];
+    board[emptyCell[0]][emptyCell[1]] = 12;
+    Draw();
+}
 // function drawCherry(x, y, size) {
 
 //     context.moveTo(x - (size / 2), y - (size / 2) + 1)
@@ -1324,64 +1337,31 @@ function endGame(vers) {
     endMusic();
     if(vers==0){                                             //life is over
         alert("Your lives are over.. you lost")
-        window.clearInterval(interval);
-             window.clearInterval(intervalMosters[0]);
-             if(numGhost>1){
-                window.clearInterval(intervalMosters[1]);
-             }
-             if(numGhost>2){
-                window.clearInterval(intervalMosters[2]);
-             }
-             window.clearInterval(intervalCherry);
     }
     if(vers==1){                                             //time is over
         if (score < 150) {
              alert("You can do better");
-             window.clearInterval(interval);
-             window.clearInterval(intervalMosters[0]);
-             if(numGhost>1){
-                window.clearInterval(intervalMosters[1]);
-             }
-             if(numGhost>2){
-                window.clearInterval(intervalMosters[2]);
-             }
-             window.clearInterval(intervalCherry);
+           
         } else {
              alert("We have a Winner!!!");
-             window.clearInterval(interval);
-             window.clearInterval(intervalMosters[0]);
-             if(numGhost>1){
-                window.clearInterval(intervalMosters[1]);
-             }
-             if(numGhost>2){
-                window.clearInterval(intervalMosters[2]);
-             }
-             window.clearInterval(intervalCherry);
         }
     }
     if(vers==2){                            // got to exectly 400 points
         window.alert("Game completed"); 
-        window.clearInterval(interval);
-        window.clearInterval(intervalMosters[0]);
-        if(numGhost>1){
-           window.clearInterval(intervalMosters[1]);
-        }
-        if(numGhost>2){
-           window.clearInterval(intervalMosters[2]);
-        }
-        window.clearInterval(intervalCherry);
     }
     if(vers==3){
         window.alert("You ate all the food! Game completed");    //ate all the balls
-        window.clearInterval(interval);
-        window.clearInterval(intervalMosters[0]);
-        if(numGhost>1){
-           window.clearInterval(intervalMosters[1]);
-        }
-        if(numGhost>2){
-           window.clearInterval(intervalMosters[2]);
-        }
-        window.clearInterval(intervalCherry);
     }
-
+    window.clearInterval(interval);
+    window.clearInterval(intervalMosters[0]);
+    if(numGhost>1){
+       window.clearInterval(intervalMosters[1]);
+    }
+    if(numGhost>2){
+        window.clearInterval(intervalMosters[2]);
+    }
+    window.clearInterval(intervalCherry);
+    window.clearInterval(intervalclock);
+    
+  
 }
