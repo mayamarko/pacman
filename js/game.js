@@ -1168,6 +1168,11 @@ function isHitGhostGhost(numOfGhost, x, y) {
             return true;
         }
     }
+    var chx = cherry.i;
+    var chy = cherry.j;
+    if (chx === g1x && chy === g1y) {
+        return true;
+    }
     return false;
 }
 
