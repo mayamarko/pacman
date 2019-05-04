@@ -473,8 +473,9 @@ function Start() {
     var fifteenpoint = Math.floor(ballsnums * 0.3);
     var twentyfivepoint = Math.floor(ballsnums * 0.1);
     var pacman_remain = 1;
-    var numGn = numGhost;
+    var numGn = numGhost;   
     lifeRemaining=3;
+    document.getElementById("life").src="images/life3.png";
     timeLeft = chosenSettings[8] * 1000;
     start_time = new Date();
     start_time1 = new Date();
@@ -693,7 +694,8 @@ function Draw() {
     lblScore.value = score;
     lblTime.value = time_elapsed;
     lblRest.value = timeLeft / 1000;
-    lbllife.value = lifeRemaining;
+  //  lbllife.value = lifeRemaining;
+
     for (var i = 0; i < 16; i++) {
         for (var j = 0; j < 12; j++) {
             var center = new Object();
@@ -1082,6 +1084,12 @@ function setRandomPac() {
 function meetGhost() {
     if (isHitGhost()) {
         lifeRemaining--;
+        if(lifeRemaining==2)
+            document.getElementById("life").src="images/life2.png";
+        if(lifeRemaining==1)
+            document.getElementById("life").src="images/life1.png"
+        if(lifeRemaining==0)
+            document.getElementById("life").src="images/life0.png"
         score = score - 10;
         setRandomPac();
         Draw();
