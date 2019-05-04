@@ -716,7 +716,7 @@ function Draw() {
     col3 = chosenSettings[7];
     context.clearRect(0, 0, canvas.width, canvas.height); //clean board
     lblScore.value = score;
-    lblTime.value = time_elapsed;
+    //lblTime.value = time_elapsed;
     lblRest.value = timeLeft / 1000;
   //  lbllife.value = lifeRemaining;
 
