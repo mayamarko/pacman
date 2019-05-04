@@ -62,6 +62,7 @@ function ShowDiv(id) {
 
     if (id == 'Welcome') {
         endMusic();
+        //closeInter();
     }
     if (id == 'login') {
         resetLogin();
@@ -72,6 +73,7 @@ function ShowDiv(id) {
     if (id == 'setting') {
         resetSett();
         endMusic();
+        //closeInter();
     }
 
     //show only one section
@@ -475,6 +477,7 @@ function Start() {
     var pacman_remain = 1;
     var numGn = numGhost;   
     lifeRemaining=3;
+    ballsLeft=chosenSettings[4];
     document.getElementById("life").src="images/life3.png";
     timeLeft = chosenSettings[8] * 1000;
     start_time = new Date();
@@ -1357,22 +1360,28 @@ function setRandomClock() {
 function endGame(vers) {
     endMusic();
     if(vers==0){                                             //life is over
-        alert("Your lives are over.. you lost")
+        alert("Your lives are over.. you lost");
+        closeInter();
     }
     if(vers==1){                                             //time is over
         if (score < 150) {
              alert("You can do better");
-           
+             closeInter();
         } else {
              alert("We have a Winner!!!");
+             closeInter();
         }
     }
     if(vers==2){                            // got to exectly 400 points
         window.alert("Game completed"); 
+        closeInter();
     }
     if(vers==3){
         window.alert("You ate all the food! Game completed");    //ate all the balls
+        closeInter();
     }
+}
+function closeInter(){
     window.clearInterval(interval);
     window.clearInterval(intervalMosters[0]);
     if(numGhost>1){
@@ -1384,5 +1393,4 @@ function endGame(vers) {
     window.clearInterval(intervalCherry);
     window.clearInterval(intervalclock);
     
-  
 }
