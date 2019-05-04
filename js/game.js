@@ -37,7 +37,7 @@ var upkey;
 var downkey;
 var leftkey;
 var rightkey;
-
+var addTime=new Object();
 
 function PageLoaded() {
     ShowDiv('Welcome');
@@ -506,6 +506,10 @@ function Start() {
                 cherry.i = i;
                 cherry.j = j;
             }
+            else if (i == 4 && j == 0) {   //add time
+                board[i][j] = 12;
+               
+            }
             else if (obstacles(i, j)) {
                 board[i][j] = 4;
             } else {
@@ -715,6 +719,9 @@ function Draw() {
             else if (board[i][j] == 11) {
                 drawCherry(center.x - 10, center.y + 5, 20)
             }
+            else if (board[i][j] == 12) {
+                drawClock(center.x-7 , center.y-2 )
+            }
             else if (board[i][j] === 5) {
                 createColBalls(col1, 5, center.x, center.y);
             }
@@ -913,6 +920,9 @@ function UpdatePosition() {
     if (board[shape.i][shape.j] === 11) {
         score += 50;
         cherry=null;
+    }
+    if (board[shape.i][shape.j] === 12) {
+        timeLeft=timeLeft+60000;
     }
     board[shape.i][shape.j] = 2;
     var currentTime = new Date();
@@ -1234,8 +1244,6 @@ function UpdatePositionCherry() {
                     cherry.i = i - 1;
                     bool = false;
                 }
-    
-    
             }
             else if (rand == 3) {
                 if (j - 1 >= 0 && j - 1 <= 11 && board[i][j - 1] !== 4 && board[i][j - 1] !== 8 && board[i][j - 1] !== 9 && board[i][j - 1] !== 10) {
@@ -1244,8 +1252,7 @@ function UpdatePositionCherry() {
                     board[i][j - 1] = 11;            
                     cherry.j = j - 1;
                     bool = false;
-                }
-    
+                }   
             }
             else if (rand == 4) {
                 if (j + 1 >= 0 && j + 1 <= 11 && board[i][j + 1] !== 4 && board[i][j + 1] !== 8 && board[i][j + 1] !== 9 && board[i][j + 1] !== 10 ) {
@@ -1255,11 +1262,33 @@ function UpdatePositionCherry() {
                     cherry.j = j + 1;
                     bool = false;
                 }
-    
+
             }
         }
         Draw();
     }
+}
+
+
+function drawClock(x,y){
+    context.fillStyle ="white" ;
+    context.strokeStyle ="#670303" ;
+    context.moveTo(x, y);
+    context.beginPath(); 
+    context.lineWidth = 3;
+    context.lineTo(x+20, y);
+    context.lineTo(x+9, y+9);
+    context.moveTo(x+9, y+9);
+    context.lineTo(x, y-1);
+    context.stroke();
+    context.moveTo(x, y+20);
+    context.lineTo(x+9, y+9);
+    context.lineTo(x+20, y+20);
+    context.moveTo(x-1, y+20);
+    context.lineTo(x+21, y+20);
+    context.stroke();
+    context.closePath();
+    context.fill();
 }
 
 // function drawCherry(x, y, size) {
