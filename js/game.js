@@ -15,6 +15,7 @@ var time_elapsed;
 var interval;
 var intervalMosters;
 var intervalCherry;
+var intervalclock;
 var a;
 var b;
 var eyes;
@@ -62,7 +63,8 @@ function ShowDiv(id) {
 
     if (id == 'Welcome') {
         endMusic();
-        //closeInter();
+        timeLeft=0;
+        closeInter();
     }
     if (id == 'login') {
         resetLogin();
@@ -73,7 +75,8 @@ function ShowDiv(id) {
     if (id == 'setting') {
         resetSett();
         endMusic();
-        //closeInter();
+        timeLeft=0;
+        closeInter();
     }
 
     //show only one section
@@ -953,7 +956,7 @@ function UpdatePosition() {
     var delta = (currentTime - start_time1);
     timeLeft -= delta;
     start_time1 = currentTime;
-    if (timeLeft <= 0) {
+    if (timeLeft < 0) {
         timeLeft = 0;
         endGame(1);
     }
@@ -1378,8 +1381,8 @@ function endGame(vers) {
         window.clearInterval(intervalclock);
     }
     if(vers==1){                                             //time is over
-        if (score < 150) {
-             
+        if (score < 150) { 
+            
             alert("You can do better");
             window.clearInterval(interval);
             window.clearInterval(intervalMosters[0]);
@@ -1433,15 +1436,24 @@ function endGame(vers) {
     }
 }
 function closeInter(){
-    window.clearInterval(interval);
-    window.clearInterval(intervalMosters[0]);
-    if(numGhost>1){
-       window.clearInterval(intervalMosters[1]);
+    if(interval!=null){
+     window.clearInterval(interval);   
     }
-    if(numGhost>2){
-        window.clearInterval(intervalMosters[2]);
+    if(intervalMosters!=null){
+        window.clearInterval(intervalMosters[0]);
+        if(numGhost>1){
+        window.clearInterval(intervalMosters[1]);
+        }
+        if(numGhost>2){
+            window.clearInterval(intervalMosters[2]);
+        }  
     }
-    window.clearInterval(intervalCherry);
-    window.clearInterval(intervalclock);
+    if(intervalCherry!=null){
+        window.clearInterval(intervalCherry);
+    }
+   if(intervalclock!=null){
+       window.clearInterval(intervalclock);
+   }
+    
     
 }
