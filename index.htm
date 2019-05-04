@@ -153,20 +153,24 @@
             <ul>
                 <li>
                     <label for="up">Key moves:</label>
-                    Up: <input type="text" id="up" name="up" required></input></br>
-                    Down: <input type="text" id="down" name="down" required></input></br>
-                    Left: <input type="text" id="left" name="left" required></input></br>
-                    Right: <input type="text" id="right" name="right" required></input></br>
+                    Up: <input type="text" id="up" name="up" style = "border-width: 0px 0px 1px 0px; 
+                    border-color: rgb(19, 4, 99);" required></input></br>
+                    Down: <input type="text" id="down" name="down" style = "border-width: 0px 0px 1px 0px; 
+                    border-color: rgb(19, 4, 99);" required></input></br>
+                    Left: <input type="text" id="left" name="left" style = "border-width: 0px 0px 1px 0px; 
+                    border-color: rgb(19, 4, 99);" required></input></br>
+                    Right: <input type="text" id="right" name="right" style = "border-width: 0px 0px 1px 0px; 
+                    border-color: rgb(19, 4, 99);" required></input></br>
                     <!-- Right: <input type="text" id="right" name="right" onkeypress="keyPressedRight(event)" required></input></br> -->
                 </li>
                 <li>
                     <label for="ballsNum">Number of balls:</label>
-                    <input type="text" id="ballsNum" name="ballsNum" required></input>
+                    <input type="text" id="ballsNum" name="ballsNum" style = "border: none;" required></input>
                 </li>
                 <li>
                     <label for="color1">Ball Colors:</label></br>
                     <!-- Color 1 (of 5 points):<input type="text" id="color1" name="color1" required></input></br> -->
-                    Color 1 (of 5 points): <select name="color1" id="color1">
+                    Color 1 (of 5 points): <select class="select" name="color1" id="color1">
                             <option value="#7bd148">Green</option>
                             <option value="#5484ed">Bold blue</option>
                             <option value="#a4bdfc">Blue</option>
@@ -178,8 +182,8 @@
                             <option value="#dc2127">Bold red</option>
                             <option value="#dbadff">Purple</option>
                             <option value="#e1e1e1">Gray</option>
-                    </select>
-                    Color 2 (of 15 points): <select name="color2" id="color2">
+                    </select></br>
+                    Color 2 (of 15 points): <select class="select" name="color2" id="color2">   
                             <option value="#7bd148">Green</option>
                             <option value="#5484ed">Bold blue</option>
                             <option value="#a4bdfc">Blue</option>
@@ -191,8 +195,8 @@
                             <option value="#dc2127">Bold red</option>
                             <option value="#dbadff">Purple</option>
                             <option value="#e1e1e1">Gray</option>
-                    </select>
-                    Color 3 (of 25 points): <select name="color3" id="color3">
+                    </select></br>
+                    Color 3 (of 25 points): <select class="select" name="color3" id="color3">
                             <option value="#7bd148">Green</option>
                             <option value="#5484ed">Bold blue</option>
                             <option value="#a4bdfc">Blue</option>
@@ -204,17 +208,17 @@
                             <option value="#dc2127">Bold red</option>
                             <option value="#dbadff">Purple</option>
                             <option value="#e1e1e1">Gray</option>
-                    </select>
+                    </select></br>
                     <!-- Color 2 (of 15 points):<input type="text" id="color2" name="color2" required></input></br> -->
                     <!-- Color 3 (of 25 points):<input type="text" id="color3" name="color3" required></input></br> -->
                 </li>
                 <li>
                     <label for="time">Game duration(in sec):</label>
-                    <input type="text" id="time" name="time" required></input>
+                    <input type="text" id="time" name="time" style = "border: none;" required></input>
                 </li>
                 <li>
                     <label for="monsters">Num Of Monsters:</label>
-                    <input type="text" id="monsters" name="monsters" required></input>
+                    <input type="text" id="monsters" name="monsters" style = "border: none;" required></input>
                 </li>
                 <li>
                     <input type="submit" value="Apply" id="app"> 

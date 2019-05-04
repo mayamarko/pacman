@@ -33,24 +33,20 @@ var usernameDisplay;
 var lifeRemaining;
 var lastPosChherry=0;
 var ballsLeft;
+var upkey;
+var downkey;
+var leftkey;
+var rightkey;
 
-//Start();
 
-function setInvisibale(div) {
-    document.getElementById(div).style.display = "none";
-}
-function setVisibale(div) {
-    document.getElementById(div).style.display = "block";
-}
-
-/**
- * to show a div, call this function!
- */
 function PageLoaded() {
     ShowDiv('Welcome');
     soundTrack = document.getElementById("soundTrack");
 }
 
+/**
+ * to show a div, call this function!
+ */
 function ShowDiv(id) {
     //hide all sections
     var div1 = document.getElementById('Welcome');
@@ -262,19 +258,23 @@ $(document).ready(function () {
         rules: {
             up: {
                 required: true,
-                rangelength: [1, 1],
+                regexup:true,
+                // rangelength: [1, 1],
             },
             down: {
                 required: true,
-                rangelength: [1, 1],
+                regexdown:true,
+                // rangelength: [1, 1],
             },
             left: {
                 required: true,
-                rangelength: [1, 1],
+                regexleft:true,
+                // rangelength: [1, 1],
             },
             right: {
                 required: true,
-                rangelength: [1, 1],
+                regexright:true,
+                // rangelength: [1, 1],
             },
 
             ballsNum: {
@@ -304,25 +304,25 @@ $(document).ready(function () {
         },
         messages: {
             up: {
-                rangelength: "There must be only one key"
+                // rangelength: "There must be only one key"
             },
             down: {
-                rangelength: "There be only one key"
+                // rangelength: "There be only one key"
             },
             left: {
-                rangelength: "There be only one key"
+                // rangelength: "There be only one key"
             },
             right: {
-                rangelength: "There be only one key"
+                // rangelength: "There be only one key"
             },
         },
         highlight: function (element) {
-            $(element).parent().addClass('error1')
+            $(element).parent().addClass('error')
         },
         unhighlight: function (element) {
-            $(element).parent().removeClass('error1')
+            $(element).parent().removeClass('error')
         },
-        errorElement: 'div1',
+        errorElement: 'div',
         submitHandler: function (form) {
             saveSetings();
             // form.submit();
@@ -331,8 +331,19 @@ $(document).ready(function () {
 });
 $.validator.addMethod("regexletter", function (value, element) {
     return this.optional(element) || /^[a-z]+$/.test(value);
-}, 'Small etters only!');
-
+}, 'Small letters only!');
+$.validator.addMethod("regexup", function (value, element) {
+    return this.optional(element) || /^[a-z]{1}$/.test(value) || value==='ArrowUp';
+}, 'One small letter only. For arrows: ArrowUp (or any direction)');
+$.validator.addMethod("regexdown", function (value, element) {
+    return this.optional(element) || /^[a-z]{1}$/.test(value) || value==='ArrowDown';
+},'One small letter only. For arrows: ArrowDown (or any direction)');
+$.validator.addMethod("regexleft", function (value, element) {
+    return this.optional(element) || /^[a-z]{1}$/.test(value) || value==='ArrowLeft';
+},'One small letter only. For arrows: ArrowLeft (or any direction)');
+$.validator.addMethod("regexright", function (value, element) {
+    return this.optional(element) || /^[a-z]{1}$/.test(value) || value==='ArrowRight';
+},'One small letter only. For arrows: ArrowRight (or any direction)');
 // function keyPressedUp(event) {
 // chosenSettings[0] = event.keyCode;
 // }
@@ -357,10 +368,10 @@ function resetSignIn() {
 }
 
 function defaultSett() {
-    document.getElementById("up").value = "r";
-    document.getElementById("down").value = "d";
-    document.getElementById("left").value = "f";
-    document.getElementById("right").value = "c";
+    document.getElementById("up").value = "ArrowUp";
+    document.getElementById("down").value = "ArrowDown";
+    document.getElementById("left").value = "ArrowLeft";
+    document.getElementById("right").value = "ArrowRight";
     document.getElementById("ballsNum").value = "60";
     document.getElementById("color1").value = "#7ae7bf";
     document.getElementById("color2").value = "#a4bdfc";
@@ -399,8 +410,38 @@ function saveSetings() {
     numGhost = parseInt(chosenSettings[9]);
     ballsLeft=chosenSettings[4];
     startGame();
+    setKeys();
 }
 
+function setKeys(){
+    if(chosenSettings[0].includes("Arrow")){
+        upkey=chosenSettings[0];
+    }
+    else{
+        upkey="Key"+chosenSettings[0].toUpperCase();
+    }
+    if(chosenSettings[1].includes("Arrow")){
+        downkey=chosenSettings[1];
+    }
+    else{
+        downkey="Key"+chosenSettings[1].toUpperCase();
+    }
+    if(chosenSettings[2].includes("Arrow")){
+        leftkey=chosenSettings[2];
+    }
+    else{
+        leftkey="Key"+chosenSettings[2].toUpperCase();
+    }
+    if(chosenSettings[3].includes("Arrow")){
+        rightkey=chosenSettings[3];
+    }
+    else{
+        rightkey="Key"+chosenSettings[3].toUpperCase();
+    }
+    
+    
+    
+}
 /**
 *settings- end
 */
@@ -428,7 +469,6 @@ function Start() {
     createGhosts();
     for (var i = 0; i < 16; i++) {
         board[i] = new Array();
-        //put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
         for (var j = 0; j < 12; j++) {
             if (i === 0 && j === 0) {
                 numGn--;
@@ -457,10 +497,6 @@ function Start() {
                 board[i][j] = 4;
             } else {
                 var randomNum = Math.random();
-                // if (randomNum <= 1.0 * food_remain / cnt) {
-                //     food_remain--;
-                //     board[i][j] = 1;
-                // }
                 if ((randomNum <= 1.0 * food_remain / cnt) && fivepoint > 0) {
                     food_remain--;
                     fivepoint--;
@@ -563,11 +599,6 @@ function createGhosts() {
 }
 
 function obstacles(i, j) {
-    // if (i === 0) {
-    //     if (j === 5 || j === 6) {
-    //         return true;
-    //     }
-    // }
     if (i === 1) {
         if (j === 1 || j === 2 || j === 9 || j === 10) {
             return true;
@@ -578,26 +609,11 @@ function obstacles(i, j) {
             return true;
         }
     }
-    // else if (i === 3) {
-    //     if (j === 0 || j === 3 || j === 7 || j === 8) {
-    //         return true;
-    //     }
-    // }
-    // else if (i === 4) {
-    //     if (j === 0 || j === 5 || j === 10) {
-    //         return true;
-    //     }
-    // }
     else if (i === 5) {
         if (j === 3 || j === 1 || j === 2 || j === 8 || j === 9 || j === 10) {
             return true;
         }
     }
-    // else if (i === 6) {
-    //     if (j === 0 || j === 5 || j === 10) {
-    //         return true;
-    //     }
-    // }
     else if (i === 7) {
         if (j === 2 || j === 6 || j === 9) {
             return true;
@@ -642,16 +658,16 @@ function findRandomEmptyCell(board) {
  * @return {number}
  */
 function GetKeyPressed() {
-    if (keysDown['ArrowUp']) {
+    if (keysDown[upkey]) {
         return 1;
     }
-    if (keysDown['ArrowDown']) {
+    if (keysDown[downkey]) {
         return 2;
     }
-    if (keysDown['ArrowLeft']) {
+    if (keysDown[leftkey]) {
         return 3;
     }
-    if (keysDown['ArrowRight']) {
+    if (keysDown[rightkey]) {
         return 4;
     }
 
@@ -682,12 +698,6 @@ function Draw() {
                 context.fillStyle = "black"; //color
                 context.fill();
             }
-            // else if (board[i][j] === 1) {
-            //     context.beginPath();
-            //     context.arc(center.x, center.y, 7.5, 0, 2 * Math.PI); // circle
-            //     context.fillStyle = "white"; //color
-            //     context.fill();
-            // } 
             else if (board[i][j] == 11) {
                 drawCherry(center.x - 10, center.y + 5, 20)
             }

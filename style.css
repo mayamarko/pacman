@@ -289,8 +289,8 @@ div.error {
 
 .formstyle input[type="text"],
 .formstyle input[type="password"],
-.form-style-7 textarea,
-.form-style-7 select 
+.formstyle textarea,
+.formstyle select 
 {
   box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -307,6 +307,18 @@ div.error {
     background-color: black;
     color: white;
  
+}
+.formstyle input[type="button"]{
+  background: rgb(214, 2, 2);
+  border: none;
+  padding: 10px 20px 10px 20px;
+  border-bottom: 3px solid rgb(216, 83, 83);
+  border-radius: 3px;
+  color: #D2E2FF;
+}
+.formstyle input[type="button"]:hover{
+  background: rgb(216, 83, 83);
+  color:#fff;
 }
 
 
@@ -375,7 +387,9 @@ div.error {
     width: 100%;
     display: block;
     outline: none;
-    border: none;
+    /* border: none; */
+    /* border-width: 0px 0px 1px 0px; 
+    border-color: rgb(19, 4, 99); */
     height: 25px;
     line-height: 25px;
     font-size: 14px;
@@ -383,16 +397,44 @@ div.error {
     font-family: Georgia, "Times New Roman", Times, serif;
     background-color: black;
     color: white;
- 
 }
-#SettingsForm .error1 {
+.settings-style input[type="submit"],
+.settings-style input[type="button"]{
+  background: rgb(214, 2, 2);
+  border: none;
+  padding: 10px 20px 10px 20px;
+  border-bottom: 3px solid rgb(216, 83, 83);
+  border-radius: 3px;
+  color: #D2E2FF;
+}
+.settings-style input[type="submit"]:hover,
+.settings-style input[type="button"]:hover{
+  background: rgb(216, 83, 83);
+  color:#fff;
+}
+#SettingsForm .error {
   color: red;
 }
-div1.error1 {
-  width:200px;
+div.error {
+  /* width:200px; */
   font-size:11px;
   background-color:black;
   color:#FFFFFF;
   padding:3px;
   margin-left:5px;
+}
+.settings-style select{
+  border: none;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  background-color: rgb(19, 4, 99);
+}
+.settings-style select:after {
+  position: absolute;
+  content: "";
+  top: 14px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-color: #fff transparent transparent transparent;
 }
