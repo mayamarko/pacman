@@ -190,7 +190,9 @@ $(document).ready(function () {
             var usernameI = document.getElementById("username");
             var passwordI = document.getElementById("password");
             usersContent.set(usernameI.value, passwordI.value); //adds the username and password to map
-            form.submit();
+            // form.submit();
+            alert("You sign up successfully!");
+            ShowDiv("Welcome");
         }
     });
 });
@@ -322,14 +324,14 @@ $(document).ready(function () {
         },
         errorElement: 'div1',
         submitHandler: function (form) {
-            form.submit();
+            saveSetings();
+            // form.submit();
         }
     });
 });
 $.validator.addMethod("regexletter", function (value, element) {
     return this.optional(element) || /^[a-z]+$/.test(value);
 }, 'Small etters only!');
-
 
 // function keyPressedUp(event) {
 // chosenSettings[0] = event.keyCode;
@@ -1317,5 +1319,5 @@ function endGame(vers) {
         }
         window.clearInterval(intervalCherry);
     }
-    
+
 }
