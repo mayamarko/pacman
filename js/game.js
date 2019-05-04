@@ -1208,6 +1208,11 @@ function isHitGhostGhost(numOfGhost, x, y) {
             return true;
         }
     }
+    var adx = addTime.i;
+    var ady = addTime.j;
+    if (adx === g1x && ady === g1y) {
+        return true;
+    }
     return false;
 }
 
