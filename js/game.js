@@ -372,12 +372,13 @@ function defaultSett() {
     document.getElementById("down").value = "ArrowDown";
     document.getElementById("left").value = "ArrowLeft";
     document.getElementById("right").value = "ArrowRight";
-    document.getElementById("ballsNum").value = "60";
-    document.getElementById("color1").value = "#7ae7bf";
-    document.getElementById("color2").value = "#a4bdfc";
-    document.getElementById("color3").value = "#ffb878";
-    document.getElementById("time").value = "60";
-    document.getElementById("monsters").value = "3";
+    document.getElementById("ballsNum").value = Math.floor(Math.random() * 41) + 50;
+    var getcol = randColors();
+    document.getElementById("color1").value = getcol[0];
+    document.getElementById("color2").value = getcol[1];
+    document.getElementById("color3").value = getcol[2];
+    document.getElementById("time").value = Math.floor(Math.random() * 241) + 60;;
+    document.getElementById("monsters").value = Math.floor(Math.random() * 3) + 1;
     timeLeft = 60000;
 }
 function resetSett() {
@@ -412,7 +413,18 @@ function saveSetings() {
     startGame();
     setKeys();
 }
-
+function randColors() {
+    var col = new Array("#7bd148", "#5484ed", "#a4bdfc", "#46d6db", "#7ae7bf", "#51b749", "#ffb878", "#cc0000", "#dc2127", "#dbadff", "#e1e1e1");
+    var rand1 = Math.floor(Math.random() * 11) + 0;
+    var rand2 = Math.floor(Math.random() * 11) + 0;
+    var rand3 = Math.floor(Math.random() * 11) + 0;
+    while ((rand1 === rand2) || (rand1 === rand3) || (rand2 === rand3)) {
+        rand1 = Math.floor(Math.random() * 11) + 0;
+        rand2 = Math.floor(Math.random() * 11) + 0;
+        rand3 = Math.floor(Math.random() * 11) + 0;
+    }
+    return new Array(col[rand1], col[rand2], col[rand3]);
+}
 function setKeys(){
     if(chosenSettings[0].includes("Arrow")){
         upkey=chosenSettings[0];
