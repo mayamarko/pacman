@@ -1383,7 +1383,7 @@ function endGame(vers) {
     if(vers==1){                                             //time is over
         if (score < 150) { 
             
-            alert("You can do better");
+            alert("Your score is : "+ score + " You can do better");
             window.clearInterval(interval);
             window.clearInterval(intervalMosters[0]);
             if(numGhost>1){
@@ -1395,7 +1395,7 @@ function endGame(vers) {
             window.clearInterval(intervalCherry);
             window.clearInterval(intervalclock);
         } else {
-             alert("We have a Winner!!!");
+             alert("We have a Winner!!! Your score is : "+ score);
              window.clearInterval(interval);
              window.clearInterval(intervalMosters[0]);
              if(numGhost>1){
@@ -1409,7 +1409,7 @@ function endGame(vers) {
         }
     }
     if(vers==2){                            // got to exectly 400 points
-        window.alert("Game completed"); 
+        window.alert("Game completed because you got to exectly 400 points"); 
         window.clearInterval(interval);
     window.clearInterval(intervalMosters[0]);
     if(numGhost>1){
@@ -1422,7 +1422,7 @@ function endGame(vers) {
     window.clearInterval(intervalclock);
     }
     if(vers==3){
-        window.alert("You ate all the food! Game completed");    //ate all the balls
+        window.alert("You ate all the food! Game completed Your score is : "+ score);    //ate all the balls
         window.clearInterval(interval);
     window.clearInterval(intervalMosters[0]);
     if(numGhost>1){
