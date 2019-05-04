@@ -581,6 +581,15 @@ function Start() {
     addEventListener("keyup", function (e) {
         keysDown[e.code] = false;
     }, false);
+    document.getElementById("colorg1").addEventListener("click", function () {
+        colors[0] = document.getElementById("colorg1").value;
+    });
+    document.getElementById("colorg2").addEventListener("click", function () {
+        colors[1] = document.getElementById("colorg2").value;
+    });
+    document.getElementById("colorg3").addEventListener("click", function () {
+        colors[2] = document.getElementById("colorg3").value;
+    });
     interval = setInterval(UpdatePosition, 250);
     intervalMosters[0] = setInterval(chomo1, 2000);
     if (numGhost > 1) {
@@ -595,25 +604,34 @@ function Start() {
 
 function createGhosts() {
     if (numGhost === 1) {
-        colors = new Array("blue");
+        colors = new Array("#0033cc");
         intervalMosters = new Array(0);
         ghosts = new Array(new Object());
         lastPosGhost = new Array(0);
         eyes = new Array(new Array(2, 0));
+        document.getElementById("colorg1").value="#0033cc";
     }
     if (numGhost === 2) {
-        colors = new Array("blue", "pink");
+        colors = new Array("#0033cc", "#ff66ff");
         intervalMosters = new Array(0, 0);
         ghosts = new Array(new Object(), new Object());
         lastPosGhost = new Array(0, 0);
         eyes = new Array(new Array(2, 0), new Array(2, 0));
+        document.getElementById("colorg1").value="#0033cc";
+        document.getElementById("colorg2").value="#ff66ff";
+        document.getElementById('colorg2').style.visibility = "visible";
     }
     if (numGhost === 3) {
-        colors = new Array("blue", "pink", "purple");
+        colors = new Array("#0033cc", "#ff66ff", "#6600cc");
         intervalMosters = new Array(0, 0, 0);
         ghosts = new Array(new Object(), new Object(), new Object());
         lastPosGhost = new Array(0, 0, 0);
         eyes = new Array(new Array(2, 0), new Array(2, 0), new Array(2, 0));
+        document.getElementById("colorg1").value="#0033cc";
+        document.getElementById("colorg2").value="#ff66ff";
+        document.getElementById("colorg3").value="#6600cc";
+        document.getElementById('colorg2').style.visibility = "visible";
+        document.getElementById('colorg3').style.visibility = "visible";
     }
 }
 
@@ -1180,10 +1198,12 @@ function isHitGhostGhost(numOfGhost, x, y) {
             return true;
         }
     }
-    var chx = cherry.i;
-    var chy = cherry.j;
-    if (chx === g1x && chy === g1y) {
-        return true;
+    if (cherry !== null) {
+        var chx = cherry.i;
+        var chy = cherry.j;
+        if (chx === g1x && chy === g1y) {
+            return true;
+        }
     }
     return false;
 }
