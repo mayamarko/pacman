@@ -1217,7 +1217,7 @@ function UpdatePositionCherry() {
         while (bool) {
             rand = Math.floor(Math.random() * 4) + 1;
             if (rand == 1) {
-                if (i + 1 >= 0 && i + 1 <= 15 && board[i + 1][j] !== 4) {
+                if (i + 1 >= 0 && i + 1 <= 15 && board[i + 1][j] !== 4 && board[i+1][j]!=8 &&board[i+1][j]!=9 &&board[i+1][j]!=10) {
                     board[i][j] = lastPosChherry;
                     lastPosChherry= board[i + 1][j];
                     board[i + 1][j] = 11;
@@ -1227,7 +1227,7 @@ function UpdatePositionCherry() {
     
             }
             else if (rand == 2) {
-                if (i - 1 >= 0 && i - 1 <= 15 && board[i - 1][j] !== 4) {
+                if (i - 1 >= 0 && i - 1 <= 15 && board[i - 1][j] !== 4 && board[i - 1][j] !== 8 && board[i - 1][j] !== 9 && board[i - 1][j] !== 10) {
                     board[i][j] = lastPosChherry;
                     lastPosChherry= board[i - 1][j];
                     board[i - 1][j] = 11;               
@@ -1238,7 +1238,7 @@ function UpdatePositionCherry() {
     
             }
             else if (rand == 3) {
-                if (j - 1 >= 0 && j - 1 <= 11 && board[i][j - 1] !== 4) {
+                if (j - 1 >= 0 && j - 1 <= 11 && board[i][j - 1] !== 4 && board[i][j - 1] !== 8 && board[i][j - 1] !== 9 && board[i][j - 1] !== 10) {
                     board[i][j] = lastPosChherry;
                     lastPosChherry= board[i][j-1];
                     board[i][j - 1] = 11;            
@@ -1248,7 +1248,7 @@ function UpdatePositionCherry() {
     
             }
             else if (rand == 4) {
-                if (j + 1 >= 0 && j + 1 <= 11 && board[i][j + 1] !== 4 ) {
+                if (j + 1 >= 0 && j + 1 <= 11 && board[i][j + 1] !== 4 && board[i][j + 1] !== 8 && board[i][j + 1] !== 9 && board[i][j + 1] !== 10 ) {
                     board[i][j] = lastPosChherry;
                     lastPosChherry= board[i][j+1];
                     board[i][j + 1] = 11;
