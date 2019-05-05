@@ -420,7 +420,7 @@ function saveSetings() {
     setKeys();
 }
 function randColors() {
-    var col = new Array("#7bd148", "#5484ed", "#a4bdfc", "#46d6db", "#7ae7bf", "#51b749", "#ffb878", "#cc0000", "#dc2127", "#dbadff", "#e1e1e1");
+    var col = new Array("#7bd148", "#5484ed", "#a4bdfc", "#46d6db", "#7ae7bf", "#ffb3d9", "#ffb878", "#ff4d4d", "#dc2127", "#dbadff", "#e1e1e1");
     var rand1 = Math.floor(Math.random() * 11) + 0;
     var rand2 = Math.floor(Math.random() * 11) + 0;
     var rand3 = Math.floor(Math.random() * 11) + 0;
