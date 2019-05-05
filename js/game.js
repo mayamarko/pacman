@@ -470,6 +470,12 @@ function restart() {
     lifeRemaining = 3;
     document.getElementById("life").src = "images/life3.png";
     showMass = false;
+    window.clearInterval(interval);
+    window.clearInterval(intervalCherry);
+    window.clearInterval(intervalclock);
+    for (var i = 0; i < numGhost; i++) {
+        window.clearInterval(intervalMosters[i]);
+    }
     Start();
 }
 
