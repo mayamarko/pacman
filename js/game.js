@@ -592,7 +592,7 @@ function Start() {
     }
 
     //************************************ To Open Before Submitting *********************************** */
-    //soundTrack.play();
+    soundTrack.play();
     //************************************ To Open Before Submitting *********************************** */
 
     // while (food_remain > 0) {
