@@ -1,9 +1,6 @@
 var context = canvas.getContext("2d");
 var shape = new Object();
 var ghosts;
-var ghost1 = new Object();
-var ghost2 = new Object();
-var ghost3 = new Object();
 var lastPosGhost = new Array();
 var cherry = new Object();
 var board;
