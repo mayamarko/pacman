@@ -158,6 +158,7 @@ $(document).ready(function () {
             username: {
                 required: true,
                 reguser: true,
+                regexusername:true,
             },
             date: 'required',
             first_name: {
@@ -201,6 +202,9 @@ $.validator.addMethod("regexp", function (value, element) {
 $.validator.addMethod("regexn", function (value, element) {
     return this.optional(element) || /^[A-Za-z]+$/.test(value);
 }, 'Letters only!');
+$.validator.addMethod("regexusername", function (value, element) {
+    return this.optional(element) || /^[A-Za-z0-9]+$/.test(value);
+}, 'Letters in english or numbers only!');
 $.validator.addMethod("reguser", function (value, element) {
     return this.optional(element) || !usersContent.has(value);
 }, 'Sorry..Username is taken.');
