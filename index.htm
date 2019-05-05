@@ -32,20 +32,18 @@
 
     <div id="gameArea">
         <div>
-            <label for="usershow0" id="lbl">User Name: </label>
-            <input id="usershow" value="" type="text">
+            <label for="usershow0" id="lbl" >User Name: </label>
+            <input id="usershow" value="" type="text" style="width:5%;">
     
             <label for="score" id="lbl">Score: </label>
-            <input id="lblScore" type="text" />
-    
-            <!-- <label for="timeGame" id="lbl">Time: </label>
-            <input id="lblTime" type="text" /> -->
+            <input id="lblScore" type="text" style="width:3.5%;"/>
     
             <label for="tGame" id="lbl">Time Left: </label>
-            <input id="lblRest" type="text" />
-            <!-- 
-                <label for="life" id="lbl">lifes: </label>
-                <input id="lbllife" type="text" /> -->
+            <input id="lblRest" type="text" style="width:5%;"/>
+
+            <label for="lifes" id="lbl">Lifes:</label>
+            <img src="images/life3.png" style="width: 5%; height: 5%;" id="life">
+
             <br />
             <br />
             <audio id="soundTrack">
@@ -60,10 +58,10 @@
         <br />
         <br />
         <br />
-        <div id="pic">
+        <!-- <div id="pic">
             <label for="lifes" id="lbl">Lifes:</label>
             <img src="images/life3.png" style="width: 5%; height: 5%;" id="life">
-        </div>
+        </div> -->
         <div id="colorgh">
             <label style="color:white">Change ghosts color: </label>
             <select class="select" name="colorg1" id="colorg1">
@@ -180,7 +178,7 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <p id="pp1" style="color:aliceblue; size:100pt;">
-                We are Maya Markovitch and Nofar Turteltaub.
+                We are Maya Markovich and Nofar Turteltaub.
             </p>
             <p id="pp2" style="color:aliceblue; size:100pt;">
                 </br> While making this project we used JQuery plugin for validation of the input in the sign up form, setting form and in the UI (jqueryui) of the errors. We created some specific rules using JQuery to control the input of the user. This plugins really made things easier. 
