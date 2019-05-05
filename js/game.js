@@ -265,21 +265,26 @@ $(document).ready(function () {
             up: {
                 required: true,
                 regexup: true,
+                unique: true,
+                
                 // rangelength: [1, 1],
             },
             down: {
                 required: true,
                 regexdown: true,
+                unique: true,
                 // rangelength: [1, 1],
             },
             left: {
                 required: true,
                 regexleft: true,
+                unique: true,
                 // rangelength: [1, 1],
             },
             right: {
                 required: true,
                 regexright: true,
+                unique: true,
                 // rangelength: [1, 1],
             },
 
@@ -350,6 +355,23 @@ $.validator.addMethod("regexleft", function (value, element) {
 $.validator.addMethod("regexright", function (value, element) {
     return this.optional(element) || /^[a-z]{1}$/.test(value) || value === 'ArrowRight';
 }, 'One small letter only. For arrows: ArrowRight (or any direction)');
+
+$.validator.addMethod("unique", function(value, element) {
+    var parentForm = new Array();
+    parentForm.push(document.getElementById("up").value);
+    parentForm.push(document.getElementById("down").value);
+    parentForm.push(document.getElementById("left").value);
+    parentForm.push(document.getElementById("right").value);
+    for (var i = 0; i < parentForm.length; i++) {
+        if(parentForm[i]===""){
+            return true;
+        }
+        if (parentForm[i] === parentForm[i + 1]) {
+            return false;
+        }
+    }
+    return true;
+ }, "You can not choose the same play key for diffrent directions.");
 // function keyPressedUp(event) {
 // chosenSettings[0] = event.keyCode;
 // }
