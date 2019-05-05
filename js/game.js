@@ -363,8 +363,13 @@ $.validator.addMethod("unique", function(value, element) {
         if(parentForm[i]===""){
             return true;
         }
-        if (parentForm[i] === parentForm[i + 1]) {
-            return false;
+        for(var j=0; j<parentForm.length;j++){
+            if(i===j){
+                continue;
+            }
+            if (parentForm[i] === parentForm[j]) {
+                return false;
+            }
         }
     }
     return true;
