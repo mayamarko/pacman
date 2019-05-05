@@ -93,6 +93,10 @@ canvas{
 }
 #colorgh{
   margin-left: 40%;
+  color: white;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bold;
+  
 }
 #pic{
   margin-left: 40%;
