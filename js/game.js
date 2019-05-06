@@ -1168,7 +1168,9 @@ function distance(x, y, xp, yp) {
 
 
 function setRandomPac() {
-    board[shape.i][shape.j] = 0;
+    if(board[shape.i][shape.j]===2){
+        board[shape.i][shape.j] = 0;
+    }
     var emptyCell = findRandomEmptyCell(board);
     while (emptyCell[0] === shape.i && emptyCell[1] === shape.j) {
         emptyCell = findRandomEmptyCell(board);
@@ -1226,7 +1228,9 @@ function isHitGhost() {
 }
 
 function resetGhost(numMeet) {
-    lastPosGhost[numMeet] = 0;
+    if(lastPosGhost[numMeet]===2){
+        lastPosGhost[numMeet] = 0;
+    }
     var g1x = ghosts[0].i;
     var g1y = ghosts[0].j;
     ghosts[0].i = 0;
