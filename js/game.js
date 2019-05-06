@@ -793,7 +793,7 @@ function Draw() {
                 drawCherry(center.x - 10, center.y + 5, 20)
             }
             else if (board[i][j] == 12) {
-                drawClock(center.x - 7, center.y - 2)
+                drawClock(center.x - 7, center.y - 7)
             }
             else if (board[i][j] === 5) {
                 createColBalls(col1, 5, center.x, center.y);
