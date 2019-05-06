@@ -531,6 +531,7 @@ function Start() {
     timeLeft = chosenSettings[8] * 1000;
     start_time = new Date();
     start_time1 = new Date();
+    showMass = false;
     createGhosts();
     for (var i = 0; i < 16; i++) {
         board[i] = new Array();
