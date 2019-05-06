@@ -492,7 +492,7 @@ function setKeys() {
 *settings- end
 */
 function restart() {
-    cherry = new Object();
+    //cherry = new Object();
     ballsLeft = chosenSettings[4];
     score = 0;
     lifeRemaining = 3;
@@ -510,6 +510,7 @@ function restart() {
 
 function Start() {
     board = new Array();
+    cherry=new Object();
     score = 0;
     a = 2.5;
     b = -7.5;
