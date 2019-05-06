@@ -1017,7 +1017,7 @@ function UpdatePosition() {
     var delta = (currentTime - start_time1);
     timeLeft -= delta;
     start_time1 = currentTime;
-    if (timeLeft < 0) {
+    if (timeLeft <= 0) {
         timeLeft = 0;
         endGame(1);
     }
