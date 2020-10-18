@@ -13,7 +13,7 @@ Then you will be requested to choose the settings of the game or random settings
 after pressing apply the game will start.
 In the about section you can read more about this project.
 
-Enjoy
+Enjoy.
 
 ## Authors:
   - Maya Markovich
