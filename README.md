@@ -7,7 +7,7 @@ link to the game: https://mayamarko.github.io/pacman/
 
 You can either sign in to the website or log in with the following information:
 
-Username - a Password -a
+**Username** -  a **Password** -  a
 
 Then you will be requested to choose the settings of the game or random settings.
 after pressing apply the game will start.
